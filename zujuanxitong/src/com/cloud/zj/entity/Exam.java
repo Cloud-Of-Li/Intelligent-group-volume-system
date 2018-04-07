@@ -6,7 +6,7 @@ public class Exam {
 	private String examKind;
 	private String examChapter;
 	private float examDegree;
-	private int examScore;
+	private double examScore;
 	private String examContent;
 	private String examAnwser;
 	public Integer getExamId() {
@@ -39,10 +39,10 @@ public class Exam {
 	public void setExamDegree(float examDegree) {
 		this.examDegree = examDegree;
 	}
-	public int getExamScore() {
+	public double getExamScore() {
 		return examScore;
 	}
-	public void setExamScore(int examScore) {
+	public void setExamScore(double examScore) {
 		this.examScore = examScore;
 	}
 	public String getExamContent() {

@@ -132,6 +132,40 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		DB.close(conn);
 		return examList;
 	}
+
+	@Override
+	public List<Exam> getExamListByExam(int courseId, Exam tmpQuestion) {
+		// 获取和参数题目分数一样，类型一样的题目
+		String sql = "select * from exam where examkind = '"+ tmpQuestion.getExamKind() + " ' and courseid = "  + courseId;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Exam> examList = new ArrayList<>();
+		Set<Exam> examSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				Exam e = new Exam();
+				e.setCourseId(rs.getInt("courseid"));
+				e.setExamAnwser(rs.getString("examanwser"));
+				e.setExamChapter(rs.getString("examchapter"));
+				e.setExamContent(rs.getString("examcontent"));
+				e.setExamDegree(rs.getFloat("examdegree"));
+				e.setExamId(rs.getInt("examid"));
+				e.setExamKind(rs.getString("ExamKind"));
+				e.setExamScore(rs.getInt("examscore"));
+				if(examSet.add(e))
+					examList.add(e);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return examList;
+	}
+
 }
 	
 
