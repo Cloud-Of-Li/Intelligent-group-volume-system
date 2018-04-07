@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <script src='js/jquery-3.1.1.min.js'></script>
+    <script src='js/test.js'></script>
+	<link rel="stylesheet" type="text/css" href="css\test.css">
+	<title>智能组卷系统</title>
+</head>
+<body>
+	<div class="tite">
+		<div class="coment_all">
+			<div id="exit">
+				<a href="index.html">退出</a></div>
+			<div class="coment">智能组卷系统</div>
+		</div>
+	</div>
+	<div class="content">
+
+	<!-- ==========================以下是左边部分=====================================-->
+
+
+		<div class="content_left">
+		
+		<!-- 教师信息部分 -->
+			<div class="menue">
+				教师信息			
+			</div>
+
+		<!-- 后台管理部分 -->
+			<div class="houtai">
+			<!-- 后台内容==章节试题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						章节试题
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png" />&nbsp; <span>第一章</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png" />&nbsp; <span>第二章</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png" />&nbsp; <span>第三章</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png" />&nbsp; <span>第四章</span>
+						</div>
+					</div>
+				</div>	
+				
+			<!-- 后台内容==单选题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						单&nbsp;选&nbsp;题
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加单选题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>单选题列表</span>
+						</div>
+					</div>
+				</div>
+
+			<!-- 后台内容==多选题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						多&nbsp;选&nbsp;题
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加多选题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>多选题列表</span>
+						</div>
+					</div>
+				</div>
+
+			<!-- 后台内容==填空题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						填&nbsp;空&nbsp;题&nbsp;
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加填空题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>填空题列表</span>
+						</div>
+					</div>
+				</div>
+			
+			<!-- 后台内容==判断题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						判&nbsp;断&nbsp;题
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加判断题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>判断题列表</span>
+						</div>
+					</div>
+				</div>
+			
+			<!-- 后台内容==简答题 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						简&nbsp;答&nbsp;题
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加简答题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>简答题列表</span>
+						</div>
+					</div>
+				</div>
+
+			<!-- 后台内容==试卷组成 -->
+				<div class="houtai_coment">
+					<div class="houtai_coment_all">
+						试卷组成
+					</div>
+					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>添加试卷</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>试卷列表</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<!-- ==========================以下是右边部分=====================================-->
+
+	<!-- 教师信息 -->
+		<div class="content_right_1">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>教师信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_teacher">
+						<tr>
+								<th class="th4neirong">教师编号：</th>
+								<td>
+									<pre style="font-size: 18px">1001</pre>	
+								</td>
+
+								<td rowspan="6"><img src="image/闫大顺.jpg" class="teacher_photo"></td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师姓名：</th>
+								<td>
+									<pre style="font-size: 18px">闫大顺</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师性别：</th>
+								<td>
+									<pre style="font-size: 18px">男</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属专业：</th>
+								<td>
+									<pre style="font-size: 18px">计算机科学与技术</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所教课程：</th>
+								<td>
+									<pre style="font-size: 18px">离散数学</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师电话：</th>
+								<td>
+									<pre style="font-size: 18px">18826497005</pre>	
+								</td>
+						</tr>
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	<!-- 章节信息 -->	
+		<div class="content_right_2">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>章节列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_zhangjie">
+						<tr>
+							<th>ID</th>
+							<th>登录名</th>
+							<th>真实姓名</th>
+							<th>性别</th>
+							<th>手机号</th>
+							<th>教师编号</th>
+							<th>操作</th>
+						</tr>
+	
+						<tr>
+							<td colspan="7">
+								共 <span>3</span> 条记录，当前第 <span>1</span> 页
+							</td>
+						</tr>
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	<!-- 添加单选题 -->
+		<div class="content_right" id="add_danxuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加单选题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+
+	<!-- 单选题列表 -->
+		<div class="content_right" id="list_danxuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>单选题列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						
+						<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<pre style="font-size: 18px">设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题答案：</th>
+								<td>
+									<pre style="font-size: 18px">D</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属章节：</th>
+								<td>
+									<pre style="font-size: 18px">第一章</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题难度：</th>
+								<td>
+									<pre style="font-size: 18px">0.25</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题分数：</th>
+								<td>
+									<pre style="font-size: 18px">4分</pre>	
+								</td>
+						</tr>
+						
+					</table>
+					<hr /><br>
+				</div>
+	
+			</div>
+	
+		</div>	
+		
+	<!-- 添加多选题 -->
+		<div class="content_right" id="add_duoxuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加多选题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+
+	<!-- 多选题列表 -->
+		<div class="content_right" id="list_duoxuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>多选题列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						
+						<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<pre style="font-size: 18px">设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题答案：</th>
+								<td>
+									<pre style="font-size: 18px">D</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属章节：</th>
+								<td>
+									<pre style="font-size: 18px">第一章</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题难度：</th>
+								<td>
+									<pre style="font-size: 18px">0.25</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题分数：</th>
+								<td>
+									<pre style="font-size: 18px">4分</pre>	
+								</td>
+						</tr>
+						
+					</table>
+					<hr /><br>
+				</div>
+	
+			</div>
+
+		</div>
+
+	<!-- 添加填空题 -->
+		<div class="content_right" id="add_tiankong">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加填空题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+
+	<!-- 填空题列表 -->
+		<div class="content_right" id="list_tiankong">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>填空题列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						
+						<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<pre style="font-size: 18px">设集合A,B，其中A＝{1,2,3}, B= {1,2}, 则A - B＝____</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题答案：</th>
+								<td>
+									<pre style="font-size: 18px">{3}</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属章节：</th>
+								<td>
+									<pre style="font-size: 18px">第二章</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题难度：</th>
+								<td>
+									<pre style="font-size: 18px">0.3</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题分数：</th>
+								<td>
+									<pre style="font-size: 18px">4分</pre>	
+								</td>
+						</tr>
+						
+					</table>
+					<hr /><br>
+				</div>
+	
+			</div>
+
+	
+		</div>
+
+	<!-- 添加判断题	 -->
+		<div class="content_right" id="add_panduan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加判断题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+		
+	<!-- 判断题列表 -->
+		<div class="content_right" id="list_panduan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>判断题列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						
+						<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<pre style="font-size: 18px">设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题答案：</th>
+								<td>
+									<pre style="font-size: 18px">D</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属章节：</th>
+								<td>
+									<pre style="font-size: 18px">第一章</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题难度：</th>
+								<td>
+									<pre style="font-size: 18px">0.25</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题分数：</th>
+								<td>
+									<pre style="font-size: 18px">4分</pre>	
+								</td>
+						</tr>
+						
+					</table>
+					<hr /><br>
+				</div>
+	
+			</div>
+
+	
+		</div>
+	
+	<!-- 添加简答题 -->
+		<div class="content_right" id="add_jianda">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加简答题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+
+	<!-- 简答题列表 -->
+		<div class="content_right" id="list_jianda">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>简答题列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						
+						<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<pre style="font-size: 18px">设集合A＝{1, 2, 3, 4}，A上的关系R＝{(x,y) | x, y∈A 且 x≥y},求
+(1) 画出R的关系图； 
+(2) 写出R的关系矩阵.</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题答案：</th>
+								<td>
+									<pre style="font-size: 18px"><img src="image/daan1.jpg"></pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所属章节：</th>
+								<td>
+									<pre style="font-size: 18px">第三章</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题难度：</th>
+								<td>
+									<pre style="font-size: 18px">0.5</pre>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">试题分数：</th>
+								<td>
+									<pre style="font-size: 18px">10分</pre>	
+								</td>
+						</tr>
+						
+					</table>
+					<hr /><br>
+				</div>
+	
+			</div>
+
+	
+		</div>
+
+	<!-- 添加试卷 -->
+		<div class="content_right" id="add_shijuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加试卷</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form method="post">
+						<table class="table_infomations">
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="danxuan_kecheng" class="kecheng">
+										<option value="#">--请选择--</option>
+										<option value="lisan">&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
+										<option value="gadeng">&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+										<option value="zucheng">&nbsp;&nbsp;组成原理&nbsp;&nbsp;</option>
+										<option value="jiegou">&nbsp;&nbsp;数据结构&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的课程</td>
+							</tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="danxuan_zhangjie" class="zhangjie">
+										<option value="#">--请选择--</option>
+										<option value="one">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+										<option value="two">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+										<option value="three">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+										<option value="four">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+								<td class="tishi">*只能选择当前所有的章节</td>
+							</tr>
+
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="text" name="nandu" />
+								</td>
+								<td class="tishi">*请输入正确值</td>
+							</tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="text" name="fenzhi" />
+								</td>
+								<td class="tishi">*请输入试题分值</td>
+							</tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea class="textArea" cols="37" rows="6"></textarea>
+								</td>
+								<td class="tishi">*请输入正确试题内容</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="答案" />
+								</td>
+								<td class="tishi">*请输入试题答案</td>
+							</tr>
+							
+							<tr>
+								<td align="center" colspan="2">
+									<button>确认添加</button>&nbsp;&nbsp;
+									<button type="reset">重新设定</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
+
+	<!-- 试卷列表 -->
+		<div class="content_right" id="list_shijuan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>试卷列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_list">
+						<tr>
+							<th>ID</th>
+							<th>登录名</th>
+							<th>真实姓名</th>
+							<th>性别</th>
+							<th>手机号</th>
+							<th>教师编号</th>
+							<th>操作</th>
+						</tr>
+						
+						<tr>
+							<td>1001</td>
+							<td>李坚铨</td>
+							<td>李坚铨</td>
+							<td>男</td>
+							<td>18826497005</td>
+							<td>1001</td>
+							<td>修改 | 删除</td>
+						</tr>
+
+						<tr>
+							<td>1001</td>
+							<td>李坚铨</td>
+							<td>李坚铨</td>
+							<td>男</td>
+							<td>18826497005</td>
+							<td>1001</td>
+							<td>修改 | 删除</td>
+						</tr>
+
+						<tr>
+							<td>1001</td>
+							<td>李坚铨</td>
+							<td>李坚铨</td>
+							<td>男</td>
+							<td>18826497005</td>
+							<td>1001</td>
+							<td>修改 | 删除</td>
+						</tr>
+
+						<tr>
+							<td colspan="7">
+								共 <span>3</span> 条记录，当前第 <span>1</span> 页
+							</td>
+						</tr>
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>
+	</div>
+
+
+</body>
+</html>
