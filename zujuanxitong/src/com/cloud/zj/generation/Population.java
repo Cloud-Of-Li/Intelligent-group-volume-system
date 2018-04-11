@@ -43,7 +43,7 @@ public class Population {
                     }
                     // 多选题
                     if (rule.getSingleNum() > 0) {
-                        generateQuestion(courseId, "多选题", random, rule.getSingleNum(), rule.getSingleScore(),
+                        generateQuestion(courseId, "多选题", random, rule.getMultiNum(), rule.getMultiScore(),
                                 "多选题数量不够，组卷失败", paper);
                     }
                     // 填空题
@@ -71,6 +71,8 @@ public class Population {
 
     private void generateQuestion(int courseId, String type, Random random, int qustionNum, double score,
                                   String errorMsg, Paper paper) {
+    	
+    	//获取同一题型的题目集合
         Exam[] singleArray = QuestionService.getQuestionArray(courseId,type);
         if (singleArray.length < qustionNum) {
             return;
