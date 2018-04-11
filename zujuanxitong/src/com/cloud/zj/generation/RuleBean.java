@@ -67,38 +67,6 @@ public class RuleBean {
 	private double tfScore;
 	
 	
-	public int getMultiNum() {
-		return multiNum;
-	}
-
-	public void setMultiNum(int multiNum) {
-		this.multiNum = multiNum;
-	}
-
-	public double getMultiScore() {
-		return multiScore;
-	}
-
-	public void setMultiScore(double multiScore) {
-		this.multiScore = multiScore;
-	}
-
-	public int getTfNum() {
-		return tfNum;
-	}
-
-	public void setTfNum(int tfNum) {
-		this.tfNum = tfNum;
-	}
-
-	public double getTfScore() {
-		return tfScore;
-	}
-
-	public void setTfScore(double tfScore) {
-		this.tfScore = tfScore;
-	}
-
 	/**
 	 * 主观题数量
 	 */
@@ -199,5 +167,39 @@ public class RuleBean {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+	
+
+	public int getMultiNum() {
+		return multiNum;
+	}
+
+	public void setMultiNum(int multiNum) {
+		this.multiNum = multiNum;
+	}
+
+	public double getMultiScore() {
+		return multiScore;
+	}
+
+	public void setMultiScore(double multiScore) {
+		this.multiScore = multiScore;
+	}
+
+	public int getTfNum() {
+		return tfNum;
+	}
+
+	public void setTfNum(int tfNum) {
+		this.tfNum = tfNum;
+	}
+
+	public double getTfScore() {
+		return tfScore;
+	}
+
+	public void setTfScore(double tfScore) {
+		this.tfScore = tfScore;
+	}
+
 
 }

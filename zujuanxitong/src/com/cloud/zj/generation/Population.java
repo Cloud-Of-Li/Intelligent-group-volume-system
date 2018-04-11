@@ -59,7 +59,7 @@ public class Population {
                     // 简答题
                     if (rule.getSubjectiveNum() > 0) {
                         generateQuestion(courseId, "简答题", random, rule.getSubjectiveNum(), rule.getSubjectiveScore(),
-                                "判断题数量不够，组卷失败", paper);
+                                "简答题数量不够，组卷失败", paper);
                     }
                 }
                 // 计算试卷适应度
