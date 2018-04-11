@@ -131,7 +131,14 @@ a {
 	text-align: left;	
 	display: table-cell;
 	margin: 5px auto;
-	border: 0px solid silver; 
+	
+	/*
+	 表格的线 
+	 */
+	 
+	 
+	border: 0px solid silver;
+	/* border: 1px solid silver;  */
 	padding-left:20px;
 }
 
@@ -180,6 +187,10 @@ a {
 
 table,table tr th, table tr td { 
 	border:1px solid silver; 
+	
+	/*
+	 表格的线 
+	 */
 	border: 0px;
 	border-collapse:collapse;
 	/* width: 50%; */
@@ -230,7 +241,7 @@ td {
 th, td{
 	height: 50px;
 	/* text-align: center; */
-	line-height: 50px;
+	line-height: 35px;
 }
 
 .table_infomations span.error {
@@ -268,7 +279,9 @@ th, td{
 	display: none;
 }
 
-
+.last_table_list{
+	width:100%;
+}
 
 
 
