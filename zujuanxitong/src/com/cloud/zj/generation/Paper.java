@@ -1,5 +1,6 @@
 package com.cloud.zj.generation;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,15 @@ public class Paper {
     /**
      * 个体包含的试题集合
      */
+    
+    
+    /**
+     * 试卷创建时间
+     */
+    private Timestamp createTime;
+    
+    
+    
     private List<Exam> questionList = new ArrayList<Exam>();
 
     public Paper(int size) {
@@ -184,5 +194,15 @@ public class Paper {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
+
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
+	
+	
 
 }

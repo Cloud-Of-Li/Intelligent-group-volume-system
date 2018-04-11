@@ -1060,19 +1060,19 @@
 										&nbsp;&nbsp;
 										<span>	
 											<input type="checkbox" class="input_check" id="check3">
-											<label for="check1">填空题</label>
+											<label for="check3">填空题</label>
 										</span>
 										&nbsp;&nbsp;
 										&nbsp;&nbsp;
 										<span>	
 											<input type="checkbox" class="input_check" id="check4">
-											<label for="check2">判断题</label>
+											<label for="check4">判断题</label>
 										</span>
 										&nbsp;&nbsp;
 										&nbsp;&nbsp;
 										<span>	
 											<input type="checkbox" class="input_check" id="check5">
-											<label for="check1">简答题</label>
+											<label for="check5">简答题</label>
 										</span>
 									</div>
 								</td>
@@ -1265,49 +1265,69 @@
 				
 				<div class="content_main_content">
 					<table class="table_infomations_list">
+						
 						<tr>
-							<th>ID</th>
-							<th>登录名</th>
-							<th>真实姓名</th>
-							<th>性别</th>
-							<th>手机号</th>
-							<th>教师编号</th>
-							<th>操作</th>
+							<th>试 卷 列 表:</th>
+							<td>
+								<select name="danxuan_kecheng" class="kecheng">
+									<option value="#">--请选择--</option>
+									<option value="lisan">&nbsp;&nbsp;离散数学-20180411-1826&nbsp;&nbsp;</option>
+								</select>
+								<button>确认查找</button>
+							</td>
+							<td>试卷总分：100分</td>
 						</tr>
 						
 						<tr>
-							<td>1001</td>
-							<td>李坚铨</td>
-							<td>李坚铨</td>
-							<td>男</td>
-							<td>18826497005</td>
-							<td>1001</td>
-							<td>修改 | 删除</td>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 						</tr>
-
+						
 						<tr>
-							<td>1001</td>
-							<td>李坚铨</td>
-							<td>李坚铨</td>
-							<td>男</td>
-							<td>18826497005</td>
-							<td>1001</td>
-							<td>修改 | 删除</td>
+							<th style="vertical-align: top">单项选择题:</th>
+							<td>
+								<table class="last_table_list">
+									<tr>
+										<td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px"><!-- <label for="danxuan_1"> -->设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性<!-- </label> --></pre>
+										</td>
+										<!-- <td style="width:25px; padding:7px 0 0 0 ; vertical-align: top;">
+											<input type="checkbox" class="input_check" id="danxuan_1" style="width:20px">
+										</td> -->
+									</tr>
+									
+									<tr>
+										<td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性</pre>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性</pre>
+										</td>
+									</tr>
+								</table>												
+							</td>
 						</tr>
-
+						
 						<tr>
-							<td>1001</td>
-							<td>李坚铨</td>
-							<td>李坚铨</td>
-							<td>男</td>
-							<td>18826497005</td>
-							<td>1001</td>
-							<td>修改 | 删除</td>
-						</tr>
-
-						<tr>
-							<td colspan="7">
-								共 <span>3</span> 条记录，当前第 <span>1</span> 页
+							<th style="vertical-align: top">多项选择题:</th>
+							<td>
+								<table class="last_table_list">
+									<tr>
+										<td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px"><!-- <label for="danxuan_1"> -->设集合A={1,2,3},A上的关系R＝{(1,1),(2,2),(2,3),(3,2),(3,3)}，则R不具备(    ).
+(A)自反性  (B)传递性  (C)对称性  (D)反对称性<!-- </label> --></pre>
+										</td>
+									</tr>
+								</table>													
 							</td>
 						</tr>
 					</table>

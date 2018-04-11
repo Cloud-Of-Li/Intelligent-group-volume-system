@@ -57,4 +57,14 @@ public class Exam {
 	public void setExamAnwser(String examAnwser) {
 		this.examAnwser = examAnwser;
 	}
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return this.examId == ((Exam) obj).examId;
+	}
+	
+	
+	
+	
+	
 }
