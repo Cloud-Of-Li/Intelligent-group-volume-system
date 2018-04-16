@@ -34,6 +34,8 @@ public class Population {
                 paper = new Paper();
                 paper.setId(i + 1);
                 paper.setCourseId(courseId);
+                paper.setkPCoverage(0);
+                paper.setDifficulty(rule.getDifficulty());
                 while (paper.getTotalScore() != rule.getTotalMark()) {
                     paper.getQuestionList().clear();
                     // 单选题
@@ -53,7 +55,7 @@ public class Population {
                     }
                     // 判断题
                     if (rule.getSubjectiveNum() > 0) {
-                        generateQuestion(courseId, "判断题", random, rule.getSubjectiveNum(), rule.getSubjectiveScore(),
+                        generateQuestion(courseId, "判断题", random, rule.getTfNum(), rule.getTfScore(),
                                 "判断题数量不够，组卷失败", paper);
                     }
                     // 简答题

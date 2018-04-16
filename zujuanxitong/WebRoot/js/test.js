@@ -126,18 +126,45 @@ $(function() {
 		} else {
 			var abc = $(this).next().text();
 			$("."+abc).find("input").each(function() {
-				$(this).val("");
+				$(this).val(0);
 			})
 			$("."+abc).css("display","none");
 		}
 		
 	})
-
+	
+	$('input[name="auto_nandu"]').click(function() {
+		$(".tishi4nanduxishu").css("display", "none");
+	})
+	
+	$("#danxuan_kecheng").click(function() {
+		$(".tishi4nanduxishu").css("display", "none");
+	})
 	
 	$("#submit4auto").click(function() {
+		
+		var totalScore = $('input[name="scores"]').val();
+		
+		var diffculty = $('input[name="auto_nandu"]').val();
+		if (diffculty == "") {
+			$(".tishi4nanduxishu span").text("*请输入正确的难度系数设定值");
+			$(".tishi4nanduxishu").css("display", "table-cell");
+			return;
+		}
+		
+		var object = $("#danxuan_kecheng option:checked").text();
+		
+		if (object == "--请选择--") {
+			$(".tishi4nanduxishu span").text("*请选择要组卷的课程");
+			$(".tishi4nanduxishu").css("display", "table-cell");
+			return;
+		}
+		if (totalScore == 0) {
+			alert("组卷失败： 试卷总分为0，请重新规定试题");
+			return;
+		}
+		
 		alert("组卷成功!!!");
-		
-		
 		var count_danxuan = $('input[name="count_danxuan"]').val();
 		var count_duoxuan = $('input[name="count_duoxuan"]').val();
 		var count_panduan = $('input[name="count_panduan"]').val();
@@ -150,26 +177,26 @@ $(function() {
 		var score_tiankong = $('input[name="score_tiankong"]').val();
 		var score_jianda = $('input[name="score_jianda"]').val();
 		
-		var diffculty = $('input[name="auto_nandu"]').val();
 		
-		var totalScore = $('input[name="scores"]').val();
+		
+		
 		
 		var a = $.ajax({
 			url : 'createPaperServlet',
 			type : 'post',
-			data : '{"count_danxuan":"' + count_danxuan +
-					'","count_duoxuan":"' + count_duoxuan + 
-					'","count_panduan":"' + count_panduan + 
-					'","count_tiankong":"' + count_tiankong + 
-					'","count_jianda":"' + count_jianda + 
-					'","score_danxuan":"' + score_danxuan + 
-					'","score_duoxuan":"' + score_duoxuan + 
-					'","score_panduan":"' + score_panduan + 
-					'","score_tiankong":"' + score_tiankong + 
-					'","score_jianda":"' + score_jianda +
-					'","diffculty":"' + diffculty + 
-					'","totalScore":"' + totalScore +
-					'","op":"auto"}',
+			data : '{"count_danxuan":' + count_danxuan +
+					',"count_duoxuan":' + count_duoxuan + 
+					',"count_panduan":' + count_panduan + 
+					',"count_tiankong":' + count_tiankong + 
+					',"count_jianda":' + count_jianda + 
+					',"score_danxuan":' + score_danxuan + 
+					',"score_duoxuan":' + score_duoxuan + 
+					',"score_panduan":' + score_panduan + 
+					',"score_tiankong":' + score_tiankong + 
+					',"score_jianda":' + score_jianda +
+					',"diffculty":' + diffculty + 
+					',"totalScore":' + totalScore +
+					',"op":"auto"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
 				location.href = "http://localhost:8080/Gaoxiaokeyan/teacher.jsp";
@@ -180,7 +207,7 @@ $(function() {
 	
 	
 
-	$(".count_all").blur(function() {
+	$(".count_all").on("input", function() {
 		
 		var total_score = 0;
 		if( $('input[name="count_danxuan"]').val() != "")

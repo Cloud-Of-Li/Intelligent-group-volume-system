@@ -2,7 +2,6 @@ package com.cloud.zj.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,17 +14,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cloud.zj.entity.Course;
-import com.cloud.zj.entity.Exam;
-import com.cloud.zj.entity.Major;
-import com.cloud.zj.entity.Teacher;
+import com.cloud.zj.generation.Paper;
+import com.cloud.zj.generation.RuleBean;
+import com.cloud.zj.service.CreatePaperService;
 
 @WebServlet("/createPaperServlet")
 public class CreatePaperServlet extends HttpServlet {
 
+	private CreatePaperService createPaperService;
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public CreatePaperServlet() {
+		createPaperService = new CreatePaperService();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,6 +41,10 @@ public class CreatePaperServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
+		
+		HttpSession session = request.getSession();
+		Course course = (Course) session.getAttribute("course");
+		
 		String json = readJSONString(request);
 		JSONObject jsonObject = null;
 		
@@ -64,8 +72,6 @@ public class CreatePaperServlet extends HttpServlet {
 			
 			double totalMark =100.0;
 			double difficulty = 0.5;
-			
-			
 			try {
 				singleNum = jsonObject.getInt("count_danxuan");
 				multiNum = jsonObject.getInt("count_duoxuan");
@@ -81,20 +87,47 @@ public class CreatePaperServlet extends HttpServlet {
 
 				totalMark = jsonObject.getDouble("totalScore");
 				difficulty = jsonObject.getDouble("diffculty");
-				
-				
-				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			RuleBean rule = new RuleBean();
+			rule.setCompleteNum(completeNum);
+			rule.setCompleteScore(completeScore);
+			rule.setDifficulty(difficulty);
+			rule.setMultiNum(multiNum);
+			rule.setMultiScore(multiScore);
+			rule.setSingleNum(singleNum);
+			rule.setSingleScore(singleScore);
+			rule.setSubjectiveNum(subjectiveNum);
+			rule.setSubjectiveScore(subjectiveScore);
+			rule.setTfNum(tfNum);
+			rule.setTfScore(tfScore);
+			rule.setTotalMark(totalMark);
+			Paper resultPaper = this.createPaperService.createPaper(course.getCourseId(), rule);
 			
-		
-		
-		}
-		
-		
+			//添加试卷到数据库中
+			this.createPaperService.addPaper(resultPaper, rule);
+			
+			
+			
+		}	
+			/*System.out.println(singleNum);
+			System.out.println(multiNum);
+			System.out.println(tfNum);
+			System.out.println(subjectiveNum);
+			System.out.println(completeNum);
+			
+			System.out.println(singleScore);
+			System.out.println(multiScore);
+			System.out.println(tfScore);
+			System.out.println(subjectiveScore);
+			System.out.println(completeScore);
+			
+			System.out.println(totalMark);
+			System.out.println(difficulty);*/
 	}
+
 	
 	public String readJSONString(HttpServletRequest request) {
 		StringBuffer json = new StringBuffer();

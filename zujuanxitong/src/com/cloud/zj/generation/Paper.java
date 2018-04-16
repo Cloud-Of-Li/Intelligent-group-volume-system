@@ -41,16 +41,12 @@ public class Paper {
     /**
      * 个体包含的试题集合
      */
-    
-    
+    private List<Exam> questionList = new ArrayList<Exam>();
     /**
      * 试卷创建时间
      */
     private Timestamp createTime;
     
-    
-    
-    private List<Exam> questionList = new ArrayList<Exam>();
 
     public Paper(int size) {
         for (int i = 0; i < size; i++) {
@@ -119,7 +115,23 @@ public class Paper {
         }
     }
 
-    public boolean containsQuestion(Exam question) {
+    public void setAdaptationDegree(double adaptationDegree) {
+		this.adaptationDegree = adaptationDegree;
+	}
+
+	public void setkPCoverage(double kPCoverage) {
+		this.kPCoverage = kPCoverage;
+	}
+
+	public void setTotalScore(double totalScore) {
+		this.totalScore = totalScore;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public boolean containsQuestion(Exam question) {
         if (question == null) {
             for (int i = 0; i < questionList.size(); i++) {
                 if (questionList.get(i) == null) {

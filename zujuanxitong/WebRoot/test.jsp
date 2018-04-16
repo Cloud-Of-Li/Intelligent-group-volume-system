@@ -1018,7 +1018,7 @@
 							<tr>
 								<th>所属课程：</th>
 								<td>
-									<select name="danxuan_kecheng" class="kecheng">
+									<select id="danxuan_kecheng" class="kecheng">
 										<option value="#">--请选择--</option>
 										<option value="lisan">&nbsp;&nbsp;${sessionScope.course.courseName}&nbsp;&nbsp;</option>
 									</select>
@@ -1035,11 +1035,16 @@
 
 								<th>试卷期望难度系数：</th>
 								<td>
-									<input type="text" name="auto_nandu" />
+									<input type="number" step="0.01" name="auto_nandu" />
 								</td>
 
 								<!-- <td class="tishi">*请输入正确值</td> -->
 							
+							</tr>
+							
+							<tr>
+								<td colspan="6" align="right" class="tishi4nanduxishu" ><span>*请输入正确的难度系数设定值</span></td>
+								
 							</tr>
 							
 							<tr>
@@ -1076,7 +1081,7 @@
 										</span>
 									</div>
 								</td>
-								<td class="tishi">*请输入正确值</td>
+								<td class="tishi" colspan="3">*请输入正确值</td>
 							</tr>
 							
 
@@ -1086,12 +1091,12 @@
 							<tr class="单选题">
 								<th>单选题数量：</th>
 								<td>
-									<input type="text" name="count_danxuan" class="count_all"/>
+									<input type="number" name="count_danxuan" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">单选题单个分数分值：
-									<input type="text" name="score_danxuan" class="count_all"/>
+									<input type="number" step="0.01" name="score_danxuan" class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1099,12 +1104,12 @@
 							<tr  class="多选题">
 								<th>多选题数量：</th>
 								<td>
-									<input type="text" name="count_duoxuan" class="count_all"/>
+									<input type="number" name="count_duoxuan" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">多选题单个分数分值：
-									<input type="text" name="score_duoxuan" class="count_all"/>
+									<input type="number" step="0.01" name="score_duoxuan" class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1112,12 +1117,12 @@
 							<tr class="填空题">
 								<th>填空题题数量：</th>
 								<td>
-									<input type="text" name="count_tiankong" class="count_all"/>
+									<input type="number" name="count_tiankong" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">填空题单个分数分值：
-									<input type="text" name="score_tiankong" class="count_all"/>
+									<input type="number" step="0.01" name="score_tiankong" class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1125,12 +1130,12 @@
 							<tr class="判断题">
 								<th>判断题数量：</th>
 								<td>
-									<input type="text" name="count_panduan" class="count_all"/>
+									<input type="number" name="count_panduan" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
-								<th colspan="4" style="text-align: left" class="count_all">判断题单个分数分值：
-									<input type="text" name="score_panduan" />
+								<th colspan="4" style="text-align: left" >判断题单个分数分值：
+									<input type="number" step="0.01" name="score_panduan" class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1138,12 +1143,12 @@
 							<tr class="简答题">
 								<th>简答题数量：</th>
 								<td>
-									<input type="text" name="count_jianda" class="count_all"/>
+									<input type="number" name="count_jianda" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
-								<th colspan="4" style="text-align: left" class="count_all">简答题单个分数分值：
-									<input type="text" name="score_jianda" />
+								<th colspan="4" style="text-align: left">简答题单个分数分值：
+									<input type="number" step="0.01" name="score_jianda"  class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>

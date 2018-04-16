@@ -47,6 +47,10 @@ public class ExamServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 //		System.out.println("你好");
 		Course course = (Course)session.getAttribute("course");
+		if(course == null){
+			response.sendRedirect("/zujuanxitong/login.html");
+			return;
+		}
 		List<Exam> danxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"单选题");
 		List<Exam> duoxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"多选题");
 		List<Exam> panduan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"判断题");
