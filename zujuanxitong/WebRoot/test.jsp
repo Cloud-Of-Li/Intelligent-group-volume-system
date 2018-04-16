@@ -1013,7 +1013,7 @@
 				</div>
 				
 				<div class="content_main_content">
-					<form method="post">
+					<form method="post" action="javascript:void(0)">
 						<table class="table_infomations_autoadd">
 							<tr>
 								<th>所属课程：</th>
@@ -1028,14 +1028,14 @@
 							
 								<th>试卷总分：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input id="shijuanzongfen" value="0" type="text" name="scores" disabled="disabled"/>
 								</td>
 
 								<!-- <td class="tishi">*请输入正确分数</td> -->
 
 								<th>试卷期望难度系数：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="auto_nandu" />
 								</td>
 
 								<!-- <td class="tishi">*请输入正确值</td> -->
@@ -1086,12 +1086,12 @@
 							<tr class="单选题">
 								<th>单选题数量：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="count_danxuan" class="count_all"/>
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">单选题单个分数分值：
-									<input type="text" name="nandu" />
+									<input type="text" name="score_danxuan" class="count_all"/>
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1099,12 +1099,12 @@
 							<tr  class="多选题">
 								<th>多选题数量：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="count_duoxuan" class="count_all"/>
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">多选题单个分数分值：
-									<input type="text" name="nandu" />
+									<input type="text" name="score_duoxuan" class="count_all"/>
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1112,12 +1112,12 @@
 							<tr class="填空题">
 								<th>填空题题数量：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="count_tiankong" class="count_all"/>
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">填空题单个分数分值：
-									<input type="text" name="nandu" />
+									<input type="text" name="score_tiankong" class="count_all"/>
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1125,12 +1125,12 @@
 							<tr class="判断题">
 								<th>判断题数量：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="count_panduan" class="count_all"/>
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
-								<th colspan="4" style="text-align: left">判断题单个分数分值：
-									<input type="text" name="nandu" />
+								<th colspan="4" style="text-align: left" class="count_all">判断题单个分数分值：
+									<input type="text" name="score_panduan" />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1138,20 +1138,20 @@
 							<tr class="简答题">
 								<th>简答题数量：</th>
 								<td>
-									<input type="text" name="nandu" />
+									<input type="text" name="count_jianda" class="count_all"/>
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
-								<th colspan="4" style="text-align: left">简答题单个分数分值：
-									<input type="text" name="nandu" />
+								<th colspan="4" style="text-align: left" class="count_all">简答题单个分数分值：
+									<input type="text" name="score_jianda" />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
 							
 							<tr>
 								<td align="center" colspan="6">
-									<button>确认添加</button>&nbsp;&nbsp;
-									<button type="reset">重新设定</button>
+									<button id="submit4auto" class="submit_button" type="submit">确认提交</button>&nbsp;&nbsp;
+									<button class="reset_button" type="reset">重新设定</button>
 								</td>
 							</tr>
 							

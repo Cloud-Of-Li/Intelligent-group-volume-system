@@ -283,9 +283,22 @@ th, td{
 	width:100%;
 }
 
+#shijuanzongfen {
+	width:75%;
+}
 
+.submit_button {
+	width:130px;	
+	font-family: "宋体";
+	font-weight:bold;
+	height: 23px;
+}
 
-
+.reset_button {
+	width:90px;
+	font-family: "宋体";
+	height: 23px;
+}
 
 
 

@@ -125,13 +125,77 @@ $(function() {
 
 		} else {
 			var abc = $(this).next().text();
+			$("."+abc).find("input").each(function() {
+				$(this).val("");
+			})
 			$("."+abc).css("display","none");
 		}
 		
 	})
 
+	
+	$("#submit4auto").click(function() {
+		alert("组卷成功!!!");
+		
+		
+		var count_danxuan = $('input[name="count_danxuan"]').val();
+		var count_duoxuan = $('input[name="count_duoxuan"]').val();
+		var count_panduan = $('input[name="count_panduan"]').val();
+		var count_tiankong = $('input[name="count_tiankong"]').val();
+		var count_jianda = $('input[name="count_jianda"]').val();
+		
+		var score_danxuan = $('input[name="score_danxuan"]').val();
+		var score_duoxuan = $('input[name="score_duoxuan"]').val();
+		var score_panduan = $('input[name="score_panduan"]').val();
+		var score_tiankong = $('input[name="score_tiankong"]').val();
+		var score_jianda = $('input[name="score_jianda"]').val();
+		
+		var diffculty = $('input[name="auto_nandu"]').val();
+		
+		var totalScore = $('input[name="scores"]').val();
+		
+		var a = $.ajax({
+			url : 'createPaperServlet',
+			type : 'post',
+			data : '{"count_danxuan":"' + count_danxuan +
+					'","count_duoxuan":"' + count_duoxuan + 
+					'","count_panduan":"' + count_panduan + 
+					'","count_tiankong":"' + count_tiankong + 
+					'","count_jianda":"' + count_jianda + 
+					'","score_danxuan":"' + score_danxuan + 
+					'","score_duoxuan":"' + score_duoxuan + 
+					'","score_panduan":"' + score_panduan + 
+					'","score_tiankong":"' + score_tiankong + 
+					'","score_jianda":"' + score_jianda +
+					'","diffculty":"' + diffculty + 
+					'","totalScore":"' + totalScore +
+					'","op":"auto"}',
+			contentType : 'application/json;charset=utf-8',
+			success : function(data) {
+				location.href = "http://localhost:8080/Gaoxiaokeyan/teacher.jsp";
+			}
+		});
+	})
+	
+	
+	
 
-
+	$(".count_all").blur(function() {
+		
+		var total_score = 0;
+		if( $('input[name="count_danxuan"]').val() != "")
+			total_score += $('input[name="count_danxuan"]').val() * $('input[name="score_danxuan"]').val();
+		if( $('input[name="count_duoxuan"]').val() != "")
+			total_score += $('input[name="count_duoxuan"]').val() * $('input[name="score_duoxuan"]').val();
+		if( $('input[name="count_panduan"]').val() != "")
+			total_score += $('input[name="count_panduan"]').val() * $('input[name="score_panduan"]').val();
+		if( $('input[name="count_tiankong"]').val() != "")
+			total_score += $('input[name="count_tiankong"]').val() * $('input[name="score_tiankong"]').val();
+		if( $('input[name="count_jianda"]').val() != "")
+			total_score += $('input[name="count_jianda"]').val() * $('input[name="score_jianda"]').val();
+		$("#shijuanzongfen").val(total_score);
+		/*alert(total_score);*/
+	})
 
 
 
