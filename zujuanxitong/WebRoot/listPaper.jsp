@@ -6,8 +6,8 @@
 	<meta charset="utf-8">
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
     <script src='js/jquery-3.1.1.min.js'></script>
-    <script src='js/test.js'></script>
-	<link rel="stylesheet" type="text/css" href="css\test.css">
+    <script src='js/listPaper.js'></script>
+	<link rel="stylesheet" type="text/css" href="css\listPaper.css">
 	<title>智能组卷系统</title>
 </head>
 <body>
@@ -134,7 +134,7 @@
 					<div class="houtai_coment_all">
 						试卷组成
 					</div>
-					<div class="houtai_all">
+					<div class="houtai_all" id="shijuanlistId">
 						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>智能组卷</span>
 						</div>
@@ -1091,12 +1091,12 @@
 							<tr class="单选题">
 								<th>单选题数量：</th>
 								<td>
-									<input type="number" step="0" name="count_danxuan" class="count_all" value=0 />
+									<input type="number" name="count_danxuan" class="count_all" value=0 />
 								</td>
 								<td class="tishi">*请输入正确值</td>
 							
 								<th colspan="4" style="text-align: left">单选题单个分数分值：
-									<input type="number" name="score_danxuan" class="count_all" value=0 />
+									<input type="number" step="0.01" name="score_danxuan" class="count_all" value=0 />
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
@@ -1269,26 +1269,178 @@
 				</div>
 				
 				<div class="content_main_content">
+				<c:set var="index" value="0" />
+				<c:set var="bigIndex" value="-1" />
 					<table class="table_infomations_list">
 						<tr>
 							<th>试 卷 列 表:</th>
 							<td>
 								<select id="list_shijuan_list2" class="list_shijuan_class">
 									<option value="#">--请选择--</option>
-									<c:forEach items="${paperList }" var="paper">
-											<option value="one">${paper.getPaperName() }</option>
+									<c:forEach items="${paperList }" var="p">
+											<option value="one">${p.getPaperName() }</option>
 									</c:forEach>
 								</select>
-								<button class="querenchazhao" class="submit_button">确认查找</button>
+								<button class="querenchazhao">确认查找</button>
 							</td>
-							<td>试卷总分：<span id="onePaper_totalScore"></span></td>
+							<td>试卷总分：<span id="onePaper_totalScore">${paper.getTotalScore()}</span></td>
 						</tr>
+						
 						<tr>
 							<td colspan="2" align="right" id="tishi4nanduxishu2"><span>*请选择正确的试卷信息</span></td>
 						</tr>
+						
 						<tr>
 							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 						</tr>
+						
+						<tr>
+							<td colspan="3" id="tishi4nanduxishu3"><span>试卷名称：${paper.getPaperName()}</span></td>
+						</tr>
+						
+						<c:if test="${paper_danxuan_exam.size() != 0}">
+						<tr>
+							<th></th>
+							<c:set var="bigIndex" value="${bigIndex+1}" />
+							<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、单项选择题（每小题${singleScore }分，共${paper_danxuan_exam.size()*singleScore }分）</th>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<table class="last_table_list">
+									
+									<c:forEach items="${paper_danxuan_exam }" var="p_danxuan">
+									<c:set var="index" value="${index+1}" />  
+									<tr>
+										<!-- <td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	 -->
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
+										</td>
+										<!-- <td style="width:25px; padding:7px 0 0 0 ; vertical-align: top;">
+											<input type="checkbox" class="input_check" id="danxuan_1" style="width:20px">
+										</td> -->
+									</tr>
+									</c:forEach>
+								</table>												
+							</td>
+						</tr>
+						<tr><td style="height:30px;"></td></tr>
+						<%-- </c:set> --%>
+						</c:if>
+						
+						
+						<c:if test="${paper_duoxuan_exam.size() != 0}">
+							<tr>
+								<th></th>
+								<c:set var="bigIndex" value="${bigIndex+1}" />
+								<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、多项选择题（每小题${multiScore }分，共${paper_duoxuan_exam.size()*multiScore }分）</th>
+							</tr>
+							<tr>
+							<td></td>
+							<td>
+								<table class="last_table_list">
+								
+									<c:forEach items="${paper_duoxuan_exam }" var="p_danxuan">
+									<c:set var="index" value="${index+1 }" />
+									<tr>
+										<!-- <td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	 -->
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
+										</td>
+									</tr>
+									</c:forEach>
+								</table>													
+								</td>
+							</tr>
+						<tr><td style="height:30px;"></td></tr>
+						</c:if>
+						
+						
+						<c:if test="${paper_tiankong_exam.size() != 0}">
+							<tr>
+								<th></th>
+								<c:set var="bigIndex" value="${bigIndex+1}" />
+								<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、填空题（每小题${completeScore }分，共${paper_tiankong_exam.size()*completeScore }分）
+								</th>
+							</tr>
+							
+							<tr>
+							<td></td>
+							<td>
+								<table class="last_table_list">
+
+									<c:forEach items="${paper_tiankong_exam }" var="p_danxuan">
+									<c:set var="index" value="${index+1 }" />
+									<tr>
+										<!-- <td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td> -->	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
+										</td>
+									</tr>
+									</c:forEach>
+								</table>													
+								</td>
+							</tr>
+						<tr><td style="height:30px;"></td></tr>
+						</c:if>
+						
+						
+						<c:if test="${paper_pandaunxuan_exam.size() != 0}">
+							<tr>
+								<th></th>
+								<c:set var="bigIndex" value="${bigIndex+1}" />
+								<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、判断题（每小题${tfScore }分，共${paper_pandaunxuan_exam.size()*tfScore }分）
+								</th>
+							</tr>
+							
+							<tr>
+							<td></td>
+								<table class="last_table_list">
+
+									<c:forEach items="${paper_pandaunxuan_exam }" var="p_danxuan">
+									<c:set var="index" value="${index+1 }" />
+									<tr>
+										<!-- <td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td> -->	
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
+										</td>
+									</tr>
+									</c:forEach>
+								</table>													
+								</td>
+							</tr>
+						<tr><td style="height:30px;"></td></tr>
+						</c:if>
+						
+						
+						<c:if test="${paper_jianda_exam.size() != 0}">
+							<tr>
+								<th></th>
+								<c:set var="bigIndex" value="${bigIndex+1}" />
+								<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、简答题（每小题${subjectScore }分，共${paper_jianda_exam.size()*subjectScore }分）
+								</th>
+							</tr>
+							
+							<tr>
+							<td></td>
+							<td>
+								<table class="last_table_list">
+								
+									<c:forEach items="${paper_jianda_exam }" var="p_danxuan">
+									<c:set var="index" value="${index+1}" />  
+									<tr>
+									<!-- 	<td style=" width: 60px; padding:0 6px; vertical-align: top;"><button style="width:80px">修改题目</button></td>	 -->
+										<td style="padding-left: 5px;">
+											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
+										</td>
+									</tr>
+									</c:forEach>
+								</table>													
+								</td>
+							</tr>
+							<tr><td style="height:30px;"></td></tr>
+						</c:if>
+						
 						
 					</table>
 				</div>
@@ -1297,7 +1449,5 @@
 	
 		</div>
 	</div>
-
-
 </body>
 </html>

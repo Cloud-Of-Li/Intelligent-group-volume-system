@@ -36,6 +36,7 @@ public class GA {
 			elitismOffset = 1;
 			// 保留上一代最优秀个体
 			Paper fitness = pop.getFitness();
+			fitness.setCourseId(courseId);
 			fitness.setId(0);
 			newPopulation.setPaper(0, fitness);
 		}
@@ -50,12 +51,14 @@ public class GA {
 			// 交叉
 			Paper child = crossover(courseId, parent1, parent2, rule);
 			child.setId(i);
+			child.setTotalScore(parent1.getTotalScore());
 			newPopulation.setPaper(i, child);
 		}
 		// 种群变异操作
 		Paper tmpPaper;
 		for (int i = elitismOffset; i < newPopulation.getLength(); i++) {
 			tmpPaper = newPopulation.getPaper(i);
+			tmpPaper.setCourseId(courseId);
 			mutate(tmpPaper);
 			// 计算适应度
 			tmpPaper.setAdaptationDegree(rule, Global.KP_WEIGHT, Global.DIFFCULTY_WEIGHt);
@@ -103,7 +106,7 @@ public class GA {
 				child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
 			}
 		}
-
+		child.setTotalScore(parent1.getTotalScore());
 		return child;
 	}
 

@@ -20,7 +20,7 @@ public class CreatePaperService {
 	public Paper createPaper(int courseId, RuleBean rule) {
 		// TODO Auto-generated method stub
 		int count = 0;
-		int runCount = 100;
+		int runCount = 3;
 		double expand = 0.98;
 		Paper resultPaper = null;
 		if (rule != null) {
@@ -37,6 +37,8 @@ public class CreatePaperService {
 			resultPaper = population.getFitness();
 		}
 		System.out.println(resultPaper);
+		resultPaper.setCourseId(courseId);
+		resultPaper.setTotalScore(rule.getTotalMark());
 		return resultPaper;
 	}
 

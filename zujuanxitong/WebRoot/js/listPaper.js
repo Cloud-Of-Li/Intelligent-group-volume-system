@@ -185,7 +185,7 @@ $(function() {
 				',"op":"auto"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
-				location.href = "http://localhost:8080/zujuanxitong/examServlet";
+				location.href = "http://localhost:8080/zujuanxitong/test.jsp";
 			}
 		});
 	})
@@ -295,7 +295,11 @@ $(function() {
 
 	})
 	
-	/*=============================以下是添加部分=================================*/
+	
+	
+	
+	
+/*=============================以下是添加部分=================================*/
 	
 	$("#list_shijuan_list2").click(function() {
 		$("#tishi4nanduxishu2").css("display", "none");
@@ -312,5 +316,18 @@ $(function() {
 	})
 	
 	
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+

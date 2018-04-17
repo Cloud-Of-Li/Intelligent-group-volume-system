@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.generation.Paper;
 import com.cloud.zj.service.ExamService;
 
 @WebServlet("/examServlet")
@@ -56,14 +57,21 @@ public class ExamServlet extends HttpServlet {
 		List<Exam> panduan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"判断题");
 		List<Exam> tiankong_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"填空题");
 		List<Exam> jianda_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"简答题");
+		List<Paper> paperList = this.examService.findPaperByCourserId(course.getCourseId());
 		
 		request.setAttribute("danxuan_exam", danxuan_exam);
 		request.setAttribute("duoxuan_exam", duoxuan_exam);
 		request.setAttribute("panduan_exam", panduan_exam);
 		request.setAttribute("tiankong_exam", tiankong_exam);
 		request.setAttribute("jianda_exam", jianda_exam);
+		request.setAttribute("paperList", paperList);
 //		JSONArray jsonArray = JSONArray.fromObject(danxuan_exam);
 //		response.getWriter().print(jsonArray);
+		
+		
+		
+		
+		
 		getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		
 		/*

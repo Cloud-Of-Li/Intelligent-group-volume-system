@@ -1,10 +1,12 @@
 package com.cloud.zj.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.dao.imp.ExamDaoImp;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.generation.Paper;
 
 public class ExamService {
 	private ExamDao examDao;
@@ -32,6 +34,27 @@ public class ExamService {
 	public List<Exam> findExamByCourseIdAndExamKind(Integer courseId,  String examKind) {
 		// TODO Auto-generated method stub
 		return this.examDao.getExamByCourseIdAndExamKind(courseId,examKind);
+	}
+
+	public List<Paper> findPaperByCourserId(Integer courseId) {
+		// TODO Auto-generated method stub
+		return this.examDao.getPaperListByCourseId(courseId);
+	}
+
+	public List<Exam> getExamListByExamKindAndPaper(Paper paper, String string) {
+		// TODO Auto-generated method stub
+		return this.examDao.findExamListByExamKindAndPaper(paper, string);
+	}
+
+	public List<String> setSequence() {
+		// TODO Auto-generated method stub
+		List<String> list = new ArrayList<>();
+		list.add("一");
+		list.add("二");
+		list.add("三");
+		list.add("四");
+		list.add("五");
+		return list;
 	}
 
 	

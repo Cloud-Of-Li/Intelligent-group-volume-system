@@ -14,7 +14,56 @@ import com.cloud.zj.entity.Exam;
  * @version: 1.0
  */
 public class Paper {
-    /**
+	
+	private double singleScore;
+	private double multiScore;
+	private double compeleteScore;
+	private double tfScore;
+	private double subjectScore;
+	
+	
+	
+    public double getSingleScore() {
+		return singleScore;
+	}
+
+	public void setSingleScore(double singleScore) {
+		this.singleScore = singleScore;
+	}
+
+	public double getMultiScore() {
+		return multiScore;
+	}
+
+	public void setMultiScore(double multiScore) {
+		this.multiScore = multiScore;
+	}
+
+	public double getCompeleteScore() {
+		return compeleteScore;
+	}
+
+	public void setCompeleteScore(double compeleteScore) {
+		this.compeleteScore = compeleteScore;
+	}
+
+	public double getTfScore() {
+		return tfScore;
+	}
+
+	public void setTfScore(double tfScore) {
+		this.tfScore = tfScore;
+	}
+
+	public double getSubjectScore() {
+		return subjectScore;
+	}
+
+	public void setSubjectScore(double subjectScore) {
+		this.subjectScore = subjectScore;
+	}
+
+	/**
      * 个体id
      */
     private int id;
@@ -46,9 +95,20 @@ public class Paper {
      * 试卷创建时间
      */
     private Timestamp createTime;
-    
+    /**
+     * 试卷名称
+     */
+    private String paperName;
 
-    public Paper(int size) {
+    public String getPaperName() {
+		return paperName;
+	}
+
+	public void setPaperName(String paperName) {
+		this.paperName = paperName;
+	}
+
+	public Paper(int size) {
         for (int i = 0; i < size; i++) {
             questionList.add(null);
         }
