@@ -34,6 +34,9 @@ public class Population {
                 paper = new Paper();
                 paper.setId(i + 1);
                 paper.setCourseId(courseId);
+                paper.setkPCoverage(0);
+                paper.setDifficulty(rule.getDifficulty());
+                paper.setCourseId(courseId);
                 while (paper.getTotalScore() != rule.getTotalMark()) {
                     paper.getQuestionList().clear();
                     // 单选题
@@ -42,7 +45,7 @@ public class Population {
                                 "单选题数量不够，组卷失败", paper);
                     }
                     // 多选题
-                    if (rule.getSingleNum() > 0) {
+                    if (rule.getMultiNum() > 0) {
                         generateQuestion(courseId, "多选题", random, rule.getMultiNum(), rule.getMultiScore(),
                                 "多选题数量不够，组卷失败", paper);
                     }
@@ -52,8 +55,8 @@ public class Population {
                                 "填空题数量不够，组卷失败", paper);
                     }
                     // 判断题
-                    if (rule.getSubjectiveNum() > 0) {
-                        generateQuestion(courseId, "判断题", random, rule.getSubjectiveNum(), rule.getSubjectiveScore(),
+                    if (rule.getTfNum() > 0) {
+                        generateQuestion(courseId, "判断题", random, rule.getTfNum(), rule.getTfScore(),
                                 "判断题数量不够，组卷失败", paper);
                     }
                     // 简答题

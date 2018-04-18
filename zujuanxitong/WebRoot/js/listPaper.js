@@ -1,74 +1,4 @@
 $(function() {
-	
-	$.getUrlParam = function(name) {  
-		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
-		var r = window.location.search.substr(1).match(reg);  
-		if (r!=null) return unescape(r[2]); return null;  
-	}
-	
-	/*function toRed(content,fanwei){
-        var bodyHtml = $("body").html();
-        var x = bodyHtml.replace(new RegExp(content,"gm"),"<font color='red' size='18px' >"+content+"</font>")
-        $("body").html(x);
-    }*/
-	
-	function highlight(xuanze){ 
-      clearSelection();//先清空一下上次高亮显示的内容； 
-      var searchText = xinxi;//获取你输入的关键字； 
-      var regExp = new RegExp(searchText, 'g');//创建正则表达式，g表示全局的，如果不用g，则查找到第一个就不会继续向下查找了； 
-      $(xuanze).each(function() {//遍历文章； 
-        var html = $(this).html(); 
-        var newHtml = html.replace(regExp, '<span style="background-color:yellow">'+searchText+'</span>');//将找到的关键字替换，加上highlight属性； 
-   
-        $(this).html(newHtml);//更新文章； 
-      }); 
-    } 
-    function clearSelection(xuanze){ 
-      $(xuanze).each(function(){//遍历 
-        $(this).find('.highlight').each(function()//找到所有highlight属性的元素； 
-        { 
-          $(this).replaceWith($(this).html());//将他们的属性去掉； 
-        }); 
-      }); 
-    } 
-	
-	
-	
-	var op = $.getUrlParam('op');
-	var xingshi = $.getUrlParam('xingshi');
-	
-	/*表示是现在的操作是搜索*/
-	if(op == "search") {
-		$("#shijuanlistId").css("display" ,"block");
-		$(".content_right").css("display", "none");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$("#search_danxuan").css("display", "block");
-		
-		if (xingshi == "1") {
-			var xinxi = $.getUrlParam('search');
-			clearSelection(".searched_content");
-			highlight(".searched_content");
-		} else if (xingshi == "3") {
-			var xinxi = $.getUrlParam('search');
-			clearSelection(".searched_score");
-			highlight(".searched_score");
-		} else if(xingshi == "2") {
-			var xinxi = $.getUrlParam('search');
-			clearSelection(".searched_nandu");
-			highlight(".searched_nandu");
-		} 
-	} else if(op == "paper") {
-		$("#shijuanlistId").css("display" ,"block");
-		$(".content_right").css("display", "none");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$("#list_shijuan").css("display", "block");
-	}
-	
-	
-	
-	
 	if ($("#userName").text() == "") {
 		location.href = "http://localhost:8080/zujuanxitong/login.html"
 	}
@@ -130,12 +60,20 @@ $(function() {
 		$(".content_right_2").css("display", "none");
 	})
 
-	$(".houtai_all_neirong").click(function() {
+		$(".houtai_all_neirong").click(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
-		if ($(this).children("span").text() == "搜索试题") {
+		if ($(this).children("span").text() == "搜索单选题") {
 			$("#search_danxuan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索多选题") {
+			$("#search_duoxuan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索填空题") {
+			$("#search_tiankong").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索判断题") {
+			$("#search_panduan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索简答题") {
+			$("#search_jianda").css("display", "block");
 		} else if ($(this).children("span").text() == "单选题列表") {
 			$("#list_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "多选题列表") {
@@ -247,7 +185,7 @@ $(function() {
 				',"op":"auto"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
-				location.href = "http://localhost:8080/zujuanxitong/examServlet";
+				location.href = "http://localhost:8080/zujuanxitong/test.jsp";
 			}
 		});
 	})
@@ -357,7 +295,11 @@ $(function() {
 
 	})
 	
-	/*=============================以下是添加部分=================================*/
+	
+	
+	
+	
+/*=============================以下是添加部分=================================*/
 	
 	$("#list_shijuan_list2").click(function() {
 		$("#tishi4nanduxishu2").css("display", "none");
@@ -393,7 +335,7 @@ $(function() {
 			return;
 		}
 		
-		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paper&paperName=" + paperName;
+		location.href = "http://localhost:8080/zujuanxitong/paperServlet?paperName=" + paperName;
 	})
 	
 	
@@ -456,16 +398,10 @@ $(function() {
 		
 	})
 	
-	/**/
-
+	
+	
+	
 });
-
-
-
-
-
-
-
 
 
 

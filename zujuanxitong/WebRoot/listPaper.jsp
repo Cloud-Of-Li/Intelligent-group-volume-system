@@ -6,8 +6,8 @@
 	<meta charset="utf-8">
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
     <script src='js/jquery-3.1.1.min.js'></script>
-    <script src='js/test.js'></script>
-	<link rel="stylesheet" type="text/css" href="css\test.css">
+    <script src='js/listPaper.js'></script>
+	<link rel="stylesheet" type="text/css" href="css\listPaper.css">
 	<title>智能组卷系统</title>
 </head>
 <body>
@@ -19,6 +19,9 @@
 			<div class="coment">智能组卷系统</div>
 		</div>
 	</div>
+	<div class="content">
+
+	<!-- ==========================以下是左边部分=====================================-->
 	<div class="content">
 
 	<!-- ==========================以下是左边部分=====================================-->
@@ -55,6 +58,9 @@
 						单&nbsp;选&nbsp;题
 					</div>
 					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>搜索单选题</span>
+						</div>
 			
 						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>单选题列表</span>
@@ -69,6 +75,10 @@
 					</div>
 					<div class="houtai_all">
 						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>搜索多选题</span>
+						</div>
+			
+						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>多选题列表</span>
 						</div>
 					</div>
@@ -80,6 +90,9 @@
 						填&nbsp;空&nbsp;题&nbsp;
 					</div>
 					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>搜索填空题</span>
+						</div>
 			
 						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>填空题列表</span>
@@ -93,6 +106,9 @@
 						判&nbsp;断&nbsp;题
 					</div>
 					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>搜索判断题</span>
+						</div>
 			
 						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>判断题列表</span>
@@ -106,6 +122,9 @@
 						简&nbsp;答&nbsp;题
 					</div>
 					<div class="houtai_all">
+						<div class="houtai_all_neirong">
+							<img class="folder" src="image/folder.png">&nbsp; <span>搜索简答题</span>
+						</div>
 			
 						<div class="houtai_all_neirong">
 							<img class="folder" src="image/folder.png">&nbsp; <span>简答题列表</span>
@@ -122,10 +141,6 @@
 
 						<div class="houtai_all_neirong" >
 							<img class="folder" src="image/folder.png">&nbsp; <span>添加试题</span>
-						</div>
-						
-						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>搜索试题</span>
 						</div>
 			
 						<div class="houtai_all_neirong" >
@@ -555,7 +570,7 @@
 	<!-- 搜索试题 -->
 		<div class="content_right" id="search_danxuan">
 			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>搜索所有试题</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>搜索单选题</span>
 				<hr>
 			</div>	
 			
@@ -565,15 +580,18 @@
 				</div>
 				
 				<div class="content_main_content">
+				<c:set var="index" value="0" />
+				<c:set var="bigIndex" value="-1" />
 					<form method="post" action="javascript:void(0)">
 					<table class="table_infomations_list">
+					
 						<tr>
 							<th>搜索形式:</th>
 							<td>
 								<select name="search_xingshi"  id="serch4xingshi">
-										<option value="1" >&nbsp;&nbsp;根据试题内容搜索&nbsp;&nbsp;</option>
-										<option value="2" >&nbsp;&nbsp;根据难度搜索&nbsp;&nbsp;</option>
-										<option value="3" >&nbsp;&nbsp;根据分数搜索&nbsp;&nbsp;</option>
+										<option value="根据内容" >&nbsp;&nbsp;根据试题内容搜索&nbsp;&nbsp;</option>
+										<option value="根据难度" >&nbsp;&nbsp;根据难度搜索&nbsp;&nbsp;</option>
+										<option value="根据分数" >&nbsp;&nbsp;根据分数搜索&nbsp;&nbsp;</option>
 								</select>
 							</td>
 						</tr>
@@ -597,7 +615,7 @@
 								<input type="text" name="search_danxuan_input" class="class_search_input"/>
 								<button class="search_querenchazhao">确认查找</button>
 							</td>
-							<td>试题数量：<span id="onePaper_totalScore">${examforSeacher.size() }个</span></td>
+							<td>试题数量：<span id="onePaper_totalScore">0个</span></td>
 						</tr>
 						
 						<tr>
@@ -625,24 +643,16 @@
 									<tr>
 											<th class="th4neirong">试题内容：</th>
 											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+												<pre style="font-size: 18px">${x+1 }.  ${examforSeacher_var.getExamContent() }</pre>	
 											</td>
 									</tr>
 									<tr>
 											<th class="th4neirong">试题难度：</th>
 											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+												<pre style="font-size: 18px">    ${examforSeacher_var.getExamDegree() }</pre>	
 											</td>
 									</tr>
-									<tr>
-											<th class="th4neirong">试题分数：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_score">${examforSeacher_var.getExamScore() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
+									<hr /><br>
 							</c:forEach>
 						</c:if>
 						
@@ -982,10 +992,8 @@
 							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 						</tr>
 						
-						<c:if test="${paper!=null }" >
-						
 						<tr>
-							<td colspan="3" id="tishi4nanduxishu3" ><span>试卷名称：${paper.getPaperName()}</span></td>
+							<td colspan="3" id="tishi4nanduxishu3"><span>试卷名称：${paper.getPaperName()}</span></td>
 						</tr>
 						
 						<c:if test="${paper_danxuan_exam.size() != 0}">
@@ -1130,7 +1138,7 @@
 							</tr>
 							<tr><td style="height:30px;"></td></tr>
 						</c:if>
-						</c:if>
+						
 						
 					</table>
 				</div>

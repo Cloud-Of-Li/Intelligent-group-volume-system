@@ -22,7 +22,7 @@ public class RuleBean {
 	/**
 	 * 试卷总分
 	 */
-	private int totalMark;
+	private double totalMark;
 	/**
 	 * 试卷期望难度系数
 	 */
@@ -96,12 +96,12 @@ public class RuleBean {
 		this.examId = examId;
 	}
 
-	public int getTotalMark() {
+	public double getTotalMark() {
 		return totalMark;
 	}
 
-	public void setTotalMark(int totalMark) {
-		this.totalMark = totalMark;
+	public void setTotalMark(double totalMark2) {
+		this.totalMark = totalMark2;
 	}
 
 	public double getDifficulty() {

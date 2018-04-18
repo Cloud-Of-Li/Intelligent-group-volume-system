@@ -14,7 +14,56 @@ import com.cloud.zj.entity.Exam;
  * @version: 1.0
  */
 public class Paper {
-    /**
+	
+	private double singleScore;
+	private double multiScore;
+	private double compeleteScore;
+	private double tfScore;
+	private double subjectScore;
+	
+	
+	
+    public double getSingleScore() {
+		return singleScore;
+	}
+
+	public void setSingleScore(double singleScore) {
+		this.singleScore = singleScore;
+	}
+
+	public double getMultiScore() {
+		return multiScore;
+	}
+
+	public void setMultiScore(double multiScore) {
+		this.multiScore = multiScore;
+	}
+
+	public double getCompeleteScore() {
+		return compeleteScore;
+	}
+
+	public void setCompeleteScore(double compeleteScore) {
+		this.compeleteScore = compeleteScore;
+	}
+
+	public double getTfScore() {
+		return tfScore;
+	}
+
+	public void setTfScore(double tfScore) {
+		this.tfScore = tfScore;
+	}
+
+	public double getSubjectScore() {
+		return subjectScore;
+	}
+
+	public void setSubjectScore(double subjectScore) {
+		this.subjectScore = subjectScore;
+	}
+
+	/**
      * 个体id
      */
     private int id;
@@ -41,18 +90,25 @@ public class Paper {
     /**
      * 个体包含的试题集合
      */
-    
-    
+    private List<Exam> questionList = new ArrayList<Exam>();
     /**
      * 试卷创建时间
      */
     private Timestamp createTime;
-    
-    
-    
-    private List<Exam> questionList = new ArrayList<Exam>();
+    /**
+     * 试卷名称
+     */
+    private String paperName;
 
-    public Paper(int size) {
+    public String getPaperName() {
+		return paperName;
+	}
+
+	public void setPaperName(String paperName) {
+		this.paperName = paperName;
+	}
+
+	public Paper(int size) {
         for (int i = 0; i < size; i++) {
             questionList.add(null);
         }
@@ -119,7 +175,23 @@ public class Paper {
         }
     }
 
-    public boolean containsQuestion(Exam question) {
+    public void setAdaptationDegree(double adaptationDegree) {
+		this.adaptationDegree = adaptationDegree;
+	}
+
+	public void setkPCoverage(double kPCoverage) {
+		this.kPCoverage = kPCoverage;
+	}
+
+	public void setTotalScore(double totalScore) {
+		this.totalScore = totalScore;
+	}
+
+	public void setDifficulty(double difficulty) {
+		this.difficulty = difficulty;
+	}
+
+	public boolean containsQuestion(Exam question) {
         if (question == null) {
             for (int i = 0; i < questionList.size(); i++) {
                 if (questionList.get(i) == null) {
