@@ -1,4 +1,74 @@
 $(function() {
+	
+	$.getUrlParam = function(name) {  
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
+		var r = window.location.search.substr(1).match(reg);  
+		if (r!=null) return unescape(r[2]); return null;  
+	}
+	
+	/*function toRed(content,fanwei){
+        var bodyHtml = $("body").html();
+        var x = bodyHtml.replace(new RegExp(content,"gm"),"<font color='red' size='18px' >"+content+"</font>")
+        $("body").html(x);
+    }*/
+	
+	function highlight(xuanze){ 
+      clearSelection();//先清空一下上次高亮显示的内容； 
+      var searchText = xinxi;//获取你输入的关键字； 
+      var regExp = new RegExp(searchText, 'g');//创建正则表达式，g表示全局的，如果不用g，则查找到第一个就不会继续向下查找了； 
+      $(xuanze).each(function() {//遍历文章； 
+        var html = $(this).html(); 
+        var newHtml = html.replace(regExp, '<span style="background-color:yellow">'+searchText+'</span>');//将找到的关键字替换，加上highlight属性； 
+   
+        $(this).html(newHtml);//更新文章； 
+      }); 
+    } 
+    function clearSelection(xuanze){ 
+      $(xuanze).each(function(){//遍历 
+        $(this).find('.highlight').each(function()//找到所有highlight属性的元素； 
+        { 
+          $(this).replaceWith($(this).html());//将他们的属性去掉； 
+        }); 
+      }); 
+    } 
+	
+	
+	
+	var op = $.getUrlParam('op');
+	var xingshi = $.getUrlParam('xingshi');
+	
+	/*表示是现在的操作是搜索*/
+	if(op == "search") {
+		$("#shijuanlistId").css("display" ,"block");
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$("#search_danxuan").css("display", "block");
+		
+		if (xingshi == "1") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_content");
+			highlight(".searched_content");
+		} else if (xingshi == "3") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_score");
+			highlight(".searched_score");
+		} else if(xingshi == "2") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_nandu");
+			highlight(".searched_nandu");
+		} 
+	} else if(op == "paper") {
+		$("#shijuanlistId").css("display" ,"block");
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$("#list_shijuan").css("display", "block");
+	}
+	
+	
+	
+	
 	if ($("#userName").text() == "") {
 		location.href = "http://localhost:8080/zujuanxitong/login.html"
 	}
@@ -64,16 +134,8 @@ $(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
-		if ($(this).children("span").text() == "添加单选题") {
-			$("#add_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加多选题") {
-			$("#add_duoxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加填空题") {
-			$("#add_tiankong").css("display", "block");
-		} else if ($(this).children("span").text() == "添加判断题") {
-			$("#add_panduan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加简答题") {
-			$("#add_jianda").css("display", "block");
+		if ($(this).children("span").text() == "搜索试题") {
+			$("#search_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "单选题列表") {
 			$("#list_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "多选题列表") {
@@ -94,8 +156,8 @@ $(function() {
 			
 		} else if ($(this).children("span").text() == "智能组卷") {
 			$("#add_zhineng_shijuan").css("display", "block");
-		} else if ($(this).children("span").text() == "手动组卷") {
-			$("#add_shoudong_shijuan").css("display", "block");
+		} else if ($(this).children("span").text() == "添加试题") {
+			$("#add_shiti").css("display", "block");
 		} else {
 			//表示点击的是章节试题的其中一个
 			var zhangjie = $(this).children("span").text();
@@ -301,6 +363,29 @@ $(function() {
 		$("#tishi4nanduxishu2").css("display", "none");
 	})
 	
+	
+	
+	
+	
+	/*按题型查找试题*/
+	$(".class_search_input").click(function() {
+		$(this).parents("td").parent("tr").next().children("td").css("display", "none");
+	})
+	
+	$(".search_querenchazhao").click(function() {
+		if($('input[name="search_danxuan_input"]').val() == "") {
+			$(".sousuokuang").prev().css("display","table-cell");
+			$(".sousuokuang").css("display","table-cell");
+			return;
+		}
+		var leixing =$("#serch4leixing option:checked").val();
+		var xingshi =$("#serch4xingshi option:checked").val();
+		var xinxi = $(this).prev().val();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi;
+	})
+	
+	
+	/*查找试卷信息*/
 	$(".querenchazhao").click(function() {
 		var paperName = $("#list_shijuan_list2 option:checked").text();
 		if (paperName == "--请选择--") {
@@ -308,9 +393,90 @@ $(function() {
 			return;
 		}
 		
-		location.href = "http://localhost:8080/zujuanxitong/paperServlet?paperName=" + paperName;
+		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paper&paperName=" + paperName;
 	})
 	
 	
+	
+	/*添加试题*/
+	$(".add_shiti_list").click(function() {
+		$(this).parents("td").parent("tr").next().children("td").css("display", "none");
+	})
+	
+	$("#add_shitineirong").click(function() {
+		$("#tishi4neirong").css("display", "none");
+	}) 
+	
+	
+	$(".tianjaishiti").click(function() {
+		var a = $("#shiti4kecheng option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4kecheng").css("display", "table-cell");
+			return;
+		}
+		
+		a = $("#zhangjie option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4zhangjie").css("display", "table-cell");
+			return;
+		}
+		
+		a = $("#leixing option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4lexing").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_nandu"]').val();
+		if(a == "" || a == 0) {
+			$("#tishi4nandu").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_fenzhi"]').val();
+		if(a == "" || a == 0) {
+			$("#tishi4fenzhi").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('textarea[name ="add_shitineirong"]').val();
+		if(a == "") {
+			$("#tishi4neirong").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_shiti_daan"]').val();
+		if(a == "") {
+			$("#tishi4daan").css("display", "table-cell");
+			return;
+		}
+		alert("添加试题成功!!!");
+		
+		$("#form_add_shiti").attr("action", "examServlet?op=add");
+		
+	})
+	
+	/**/
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

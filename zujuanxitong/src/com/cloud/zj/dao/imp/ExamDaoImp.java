@@ -278,8 +278,60 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		}
 		return list;
 	}
-	
-	
+
+	@Override
+	public void insertExam(Exam e) {
+		// TODO Auto-generated method stub
+		String sql = "insert into exam(courseid, examkind, examchapter, examdegree, examscore, examcontent, examanwser) values( "
+						+ e.getCourseId() + ", '" + e.getExamKind() + "', '" + e.getExamChapter() + "', " + e.getExamDegree() 
+						+ ", " + e.getExamScore() + ", '" + e.getExamContent() + "', '" + e.getExamAnwser() + "'" + ")";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+	@Override
+	public List<Exam> searchExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str) {
+		// TODO Auto-generated method stub
+		String sql;
+		if("根据分数".equals(str)) {
+			sql = "select * from exam where examkind = '"+ leixing + "' and courseid = "  + courseId + " and examScore = " + xinxi;
+		} else if ("根据难度".equals(str)) {
+			sql = "select * from exam where examkind = '"+ leixing + "' and courseid = "  + courseId + " and examDegree = " + xinxi;
+		} else {
+			sql = "select * from exam where courseid = "  + courseId + " and examkind = '"+ leixing + "' and ExamContent like '%"+ xinxi +"%'";;
+			System.out.println(sql);
+		}
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Exam> examList = new ArrayList<>();
+		Set<Exam> examSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				Exam e = new Exam();
+				e.setCourseId(rs.getInt("courseid"));
+				e.setExamAnwser(rs.getString("examanwser"));
+				e.setExamChapter(rs.getString("examchapter"));
+				e.setExamContent(rs.getString("examcontent"));
+				e.setExamDegree(rs.getFloat("examdegree"));
+				e.setExamId(rs.getInt("examid"));
+				e.setExamKind(rs.getString("ExamKind"));
+				e.setExamScore(rs.getInt("examscore"));
+				if(examSet.add(e))
+					examList.add(e);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return examList;
+	}
 	
 }
 	

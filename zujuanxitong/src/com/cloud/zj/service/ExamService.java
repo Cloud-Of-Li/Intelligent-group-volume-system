@@ -57,5 +57,15 @@ public class ExamService {
 		return list;
 	}
 
+	public void addExam(Exam e) {
+		// TODO Auto-generated method stub
+		this.examDao.insertExam(e);
+	}
+
+	public List<Exam> findExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str) {
+		// TODO Auto-generated method stub
+		return this.examDao.searchExamByCourseIdAndExamKindAndSearch(courseId, leixing, xinxi, str);
+	}
+
 	
 }

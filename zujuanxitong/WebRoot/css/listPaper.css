@@ -221,6 +221,7 @@ input {
 
 .tishi {
 	color: red;
+	text-align:right;
 	display: none;
 }
 
@@ -321,7 +322,16 @@ th, td{
 	display:block;
 }
 
+.tishi4nanduxishu{
+	display:none;
+	color: red;
+}
 
+#tishi4nanduxishu2, .sousuokuang {
+	text-align:center;
+	display:none;
+	color: red;
+}
 
 
 

@@ -92,7 +92,7 @@ public class PaperServlet extends HttpServlet {
 		request.setAttribute("paper_jianda_exam", paper_jianda_exam);
 		
 		request.setAttribute("paper", paper);
-		request.getRequestDispatcher("/listPaper.jsp").forward(request, response);
+		request.getRequestDispatcher("/test.jsp").forward(request, response);
 			
 		}
 		

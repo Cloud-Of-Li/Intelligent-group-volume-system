@@ -21,4 +21,8 @@ public interface ExamDao extends BaseDao<Exam>{
 
 	public List<Exam> findExamListByExamKindAndPaper(Paper paper, String string);
 
+	public void insertExam(Exam e);
+
+	public List<Exam> searchExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str);
+
 }

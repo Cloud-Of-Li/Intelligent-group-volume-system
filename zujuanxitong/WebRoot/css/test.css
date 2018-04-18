@@ -9,6 +9,12 @@ a {
     color: pink;
 }
 
+#tishi4nanduxishu3 {
+	color: red;
+	text-align:center;
+}
+
+
 .tite {
 	height: 100px;
 	line-height: 100px;
@@ -216,6 +222,7 @@ input {
 
 .tishi {
 	color: red;
+	text-align:right;
 	display: none;
 }
 
@@ -305,7 +312,7 @@ th, td{
 	color: red;
 }
 
-#tishi4nanduxishu2 {
+#tishi4nanduxishu2, .sousuokuang {
 	text-align:center;
 	display:none;
 	color: red;

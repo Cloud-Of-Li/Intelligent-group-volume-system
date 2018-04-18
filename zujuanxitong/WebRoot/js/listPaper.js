@@ -60,20 +60,20 @@ $(function() {
 		$(".content_right_2").css("display", "none");
 	})
 
-	$(".houtai_all_neirong").click(function() {
+		$(".houtai_all_neirong").click(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
-		if ($(this).children("span").text() == "添加单选题") {
-			$("#add_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加多选题") {
-			$("#add_duoxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加填空题") {
-			$("#add_tiankong").css("display", "block");
-		} else if ($(this).children("span").text() == "添加判断题") {
-			$("#add_panduan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加简答题") {
-			$("#add_jianda").css("display", "block");
+		if ($(this).children("span").text() == "搜索单选题") {
+			$("#search_danxuan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索多选题") {
+			$("#search_duoxuan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索填空题") {
+			$("#search_tiankong").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索判断题") {
+			$("#search_panduan").css("display", "block");
+		} else if ($(this).children("span").text() == "搜索简答题") {
+			$("#search_jianda").css("display", "block");
 		} else if ($(this).children("span").text() == "单选题列表") {
 			$("#list_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "多选题列表") {
@@ -94,8 +94,8 @@ $(function() {
 			
 		} else if ($(this).children("span").text() == "智能组卷") {
 			$("#add_zhineng_shijuan").css("display", "block");
-		} else if ($(this).children("span").text() == "手动组卷") {
-			$("#add_shoudong_shijuan").css("display", "block");
+		} else if ($(this).children("span").text() == "添加试题") {
+			$("#add_shiti").css("display", "block");
 		} else {
 			//表示点击的是章节试题的其中一个
 			var zhangjie = $(this).children("span").text();
@@ -305,6 +305,29 @@ $(function() {
 		$("#tishi4nanduxishu2").css("display", "none");
 	})
 	
+	
+	
+	
+	
+	/*按题型查找试题*/
+	$(".class_search_input").click(function() {
+		$(this).parents("td").parent("tr").next().children("td").css("display", "none");
+	})
+	
+	$(".search_querenchazhao").click(function() {
+		if($('input[name="search_danxuan_input"]').val() == "") {
+			$(".sousuokuang").prev().css("display","table-cell");
+			$(".sousuokuang").css("display","table-cell");
+			return;
+		}
+		var leixing =$("#serch4leixing option:checked").val();
+		var xingshi =$("#serch4xingshi option:checked").val();
+		var xinxi = $(this).prev().val();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi;
+	})
+	
+	
+	/*查找试卷信息*/
 	$(".querenchazhao").click(function() {
 		var paperName = $("#list_shijuan_list2 option:checked").text();
 		if (paperName == "--请选择--") {
@@ -314,6 +337,68 @@ $(function() {
 		
 		location.href = "http://localhost:8080/zujuanxitong/paperServlet?paperName=" + paperName;
 	})
+	
+	
+	
+	/*添加试题*/
+	$(".add_shiti_list").click(function() {
+		$(this).parents("td").parent("tr").next().children("td").css("display", "none");
+	})
+	
+	$("#add_shitineirong").click(function() {
+		$("#tishi4neirong").css("display", "none");
+	}) 
+	
+	
+	$(".tianjaishiti").click(function() {
+		var a = $("#shiti4kecheng option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4kecheng").css("display", "table-cell");
+			return;
+		}
+		
+		a = $("#zhangjie option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4zhangjie").css("display", "table-cell");
+			return;
+		}
+		
+		a = $("#leixing option:checked").text();
+		if (a == "--请选择--") {
+			$("#tishi4lexing").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_nandu"]').val();
+		if(a == "" || a == 0) {
+			$("#tishi4nandu").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_fenzhi"]').val();
+		if(a == "" || a == 0) {
+			$("#tishi4fenzhi").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('textarea[name ="add_shitineirong"]').val();
+		if(a == "") {
+			$("#tishi4neirong").css("display", "table-cell");
+			return;
+		}
+		
+		a = $('input[name ="add_shiti_daan"]').val();
+		if(a == "") {
+			$("#tishi4daan").css("display", "table-cell");
+			return;
+		}
+		alert("添加试题成功!!!");
+		
+		$("#form_add_shiti").attr("action", "examServlet?op=add");
+		
+	})
+	
+	
 	
 	
 });
