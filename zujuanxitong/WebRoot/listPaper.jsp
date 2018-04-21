@@ -669,7 +669,7 @@
 		
 		
 <!-- =============================================================================================================================================================== -->
-	<!-- 添加试卷 -->
+ <!-- 添加试卷 -->
 		<div class="content_right" id="add_zhineng_shijuan">
 			<div class="content4houtai">
 				&nbsp;&nbsp;&nbsp;&nbsp;<span>智能组卷</span>
@@ -750,7 +750,7 @@
 										</span>
 									</div>
 								</td>
-								<td class="tishi" colspan="3">*请输入正确值</td>
+								<td class="tishi" colspan="3" >*请输入正确值</td>
 							</tr>
 							
 
@@ -821,6 +821,11 @@
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
+							
+							<tr>
+								<td colspan="4" id="chucuola" class="tishi" style="display:table-cell"><span>*</span></td>
+							</tr>
+							
 							
 							<tr>
 								<td align="center" colspan="6">

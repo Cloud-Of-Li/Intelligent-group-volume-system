@@ -157,4 +157,26 @@ public class PaperDaoImp implements PaperDao {
 		DB.close(conn);*/
 		return e;
 	}
+
+	@Override
+	public int getExamNumByCourseIdAndKind(Integer courseId, String string) {
+		// TODO Auto-generated method stub
+		String sql = "select * from exam where courseid = " + courseId + " and examkind = '" + string +"'";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		int count = 0;
+		try {
+			while (rs.next()) {
+				count++;
+			}
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return count;
+	}
 }

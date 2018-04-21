@@ -8,5 +8,7 @@ public interface PaperDao {
 	void savePaper(Paper resultPaper, RuleBean rule);
 
 	Paper findPaperByPaperName(String paperName);
+
+	int getExamNumByCourseIdAndKind(Integer courseId, String string);
 	
 }

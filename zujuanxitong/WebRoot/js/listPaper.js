@@ -1,4 +1,74 @@
 $(function() {
+	
+	
+	$.getUrlParam = function(name) {  
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
+		var r = window.location.search.substr(1).match(reg);  
+		if (r!=null) return unescape(r[2]); return null;  
+	}
+	
+	/*function toRed(content,fanwei){
+        var bodyHtml = $("body").html();
+        var x = bodyHtml.replace(new RegExp(content,"gm"),"<font color='red' size='18px' >"+content+"</font>")
+        $("body").html(x);
+    }*/
+	
+	function highlight(xuanze){ 
+      clearSelection();//先清空一下上次高亮显示的内容； 
+      var searchText = xinxi;//获取你输入的关键字； 
+      var regExp = new RegExp(searchText, 'g');//创建正则表达式，g表示全局的，如果不用g，则查找到第一个就不会继续向下查找了； 
+      $(xuanze).each(function() {//遍历文章； 
+        var html = $(this).html(); 
+        var newHtml = html.replace(regExp, '<span style="background-color:yellow">'+searchText+'</span>');//将找到的关键字替换，加上highlight属性； 
+   
+        $(this).html(newHtml);//更新文章； 
+      }); 
+    } 
+    function clearSelection(xuanze){ 
+      $(xuanze).each(function(){//遍历 
+        $(this).find('.highlight').each(function()//找到所有highlight属性的元素； 
+        { 
+          $(this).replaceWith($(this).html());//将他们的属性去掉； 
+        }); 
+      }); 
+    } 
+	
+	
+	
+	var op = $.getUrlParam('op');
+	var xingshi = $.getUrlParam('xingshi');
+	
+	/*表示是现在的操作是搜索*/
+	if(op == "search") {
+		$("#shijuanlistId").css("display" ,"block");
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$("#search_danxuan").css("display", "block");
+		
+		if (xingshi == "1") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_content");
+			highlight(".searched_content");
+		} else if (xingshi == "3") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_score");
+			highlight(".searched_score");
+		} else if(xingshi == "2") {
+			var xinxi = $.getUrlParam('search');
+			clearSelection(".searched_nandu");
+			highlight(".searched_nandu");
+		} 
+	} else if(op == "paper") {
+		$("#shijuanlistId").css("display" ,"block");
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$("#list_shijuan").css("display", "block");
+	}
+	
+	
+	
 	if ($("#userName").text() == "") {
 		location.href = "http://localhost:8080/zujuanxitong/login.html"
 	}
@@ -170,24 +240,63 @@ $(function() {
 		var a = $.ajax({
 			url : 'createPaperServlet',
 			type : 'post',
+			dataType:'json',
 			data : '{"count_danxuan":' + count_danxuan +
 				',"count_duoxuan":' + count_duoxuan +
 				',"count_panduan":' + count_panduan +
 				',"count_tiankong":' + count_tiankong +
 				',"count_jianda":' + count_jianda +
-				',"score_danxuan":' + score_danxuan +
-				',"score_duoxuan":' + score_duoxuan +
-				',"score_panduan":' + score_panduan +
-				',"score_tiankong":' + score_tiankong +
-				',"score_jianda":' + score_jianda +
-				',"diffculty":' + diffculty +
-				',"totalScore":' + totalScore +
-				',"op":"auto"}',
+				',"op":"ifcreate"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
-				location.href = "http://localhost:8080/zujuanxitong/test.jsp";
+				var jsonData = data;
+				if(jsonData.flag == "danxuan_error") {
+					$("#chucuola span").text("*组卷出错，题库单选题数量不足" + count_danxuan + "个," + "单选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ; 
+				} else if(jsonData.flag == "duoxuan_error") {
+					$("#chucuola span").text("*组卷出错，题库多选题数量不足" + count_duoxuan + "个," + "多选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "tiankong_error") {
+					$("#chucuola span").text("*组卷出错，题库填空题数量不足" + count_panduan + "个," + "填空题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "panduan_error") {
+					$("#chucuola span").text("*组卷出错，题库判断题数量不足" + count_tiankong + "个," + "判断题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "jianda_error") {
+					$("#chucuola span").text("*组卷出错，题库简答题数量不足" + count_jianda + "个," + "简答题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				} else {
+					alert("组卷成功!!!");
+					var b = $.ajax({
+						url : 'createPaperServlet',
+						type : 'post',
+						data : '{"count_danxuan":' + count_danxuan +
+							',"count_duoxuan":' + count_duoxuan +
+							',"count_panduan":' + count_panduan +
+							',"count_tiankong":' + count_tiankong +
+							',"count_jianda":' + count_jianda +
+							',"score_danxuan":' + score_danxuan +
+							',"score_duoxuan":' + score_duoxuan +
+							',"score_panduan":' + score_panduan +
+							',"score_tiankong":' + score_tiankong +
+							',"score_jianda":' + score_jianda +
+							',"diffculty":' + diffculty +
+							',"totalScore":' + totalScore +
+							',"op":"auto"}',
+						contentType : 'application/json;charset=utf-8',
+						success : function(data) {
+							location.href = "http://localhost:8080/zujuanxitong/examServlet";
+						}
+					});
+				}
 			}
 		});
+		
 	})
 
 	$(".count_all").on("input", function() {

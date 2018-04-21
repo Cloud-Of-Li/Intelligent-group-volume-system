@@ -740,7 +740,7 @@
 										</span>
 									</div>
 								</td>
-								<td class="tishi" colspan="3">*请输入正确值</td>
+								<td class="tishi" colspan="3" >*请输入正确值</td>
 							</tr>
 							
 
@@ -811,6 +811,11 @@
 								</th>
 								<td class="tishi">*请输入正确值</td>
 							</tr>
+							
+							<tr>
+								<td colspan="4" id="chucuola" class="tishi" style="display:table-cell"><span>*</span></td>
+							</tr>
+							
 							
 							<tr>
 								<td align="center" colspan="6">
@@ -1085,6 +1090,7 @@
 							
 							<tr>
 							<td></td>
+								<td>
 								<table class="last_table_list">
 
 									<c:forEach items="${paper_pandaunxuan_exam }" var="p_danxuan">

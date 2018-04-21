@@ -46,4 +46,9 @@ public class CreatePaperService {
 		paperDao.savePaper(resultPaper, rule);
 	}
 
+	public int getSingNum(Integer courseId, String string) {
+		// TODO Auto-generated method stub
+		return this.paperDao.getExamNumByCourseIdAndKind(courseId, string);
+	}
+
 }

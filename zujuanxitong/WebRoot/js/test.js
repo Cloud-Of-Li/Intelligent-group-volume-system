@@ -1,5 +1,6 @@
 $(function() {
 	
+	
 	$.getUrlParam = function(name) {  
 		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
 		var r = window.location.search.substr(1).match(reg);  
@@ -216,7 +217,6 @@ $(function() {
 			return;
 		}
 
-		alert("组卷成功!!!");
 		var count_danxuan = $('input[name="count_danxuan"]').val();
 		var count_duoxuan = $('input[name="count_duoxuan"]').val();
 		var count_panduan = $('input[name="count_panduan"]').val();
@@ -232,24 +232,63 @@ $(function() {
 		var a = $.ajax({
 			url : 'createPaperServlet',
 			type : 'post',
+			dataType:'json',
 			data : '{"count_danxuan":' + count_danxuan +
 				',"count_duoxuan":' + count_duoxuan +
 				',"count_panduan":' + count_panduan +
 				',"count_tiankong":' + count_tiankong +
 				',"count_jianda":' + count_jianda +
-				',"score_danxuan":' + score_danxuan +
-				',"score_duoxuan":' + score_duoxuan +
-				',"score_panduan":' + score_panduan +
-				',"score_tiankong":' + score_tiankong +
-				',"score_jianda":' + score_jianda +
-				',"diffculty":' + diffculty +
-				',"totalScore":' + totalScore +
-				',"op":"auto"}',
+				',"op":"ifcreate"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
-				location.href = "http://localhost:8080/zujuanxitong/examServlet";
+				var jsonData = data;
+				if(jsonData.flag == "danxuan_error") {
+					$("#chucuola span").text("*组卷出错，题库单选题数量不足" + count_danxuan + "个," + "单选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ; 
+				} else if(jsonData.flag == "duoxuan_error") {
+					$("#chucuola span").text("*组卷出错，题库多选题数量不足" + count_duoxuan + "个," + "多选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "tiankong_error") {
+					$("#chucuola span").text("*组卷出错，题库填空题数量不足" + count_tiankong + "个," + "填空题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "panduan_error") {
+					$("#chucuola span").text("*组卷出错，题库判断题数量不足" + count_panduan + "个," + "判断题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				}  else if(jsonData.flag == "jianda_error") {
+					$("#chucuola span").text("*组卷出错，题库简答题数量不足" + count_jianda + "个," + "简答题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola").css("display","table-cell");
+					return ;
+				} else {
+					alert("组卷成功!!!");
+					var b = $.ajax({
+						url : 'createPaperServlet',
+						type : 'post',
+						data : '{"count_danxuan":' + count_danxuan +
+							',"count_duoxuan":' + count_duoxuan +
+							',"count_panduan":' + count_panduan +
+							',"count_tiankong":' + count_tiankong +
+							',"count_jianda":' + count_jianda +
+							',"score_danxuan":' + score_danxuan +
+							',"score_duoxuan":' + score_duoxuan +
+							',"score_panduan":' + score_panduan +
+							',"score_tiankong":' + score_tiankong +
+							',"score_jianda":' + score_jianda +
+							',"diffculty":' + diffculty +
+							',"totalScore":' + totalScore +
+							',"op":"auto"}',
+						contentType : 'application/json;charset=utf-8',
+						success : function(data) {
+							location.href = "http://localhost:8080/zujuanxitong/examServlet";
+						}
+					});
+				}
 			}
 		});
+		
 	})
 
 	$(".count_all").on("input", function() {

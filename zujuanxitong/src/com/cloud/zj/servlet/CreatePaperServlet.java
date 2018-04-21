@@ -57,7 +57,52 @@ public class CreatePaperServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if("auto".equals(op)) {
+		if("ifcreate".equals(op)) {
+			int singleNum = 0;
+			int multiNum = 0;
+			int completeNum = 0;
+			int tfNum = 0;
+			int subjectiveNum = 0;
+			try {
+				singleNum = jsonObject.getInt("count_danxuan");
+				multiNum = jsonObject.getInt("count_duoxuan");
+				tfNum = jsonObject.getInt("count_panduan");
+				subjectiveNum = jsonObject.getInt("count_jianda");
+				completeNum = jsonObject.getInt("count_tiankong");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			int sj_singleNum = this.createPaperService.getSingNum(course.getCourseId(),"单选题");
+			if(sj_singleNum < singleNum) {
+				response.getWriter().print("{\"flag\":\"danxuan_error\",\"num\":" + sj_singleNum + "}");
+				return;
+			}
+			int sj_multiNum = this.createPaperService.getSingNum(course.getCourseId(),"多选题");
+			if(sj_multiNum < multiNum) {
+				response.getWriter().print("{\"flag\":\"duoxuan_error\",\"num\":"+ sj_multiNum+ "}");
+				return;
+			}
+			int sj_completeNum = this.createPaperService.getSingNum(course.getCourseId(),"填空题");
+			if(sj_completeNum < completeNum) {
+				response.getWriter().print("{\"flag\":\"tiankong_error\",\"num\":" + sj_completeNum+ "}");
+				return;
+			}
+			int sj_tfNum = this.createPaperService.getSingNum(course.getCourseId(),"判断题");
+			if(sj_tfNum < tfNum) {
+				response.getWriter().print("{\"flag\":\"panduan_error\",\"num\":" + sj_tfNum+ "}");
+				return;
+			}
+			int sj_subjectiveNum = this.createPaperService.getSingNum(course.getCourseId(),"简答题");
+			if(sj_subjectiveNum < subjectiveNum) {
+				response.getWriter().print("{\"flag\":\"jianda_error\",\"num\":" + sj_subjectiveNum+ "}");
+				return;
+			}
+			response.getWriter().print("{\"flag\":\"ok\",\"num\":" + 5 + "}");
+			
+			
+		} else if("auto".equals(op)) {
 			int singleNum = 0;
 			int multiNum = 0;
 			int completeNum = 0;
@@ -105,12 +150,8 @@ public class CreatePaperServlet extends HttpServlet {
 			rule.setTfScore(tfScore);
 			rule.setTotalMark(totalMark);
 			Paper resultPaper = this.createPaperService.createPaper(course.getCourseId(), rule);
-			
 			//添加试卷到数据库中
 			this.createPaperService.addPaper(resultPaper, rule);
-			
-			
-			
 		}	
 			/*System.out.println(singleNum);
 			System.out.println(multiNum);

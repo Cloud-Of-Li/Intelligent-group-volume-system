@@ -51,18 +51,18 @@ a {
 
 .content{
 	width:100%;
-	height:100%;
 	float: left;
-	background: url("../image/contentjianbian2.jpg");
-	background-repeat: no-repeat;
 	background-size: 100%;
+	background-repeat: no-repeat;
+	position: relative;
 }
 
 .content_left {
 	float: left;
 	width: 10%;
-	height:100%;
 	font-family: "Microsoft YaHei";
+	background: url("../image/content2.jpg");
+	position: absolute;
 }
 
 .menue {

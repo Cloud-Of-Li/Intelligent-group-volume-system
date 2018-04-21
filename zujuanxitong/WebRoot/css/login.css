@@ -3,6 +3,7 @@
     padding:0;
 }
 
+
 a {
     text-decoration: none;
     cursor:pointer;
@@ -33,7 +34,7 @@ a {
 .content {
     background: url("../image/163.jpg");
     background-repeat: no-repeat;
-    background-size: auto 500px;
+    background-size: auto 1000px;;
     background-position: center center;
     height:500px;
 }
