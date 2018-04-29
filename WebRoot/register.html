@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>用户注册</title>
+<!-- metatags-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-java script"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+function hideURLbar(){ window.scrollTo(0,1); }</script>
+<!-- Meta tag Keywords -->
+	<link href="css/register.css" rel="stylesheet" type="text/css" media="all"/><!--stylesheet-css-->
+	
+</head>
+<body>
+<h1>用户信息注册</h1>
+ 	<div class="w3l-form">
+			<div class="w3l-grids-from2">
+				<div class="agile">	
+						<div class="w3l-signup7">
+							<form action="registerServlet" method="post">
+								<h3>sign up</h3>
+								<fieldset>
+									<legend>填写用户信息</legend>
+										<input type="text" name="name" placeholder="user name" required=""/>
+										<input type="text" name="number" placeholder="phone number" required=""/>
+										<input type="password" name="password" placeholder="create a password" required=""/>
+										<input type="password" name="password" placeholder="confirm your password" required=""/>
+										<input type="radio" name="selector1" value="男">
+											<label class="mm" style="color: black">男</label>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<input type="radio" name="selector1" value="女">
+											<label class="mm" style="color: black">女</label>
+										<input type="submit" class="btn" name="button" value="sign up"/>
+								</fieldset>	
+
+							</form>
+						</div>
+				</div>
+			</div>
+				<div class="clear"></div>
+		</div>
+			<footer>
+				&copy; 2018 毕业设计 | Design by Chesley Lee
+			</footer>		
+	</body>
+</html>
