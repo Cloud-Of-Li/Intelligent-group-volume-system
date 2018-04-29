@@ -5,12 +5,7 @@ public class Course {
 	private String courseName;
 	private int majorId;
 	private int teacherId;
-	public int getTeacherId() {
-		return teacherId;
-	}
-	public void setTeacherId(int teacherId) {
-		this.teacherId = teacherId;
-	}
+	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -28,6 +23,12 @@ public class Course {
 	}
 	public void setMajorId(int majorId) {
 		this.majorId = majorId;
+	}
+	public int getTeacherId() {
+		return teacherId;
+	}
+	public void setTeacherId(int teacherId) {
+		this.teacherId = teacherId;
 	}
 	
 	

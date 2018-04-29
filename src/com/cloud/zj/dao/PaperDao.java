@@ -3,7 +3,7 @@ package com.cloud.zj.dao;
 import com.cloud.zj.generation.Paper;
 import com.cloud.zj.generation.RuleBean;
 
-public interface PaperDao {
+public interface PaperDao extends BaseDao<Paper> {
 
 	void savePaper(Paper resultPaper, RuleBean rule);
 

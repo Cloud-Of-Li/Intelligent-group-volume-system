@@ -36,10 +36,7 @@ $(function() {
 					$("input[name='shuruxingming'").val("用户名或者密码错误");
 					$("input[name='shuruxingming'").css("display", "block");
 				} else{
-					location.href = "http://localhost:8080/zujuanxitong/examServlet";
-//					alert(data[0].examKind);
-				/*	var jsonData = JSON.parse(data); 
-					console.log(jsonData[0]);*/
+					location.href = "http://localhost:8080/zujuanxitong/mexamServlet";
 				} 					
 			}
 		});

@@ -17,7 +17,7 @@ import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 import com.cloud.zj.generation.RuleBean;
 
-public class PaperDaoImp implements PaperDao {
+public class PaperDaoImp extends BaseDaoImp<Paper> implements PaperDao {
 	
 	
 	private CourseDao courseDao;

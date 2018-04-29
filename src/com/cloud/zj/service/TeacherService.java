@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloud.zj.dao.ManagerDao;
 import com.cloud.zj.dao.TeacherDao;
+import com.cloud.zj.dao.imp.ManagerDaoImp;
 import com.cloud.zj.dao.imp.TeacherDaoImp;
 import com.cloud.zj.entity.Manager;
 import com.cloud.zj.entity.Teacher;
@@ -48,6 +49,11 @@ private ManagerDao managerDao;
 			}
 		}
 		return false;
+	}
+
+	public List<Teacher> getAllTeacher() {
+		// TODO Auto-generated method stub
+		return this.teacherDao.findAll();
 	}
 	
 }

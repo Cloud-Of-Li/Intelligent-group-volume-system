@@ -88,16 +88,20 @@ public class TeacherServlet extends HttpServlet{
 			
 			if (teacherLogin == true) {
 					teacher = this.teacherService.getTeacherByTname(teacherName);
+					System.out.println("教师编号" + teacher.getTeacherId() + "，姓名" + teacher.getTeacherName());
 				if(teacher != null) {
-					Course course = this.courseService.getCourseByTid(teacher.getTeacherId());
+					HttpSession session = request.getSession();
+					List<Course> courseList = this.courseService.getCourseByTid(teacher.getTeacherId());
+					session.setAttribute("teacher", teacher);
+					session.setAttribute("courseList", courseList);
+					Course course = courseList.get(0);
+					System.out.println("课程id：" + course.getCourseId());
 					if (course != null) {
 						Major major = this.majorService.getMajorById(course.getMajorId());
 						List<String> chapterList = this.examService.findByExam(this.examService.findByCourseId(course.getCourseId()));
 						List<List<Exam>>  examList = this.examService.findExamByChapter(chapterList);
-						HttpSession session = request.getSession();
-						session.setAttribute("teacher", teacher);
-						session.setAttribute("course", course);
 						session.setAttribute("major", major);
+						session.setAttribute("course", course);
 						session.setAttribute("chapterList", chapterList);
 						session.setAttribute("examList", examList);
 					}

@@ -8,11 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.cloud.zj.entity.Manager;
+import com.cloud.zj.service.ManagerService;
 import com.cloud.zj.service.TeacherService;
 
 @WebServlet("/managerServlet")
@@ -23,10 +25,12 @@ public class ManagerServlet extends HttpServlet{
 	 */
 	private static final long serialVersionUID = 1L;
 	private TeacherService teacherService;
+	private ManagerService managerService;
 	
 	
 	public ManagerServlet() {
 		super();
+		managerService = new ManagerService();
 		teacherService = new TeacherService();
 	}
 	@Override
@@ -74,7 +78,10 @@ public class ManagerServlet extends HttpServlet{
 			}
 			
 			if( managerLogin == true) {
-				response.getWriter().print("/examServlet");
+				manager = this.managerService.getManagerByManagerName(managerName);
+				HttpSession session = request.getSession();
+				session.setAttribute("manager", manager);
+				response.getWriter().print("/mexamServlet");
 			} else
 				response.getWriter().print("error");
 		}

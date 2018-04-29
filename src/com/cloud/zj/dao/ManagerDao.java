@@ -4,4 +4,6 @@ import com.cloud.zj.entity.Manager;
 
 public interface ManagerDao extends BaseDao<Manager>{
 
+	Manager findManagerByName(String managerName);
+
 }

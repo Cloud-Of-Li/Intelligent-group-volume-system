@@ -1,6 +1,7 @@
 package com.cloud.zj.service;
 
 import com.cloud.zj.dao.RegisterDao;
+import com.cloud.zj.dao.imp.RegisterDaoImp;
 
 public class RegisterService {
 
