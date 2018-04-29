@@ -42,7 +42,7 @@
 						<c:forEach items="${chapterList}" var="chapter">
 		
 							<div class="houtai_all_neirong">
-								<img class="folder" src="image/folder.png" />&nbsp; <span id="${chapter }">${chapter}</span>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span id="${chapter }">${chapter}</span>
 							</div>	
 						
 						</c:forEach>
@@ -52,29 +52,43 @@
 			<!-- 后台内容==单选题 -->
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
-						单&nbsp;选&nbsp;题
+						题库管理
 					</div>
 					<div class="houtai_all">
-			
+						<div class="houtai_all_neirong" >
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>添加试题</span>
+						</div>
 						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>单选题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>搜索试题</span>
 						</div>
 					</div>
 				</div>
 
 			<!-- 后台内容==多选题 -->
-				<div class="houtai_coment">
+				 <div class="houtai_coment">
 					<div class="houtai_coment_all">
-						多&nbsp;选&nbsp;题
+						试题列表
 					</div>
 					<div class="houtai_all">
 						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>多选题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>单选题列表</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>多选题列表</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>填空题列表</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>判断题列表</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>简答题列表</span>
 						</div>
 					</div>
 				</div>
 
-			<!-- 后台内容==填空题 -->
+			<!--后台内容==填空题
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
 						填&nbsp;空&nbsp;题&nbsp;
@@ -87,7 +101,7 @@
 					</div>
 				</div>
 			
-			<!-- 后台内容==判断题 -->
+			后台内容==判断题
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
 						判&nbsp;断&nbsp;题
@@ -100,7 +114,7 @@
 					</div>
 				</div>
 			
-			<!-- 后台内容==简答题 -->
+			后台内容==简答题
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
 						简&nbsp;答&nbsp;题
@@ -111,7 +125,7 @@
 							<img class="folder" src="image/folder.png">&nbsp; <span>简答题列表</span>
 						</div>
 					</div>
-				</div>
+				</div> -->
 
 			<!-- 后台内容==试卷组成 -->
 				<div class="houtai_coment">
@@ -121,19 +135,11 @@
 					<div class="houtai_all" id="shijuanlistId">
 
 						<div class="houtai_all_neirong" >
-							<img class="folder" src="image/folder.png">&nbsp; <span>添加试题</span>
-						</div>
-						
-						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>搜索试题</span>
-						</div>
-			
-						<div class="houtai_all_neirong" >
-							<img class="folder" src="image/folder.png">&nbsp; <span>智能组卷</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>智能组卷</span>
 						</div>
 
 						<div class="houtai_all_neirong" >
-							<img class="folder" src="image/folder.png">&nbsp; <span>试卷列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>试卷列表</span>
 						</div>
 					</div>
 				</div>

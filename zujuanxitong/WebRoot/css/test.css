@@ -65,7 +65,7 @@ a {
 
 .content_left {
 	float: left;
-	width: 10%;
+	width: 13%;
 	font-family: "Microsoft YaHei";
 	background: url("../image/content2.jpg");
 	position: absolute;
@@ -107,7 +107,7 @@ a {
 }
 
 .content_right_1{
-	width:90%;
+	width:87%;
 	float:right;
 	height:100%;
 	
@@ -158,7 +158,7 @@ a {
 } 
 
 .content_right, .content_right_2 {
-	width:90%;
+	width:87%;
 	float:right;
 	height:100%;
 	display: none;
