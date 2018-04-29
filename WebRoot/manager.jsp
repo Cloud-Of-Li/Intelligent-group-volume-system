@@ -118,29 +118,33 @@
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师电话</th>		
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
 						</tr>
-						<c:forEach items="${teacherlist}" var="teacher" >
+						<c:forEach items="${courseMap}" var="entry" >
 						
 						<tr>
 								<td>
-									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
+									<pre style="font-size: 18px">${entry.key.getTeacherId()}</pre>	
 								</td>
 								<td>
-									<pre style="font-size: 18px">${teacher.getTeacherName()}</pre>	
+									<pre style="font-size: 18px">${entry.key.getTeacherName()}</pre>	
 								</td>								
 								<td>
-									<c:if >
-										
-									</c:if>	
+									<pre style="font-size: 18px">${entry.key.getTeacherSex ()}</pre>	
+								</td>								
+								<td>
+									<pre style="font-size: 18px">${entry.key.getMajorid ()}</pre>	
+								</td>								
+								<td>
+									<c:forEach items="${entry.value }" var="course">
+										${course.getCourseName() }<br/>
+									</c:forEach>	
 								</td>
 								<td>
-									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
+									<pre style="font-size: 18px">${entry.key.getTeacherId()}</pre>	
 								</td>	
 								<td>
-									<pre style="font-size: 18px">${teacher.getTeacherPhone()}</pre>	
+									<pre style="font-size: 18px">${entry.key.getTeacherPhone()}</pre>	
 								</td>
-								<td>
-									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
-								</td>
+								
 								<td>
 									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
 								</td>
@@ -225,6 +229,7 @@
 					</form>
 				</div>
 	
+			</c:forEach>
 			</div>
 	
 		</div>		

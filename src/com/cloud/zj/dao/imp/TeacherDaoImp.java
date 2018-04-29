@@ -27,6 +27,7 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 				teacher.setTeacherPassword(rs.getString("teacherpassword"));
 				teacher.setTeacherSex(rs.getString("teachersex"));
 				teacher.setTeacherPhone(rs.getString("teacherphone"));
+				teacher.setMajorid(rs.getInt("majorid"));
 
 			}
 		} catch (SQLException e) {

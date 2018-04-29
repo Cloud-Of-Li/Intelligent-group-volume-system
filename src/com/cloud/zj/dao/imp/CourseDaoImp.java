@@ -5,13 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.cloud.zj.dao.CourseDao;
 import com.cloud.zj.db.DB;
 import com.cloud.zj.entity.Course;
+import com.cloud.zj.entity.Teacher;
 
 public class CourseDaoImp extends BaseDaoImp<Course> implements CourseDao {
 
@@ -70,4 +73,43 @@ public class CourseDaoImp extends BaseDaoImp<Course> implements CourseDao {
 		DB.close(conn);
 		return courseList;
 	}
+
+
+	@Override
+	public Map<Integer, List<Course>> findCourseByTList(List<Teacher> teacherlist) {
+		// TODO Auto-generated method stub
+		Map<Integer, List<Course>> map = new HashMap<>();
+		for(Teacher t : teacherlist) {
+			List<Course> courselist = findCourseByTid(t.getTeacherId());
+			map.put(t.getTeacherId(), courselist);
+		}
+		return map;
+
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

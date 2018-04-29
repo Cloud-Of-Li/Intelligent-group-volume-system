@@ -14,6 +14,7 @@ public class PaperService {
 
 	public PaperService() {
 		// TODO Auto-generated constructor stub
+		super();
 		paperDao = new PaperDaoImp();
 	}
 
@@ -26,7 +27,7 @@ public class PaperService {
 
 	public List<Paper> getAllPaper() {
 		// TODO Auto-generated method stub
-		return this.paperDao.findAll();
+		return this.paperDao.findAllpapers();
 	}
 	
 }

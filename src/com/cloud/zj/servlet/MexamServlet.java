@@ -2,6 +2,7 @@ package com.cloud.zj.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Teacher;
 import com.cloud.zj.generation.Paper;
+import com.cloud.zj.service.CourseService;
 import com.cloud.zj.service.ExamService;
 import com.cloud.zj.service.PaperService;
 import com.cloud.zj.service.TeacherService;
@@ -21,11 +24,13 @@ public class MexamServlet extends HttpServlet {
 	private ExamService examService;
 	private TeacherService teacherService;
 	private PaperService paperService;
+	private CourseService courseService;
 
 	public MexamServlet() {
 		examService = new ExamService();
 		teacherService = new TeacherService();
 		paperService = new PaperService();
+		courseService = new CourseService();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,12 +53,16 @@ public class MexamServlet extends HttpServlet {
 		List<Teacher> teacherlist = this.teacherService.getAllTeacher();
 		List<Paper> paperList = this.paperService.getAllPaper();
 		
+		Map<Integer, List<Course>> courseMap = this.courseService.getCourseByTList(teacherlist);
+		
+		
 		request.setAttribute("teacherlist", teacherlist);
+		request.setAttribute("courseMap", courseMap);
 		request.setAttribute("paperList", paperList);
 
 		String op = request.getParameter("op");
 		
-		
+		getServletContext().getRequestDispatcher("/manager.jsp").forward(request, response);
 		/*if ("add".equals(op)) {
 			String zhangjie = request.getParameter("add_zhangjie");
 			float diffculty = Float.parseFloat(request.getParameter("add_nandu"));

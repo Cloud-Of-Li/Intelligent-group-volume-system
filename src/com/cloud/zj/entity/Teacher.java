@@ -6,6 +6,7 @@ public class Teacher {
 	private String teacherPassword;
 	private String teacherSex;
 	private String teacherPhone;
+	private int majorid;
 	public String getTeacherSex() {
 		return teacherSex;
 	}
@@ -35,5 +36,11 @@ public class Teacher {
 	}
 	public void setTeacherPassword(String teacherPassword) {
 		this.teacherPassword = teacherPassword;
+	}
+	public int getMajorid() {
+		return majorid;
+	}
+	public void setMajorid(int majorid) {
+		this.majorid = majorid;
 	}
 }

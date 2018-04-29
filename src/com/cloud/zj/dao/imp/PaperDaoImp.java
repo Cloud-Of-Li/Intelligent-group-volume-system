@@ -17,7 +17,7 @@ import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 import com.cloud.zj.generation.RuleBean;
 
-public class PaperDaoImp extends BaseDaoImp<Paper> implements PaperDao {
+public class PaperDaoImp implements PaperDao {
 	
 	
 	private CourseDao courseDao;
@@ -178,5 +178,44 @@ public class PaperDaoImp extends BaseDaoImp<Paper> implements PaperDao {
 		DB.close(stmt);
 		DB.close(conn);
 		return count;
+	}
+
+	@Override
+	public List<Paper> findAllpapers() {
+		String sql = "select * from paper";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Paper> paperlist = new ArrayList<>();
+		Paper paper = null;
+		try {
+			while (rs.next()) {
+				paper = new Paper();
+				paper.setId(rs.getInt("id"));
+				paper.setPaperName(rs.getString("papername"));
+				paper.setCourseId(rs.getInt("courseid"));
+				paper.setAdaptationDegree(rs.getDouble("adaptationdegree"));
+				String questionStr = rs.getString("examlist");
+				paper.setQuestionList(changeStrtoList(questionStr));
+				paper.setTotalScore(rs.getDouble("totalscore"));
+				paper.setDifficulty(rs.getDouble("diffculty"));
+				paper.setCreateTime(rs.getTimestamp("createtime"));
+				paper.setkPCoverage(rs.getDouble("kpcoverage"));
+				paper.setSingleScore(rs.getDouble("singlescore"));
+				paper.setMultiScore(rs.getDouble("multiscore"));
+				paper.setCompeleteScore(rs.getDouble("completescore"));
+				paper.setTfScore(rs.getDouble("tfscore"));
+				paper.setSubjectScore(rs.getDouble("subjectscore"));
+				paperlist.add(paper);
+				
+			}
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return paperlist;
 	}
 }
