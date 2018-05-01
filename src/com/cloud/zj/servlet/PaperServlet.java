@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
+import com.cloud.zj.service.CourseService;
 import com.cloud.zj.service.ExamService;
 import com.cloud.zj.service.PaperService;
 
@@ -21,12 +22,13 @@ public class PaperServlet extends HttpServlet {
 	
 	private PaperService paperService;
 	private ExamService examService;
-	
+	private CourseService courseService;
 
 	public PaperServlet() {
 		// TODO Auto-generated constructor stub
 		paperService = new PaperService();
 		examService = new ExamService();
+		courseService = new CourseService();
 	}
 
 	/**
@@ -48,8 +50,8 @@ public class PaperServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Course course = (Course)session.getAttribute("course");
 		if(course == null){
-			response.sendRedirect("/zujuanxitong/login.html");
-			return;
+			String coursestr = request.getParameter("paperName").substring(0, request.getParameter("paperName").indexOf("-"));
+			course = this.courseService.getCourseByName(coursestr);
 		}
 		List<Exam> danxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"单选题");
 		List<Exam> duoxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(),"多选题");
@@ -66,7 +68,7 @@ public class PaperServlet extends HttpServlet {
 		request.setAttribute("jianda_exam", jianda_exam);
 		request.setAttribute("paperList", paperList);
 		
-
+		
 		String paperName = request.getParameter("paperName");
 		System.out.println("paperName:" +paperName);
 		Paper paper = this.paperService.getPaperByPaperName(paperName);
@@ -92,9 +94,14 @@ public class PaperServlet extends HttpServlet {
 		request.setAttribute("paper_jianda_exam", paper_jianda_exam);
 		
 		request.setAttribute("paper", paper);
-		request.getRequestDispatcher("/test.jsp").forward(request, response);
-			
-		}
 		
+		String op = request.getParameter("op");
+
+		if("paper4manager".equals(op)) {
+			request.getRequestDispatcher("/mexamServlet").forward(request, response);
+		} else if("paper".equals(op)) {
+			request.getRequestDispatcher("/test.jsp").forward(request, response);
+		}
+	}
 	
 }

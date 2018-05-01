@@ -25,5 +25,15 @@ public class CourseService {
 		// TODO Auto-generated method stub
 		return this.courseDao.findCourseByTList(teacherlist);
 	}
+
+	public List<Course> getAllCourse() {
+		// TODO Auto-generated method stub
+		return this.courseDao.findAllCourse();
+	}
+
+	public Course getCourseByName(String coursestr) {
+		// TODO Auto-generated method stub
+		return this.courseDao.findCourseByName(coursestr);
+	}
 	
 }

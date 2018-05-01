@@ -12,4 +12,8 @@ public interface CourseDao extends BaseDao<Course>{
 
 	public Map<Integer, List<Course>> findCourseByTList(List<Teacher> teacherlist);
 
+	public List<Course> findAllCourse();
+
+	public Course findCourseByName(String coursestr);
+
 }

@@ -86,6 +86,61 @@ public class CourseDaoImp extends BaseDaoImp<Course> implements CourseDao {
 		return map;
 
 	}
+
+
+	@Override
+	public List<Course> findAllCourse() {
+		// TODO Auto-generated method stub
+		String sql = "select * from course";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Course> courseidList = new ArrayList<>();
+		Set<Course> courseSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				Course course = new Course();
+				course.setCourseId(rs.getInt("courseid"));
+				course.setCourseName(rs.getString("courseName"));
+				course.setMajorId(rs.getInt("majorId"));
+				if(courseSet.add(course)) {
+					courseidList.add(course);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return courseidList;
+	}
+
+
+	@Override
+	public Course findCourseByName(String coursestr) {
+		String sql = "select * from course where coursename = '" + coursestr +"'";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		Course course = null;
+		try {
+			while (rs.next()) {
+				course = new Course();
+				course.setCourseId(rs.getInt("courseid"));
+				course.setCourseName(rs.getString("courseName"));
+				course.setMajorId(rs.getInt("majorId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return course;
+	}
 }
 
 

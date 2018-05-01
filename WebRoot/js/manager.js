@@ -4,7 +4,7 @@ $(function() {
 	$.getUrlParam = function(name) {  
 		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
 		var r = window.location.search.substr(1).match(reg);  
-		if (r!=null) return unescape(r[2]); return null;  
+		if (r!=null) return decodeURI(r[2]); return null;  
 	}
 	
 	/*function toRed(content,fanwei){
@@ -37,6 +37,9 @@ $(function() {
 	
 	var op = $.getUrlParam('op');
 	var xingshi = $.getUrlParam('xingshi');
+	var foronekecheng = $.getUrlParam('kecheng');
+	var leixing = $.getUrlParam('leixing');
+	
 	
 	/*表示是现在的操作是搜索*/
 	if(op == "search") {
@@ -59,12 +62,44 @@ $(function() {
 			clearSelection(".searched_nandu");
 			highlight(".searched_nandu");
 		} 
-	} else if(op == "paper") {
+	} else if(op == "paper" || op == "paper4manager") {
 		$("#shijuanlistId").css("display" ,"block");
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
 		$("#list_shijuan").css("display", "block");
+	} else if(op == "list") {
+		 if(leixing == "单选题") {
+			$("#shitilistId").css("display", "block");
+			$(".content_right").css("display", "none");
+			$(".content_right_1").css("display", "none");
+			$(".content_right_2").css("display", "none");
+			$("#list_danxuan").css("display", "block");
+		 }else if(leixing == "多选题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_duoxuan").css("display", "block");
+		 } else if(leixing == "判断题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_panduan").css("display", "block");
+		 }else  if(leixing == "填空题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_tiankong").css("display", "block");
+		 }else  if(leixing == "简答题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_jianda").css("display", "block");
+		 }
 	}
 	
 	
@@ -420,7 +455,8 @@ $(function() {
 		var leixing =$("#serch4leixing option:checked").val();
 		var xingshi =$("#serch4xingshi option:checked").val();
 		var xinxi = $(this).prev().val();
-		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi;
+		var kecheng = $("#serch4kecheng option:checked").val();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi+ "&kecheng=" + kecheng;
 	})
 	
 	
@@ -432,7 +468,7 @@ $(function() {
 			return;
 		}
 		
-		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paper&paperName=" + paperName;
+		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paper4manager&paperName=" + paperName;
 	})
 	
 	
@@ -491,12 +527,47 @@ $(function() {
 		}
 		alert("添加试题成功!!!");
 		
-		$("#form_add_shiti").attr("action", "examServlet?op=add");
+		$("#form_add_shiti").attr("action", "mexamServlet?op=add");
 		
 	})
 	
 	/**/
 
+	
+	$("#danxuan_search_querenchazhao").click(function() {
+		var kecheng = $("#danxuan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=list&kecheng=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#duoxuan_search_querenchazhao").click(function() {
+		var kecheng = $("#duoxuan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=list&kecheng=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#panduan_search_querenchazhao").click(function() {
+		var kecheng = $("#panduan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=list&kecheng=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#tiankong_search_querenchazhao").click(function() {
+		var kecheng = $("#tiankong_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=list&kecheng=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#jianda_search_querenchazhao").click(function() {
+		var kecheng = $("#jianda_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=list&kecheng=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$(".foronekecheng").text(foronekecheng);
+	
+	
+	
 });
 
 

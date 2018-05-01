@@ -55,7 +55,7 @@
 					<div class="houtai_coment_all">
 						试题列表
 					</div>
-					<div class="houtai_all">
+					<div class="houtai_all" id="shitilistId">
 						<div class="houtai_all_neirong">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>单选题列表</span>
 						</div>
@@ -118,31 +118,36 @@
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师电话</th>		
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
 						</tr>
-						<c:forEach items="${courseMap}" var="entry" >
+						<c:forEach items="${teacherlist}" var="teacher" >
 						
 						<tr>
 								<td>
-									<pre style="font-size: 18px">${entry.key.getTeacherId()}</pre>	
+									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
 								</td>
 								<td>
-									<pre style="font-size: 18px">${entry.key.getTeacherName()}</pre>	
+									<pre style="font-size: 18px">${teacher.getTeacherName()}</pre>	
 								</td>								
 								<td>
-									<pre style="font-size: 18px">${entry.key.getTeacherSex ()}</pre>	
+									<pre style="font-size: 18px">${teacher.getTeacherSex ()}</pre>	
 								</td>								
 								<td>
-									<pre style="font-size: 18px">${entry.key.getMajorid ()}</pre>	
+									<pre style="font-size: 18px">${teacher.getMajorid ()}</pre>	
 								</td>								
 								<td>
-									<c:forEach items="${entry.value }" var="course">
-										${course.getCourseName() }<br/>
+									<c:forEach items="${courseMap }" var="entry">
+										<c:if test="${entry.key == teacher.getTeacherId()}">
+											<c:if test="${entry.value.size() == 0 }" >
+												<a style="color: blue">添加</a>
+											</c:if>
+											<c:forEach items="${entry.value }" var="course">
+												${course.getCourseName() }<br/>
+											</c:forEach>
+										</c:if>
 									</c:forEach>	
 								</td>
+								
 								<td>
-									<pre style="font-size: 18px">${entry.key.getTeacherId()}</pre>	
-								</td>	
-								<td>
-									<pre style="font-size: 18px">${entry.key.getTeacherPhone()}</pre>	
+									<pre style="font-size: 18px">${teacher.getTeacherPhone()}</pre>	
 								</td>
 								
 								<td>
@@ -171,33 +176,45 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-			<c:forEach items="${danxuan_exam}" var="danxuan_exam_var" >
 				<div class="content_main_content">
 					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list">
+					<table class="table_infomations_list"> 
 						<tr>
-							<th>所属课程:</th>
+							<td>所属课程:&nbsp;&nbsp;</td>
 							<td>
-								<select name="search_xingshi"  id="serch4xingshi">
-										<option value="1" >&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
-										<option value="2" >&nbsp;&nbsp;计算机组成原理&nbsp;&nbsp;</option>
-										<option value="3" >&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+								<select name="search_d_kecheng"  id="danxuan_serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
 								</select>
-								<button class="search_querenchazhao">确认查找</button>
+								<button class="list_search_querenchazhao" id="danxuan_search_querenchazhao">确认查找<span>单选题</span></button>
 							</td>
 						</tr>
-						
-						
 						
 						<tr>
 							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 						</tr>
 						
-						
+						<c:if test="${danxuan_exam.size() == 0}">
+							<tr>
+								<td></td>
+								<td>
+									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								</td>
+							</tr>
+						</c:if>	
 											
-						<c:if test="${examforSeacher.size() != 0}">
+						
+						
+							<tr>
+								<td colspan="3" style="text-align: center">
+									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+								</td>	
+							</tr>						
+						<c:if test="${danxuan_exam.size() != 0}">
+						
 							<c:set var="x" value="0"/>
-							<c:forEach items="${examforSeacher}" var="examforSeacher_var" >
+							<c:forEach items="${danxuan_exam}" var="examforSeacher_var" >
 								<c:set var="x" value="${x+1 }"/>
 									<tr>
 											<th class="th4neirong">试题内容：</th>
@@ -212,12 +229,6 @@
 											</td>
 									</tr>
 									<tr>
-											<th class="th4neirong">试题分数：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_score">${examforSeacher_var.getExamScore() }</pre>	
-											</td>
-									</tr>
-									<tr>
 										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 									</tr>
 							</c:forEach>
@@ -228,10 +239,8 @@
 					</table>
 					</form>
 				</div>
-	
-			</c:forEach>
 			</div>
-	
+			
 		</div>		
 		
 	<!-- 多选题列表 -->
@@ -246,45 +255,69 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-				<c:forEach items="${duoxuan_exam}" var="duoxuan_exam_var" >
-					<div class="content_main_content">
-						<table class="table_infomations_list">
-							
+				<div class="content_main_content">
+					<form method="post" action="javascript:void(0)">
+					<table class="table_infomations_list"> 
+						<tr>
+							<td>所属课程:&nbsp;&nbsp;</td>
+							<td>
+								<select name="search_d_kecheng"  id="duoxuan_serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+								</select>
+								<button class="list_search_querenchazhao" id="duoxuan_search_querenchazhao">确认查找<span>多选题</span></button>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+						</tr>
+						
+						<c:if test="${duoxuan_exam.size() == 0}">
 							<tr>
-									<th class="th4neirong">试题内容：</th>
-									<td>
-										<pre style="font-size: 18px">${duoxuan_exam_var.getExamContent() }</pre>	
-									</td>
+								<td></td>
+								<td>
+									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								</td>
 							</tr>
+						</c:if>	
+					
+						
 							<tr>
-									<th class="th4neirong">试题答案：</th>
-									<td>
-										<pre style="font-size: 18px">${duoxuan_exam_var.getExamAnwser() }</pre>	
-									</td>
-							</tr>
-							<tr>
-									<th class="th4neirong">所属章节：</th>
-									<td>
-										<pre style="font-size: 18px">${duoxuan_exam_var.getExamChapter() }</pre>	
-									</td>
-							</tr>
-							<tr>
-									<th class="th4neirong">试题难度：</th>
-									<td>
-										<pre style="font-size: 18px">${duoxuan_exam_var.getExamDegree() }</pre>	
-									</td>
-							</tr>
-							<tr>
-									<th class="th4neirong">试题分数：</th>
-									<td>
-										<pre style="font-size: 18px">${duoxuan_exam_var.getExamScore() }</pre>	
-									</td>
-							</tr>
-							
-						</table>
-					<hr /><br>
+								<td colspan="3" style="text-align: center">
+									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+								</td>	
+							</tr>						
+												
+						<c:if test="${duoxuan_exam.size() != 0}">
+						
+							<c:set var="x" value="0"/>
+							<c:forEach items="${duoxuan_exam}" var="examforSeacher_var" >
+								<c:set var="x" value="${x+1 }"/>
+									<tr>
+											<th class="th4neirong">试题内容：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+											</td>
+									</tr>
+									<tr>
+											<th class="th4neirong">试题难度：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+											</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+									</tr>
+							</c:forEach>
+						</c:if>
+						
+						
+						
+					</table>
+					</form>
 				</div>
-			</c:forEach>
 	
 			</div>
 
@@ -302,45 +335,69 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-				<c:forEach items="${tiankong_exam}" var="tiankong_exam_var" >
-					<div class="content_main_content">
-							<table class="table_infomations_list">
-								
-								<tr>
-										<th class="th4neirong">试题内容：</th>
-										<td>
-											<pre style="font-size: 18px">${tiankong_exam_var.getExamContent() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题答案：</th>
-										<td>
-											<pre style="font-size: 18px">${tiankong_exam_var.getExamAnwser() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">所属章节：</th>
-										<td>
-											<pre style="font-size: 18px">${tiankong_exam_var.getExamChapter() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题难度：</th>
-										<td>
-											<pre style="font-size: 18px">${tiankong_exam_var.getExamDegree() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题分数：</th>
-										<td>
-											<pre style="font-size: 18px">${tiankong_exam_var.getExamScore() }</pre>	
-										</td>
-								</tr>
-								
-							</table>
-						<hr /><br>
-					</div>
-				</c:forEach>
+				<div class="content_main_content">
+					<form method="post" action="javascript:void(0)">
+					<table class="table_infomations_list"> 
+						<tr>
+							<td>所属课程:&nbsp;&nbsp;</td>
+							<td>
+								<select name="search_d_kecheng"  id="tiankong_serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+								</select>
+								<button class="list_search_querenchazhao" id="tiankong_search_querenchazhao">确认查找<span>填空题</span></button>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+						</tr>
+						
+						<c:if test="${tiankong_exam.size() == 0}">
+							<tr>
+								<td></td>
+								<td>
+									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								</td>
+							</tr>
+						</c:if>	
+											
+					
+							<tr>
+								<td colspan="3" style="text-align: center">
+									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+								</td>	
+							</tr>						
+							<c:if test="${tiankong_exam.size() != 0}">
+						
+						
+							<c:set var="x" value="0"/>
+							<c:forEach items="${tiankong_exam}" var="examforSeacher_var" >
+								<c:set var="x" value="${x+1 }"/>
+									<tr>
+											<th class="th4neirong">试题内容：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+											</td>
+									</tr>
+									<tr>
+											<th class="th4neirong">试题难度：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+											</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+									</tr>
+							</c:forEach>
+						</c:if>
+						
+						
+						
+					</table>
+					</form>
+				</div>
 	
 	
 			</div>
@@ -360,45 +417,69 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-				<c:forEach items="${panduan_exam}" var="panduan_exam_var" >
-					<div class="content_main_content">
-							<table class="table_infomations_list">
-								
-								<tr>
-										<th class="th4neirong">试题内容：</th>
-										<td>
-											<pre style="font-size: 18px">${panduan_exam_var.getExamContent() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题答案：</th>
-										<td>
-											<pre style="font-size: 18px">${panduan_exam_var.getExamAnwser() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">所属章节：</th>
-										<td>
-											<pre style="font-size: 18px">${panduan_exam_var.getExamChapter() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题难度：</th>
-										<td>
-											<pre style="font-size: 18px">${panduan_exam_var.getExamDegree() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题分数：</th>
-										<td>
-											<pre style="font-size: 18px">${panduan_exam_var.getExamScore() }</pre>	
-										</td>
-								</tr>
-								
-							</table>
-						<hr /><br>
-					</div>
-				</c:forEach>
+				<div class="content_main_content">
+					<form method="post" action="javascript:void(0)">
+					<table class="table_infomations_list"> 
+						<tr>
+							<td>所属课程:&nbsp;&nbsp;</td>
+							<td>
+								<select name="search_d_kecheng"  id="panduan_serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+								</select>
+								<button class="list_search_querenchazhao" id="panduan_search_querenchazhao">确认查找<span>判断题</span></button>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+						</tr>
+						
+						<c:if test="${panduan_exam.size() == 0}">
+							<tr>
+								<td></td>
+								<td>
+									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								</td>
+							</tr>
+						</c:if>	
+											
+					
+						
+							<tr>
+								<td colspan="3" style="text-align: center">
+									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+								</td>	
+							</tr>						
+							<c:if test="${panduan_exam.size() != 0}">
+						
+							<c:set var="x" value="0"/>
+							<c:forEach items="${panduan_exam}" var="examforSeacher_var" >
+								<c:set var="x" value="${x+1 }"/>
+									<tr>
+											<th class="th4neirong">试题内容：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+											</td>
+									</tr>
+									<tr>
+											<th class="th4neirong">试题难度：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+											</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+									</tr>
+							</c:forEach>
+						</c:if>
+						
+						
+						
+					</table>
+					</form>
+				</div>
 	
 			</div>
 
@@ -417,45 +498,69 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-					<c:forEach items="${jianda_exam}" var="jianda_exam_var" >
 					<div class="content_main_content">
-							<table class="table_infomations_list">
-								
-								<tr>
-										<th class="th4neirong">试题内容：</th>
-										<td>
-											<pre style="font-size: 18px">${jianda_exam_var.getExamContent() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题答案：</th>
-										<td>
-											<pre style="font-size: 18px">${jianda_exam_var.getExamAnwser() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">所属章节：</th>
-										<td>
-											<pre style="font-size: 18px">${jianda_exam_var.getExamChapter() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题难度：</th>
-										<td>
-											<pre style="font-size: 18px">${jianda_exam_var.getExamDegree() }</pre>	
-										</td>
-								</tr>
-								<tr>
-										<th class="th4neirong">试题分数：</th>
-										<td>
-											<pre style="font-size: 18px">${jianda_exam_var.getExamScore() }</pre>	
-										</td>
-								</tr>
-								
-							</table>
-						<hr /><br>
-					</div>
-				</c:forEach>
+					<form method="post" action="javascript:void(0)">
+					<table class="table_infomations_list"> 
+						<tr>
+							<td>所属课程:&nbsp;&nbsp;</td>
+							<td>
+								<select name="search_d_kecheng"  id="jianda_serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+								</select>
+								<button class="list_search_querenchazhao" id="jianda_search_querenchazhao">确认查找<span>简答题</span></button>
+							</td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+						</tr>
+						
+						<c:if test="${jianda_exam.size() == 0}">
+							<tr>
+								<td></td>
+								<td>
+									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								</td>
+							</tr>
+						</c:if>	
+											
+						<tr>
+							<td colspan="3" style="text-align: center">
+								<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+							</td>	
+						</tr>						
+						<c:if test="${jianda_exam.size() != 0}">
+						
+						
+						
+							<c:set var="x" value="0"/>
+							<c:forEach items="${jianda_exam}" var="examforSeacher_var" >
+								<c:set var="x" value="${x+1 }"/>
+									<tr>
+											<th class="th4neirong">试题内容：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+											</td>
+									</tr>
+									<tr>
+											<th class="th4neirong">试题难度：</th>
+											<td>
+												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+											</td>
+									</tr>
+									<tr>
+										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+									</tr>
+							</c:forEach>
+						</c:if>
+						
+						
+						
+					</table>
+					</form>
+				</div>
 			</div>
 
 	
@@ -499,10 +604,10 @@
 								</select>
 							</td>
 							<td>所属课程:&nbsp;&nbsp;
-								<select name="search_xingshi"  id="serch4xingshi">
-										<option value="1" >&nbsp;&nbsp;离散数学&nbsp;&nbsp;</option>
-										<option value="2" >&nbsp;&nbsp;计算机组成原理&nbsp;&nbsp;</option>
-										<option value="3" >&nbsp;&nbsp;高等数学&nbsp;&nbsp;</option>
+								<select name="search_xingshi"  id="serch4kecheng">
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
 								</select>
 							</td>
 						</tr>
@@ -535,6 +640,14 @@
 						</c:if>	
 											
 						<c:if test="${examforSeacher.size() != 0}">
+						
+							<tr>
+								<td colspan="3" style="text-align: center">
+									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+								</td>	
+							</tr>						
+						
+						
 							<c:set var="x" value="0"/>
 							<c:forEach items="${examforSeacher}" var="examforSeacher_var" >
 								<c:set var="x" value="${x+1 }"/>
@@ -598,75 +711,33 @@
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">难度系数</th>		
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作</th>		
 						</tr>
+						
+						<c:forEach items="${paperList}" var="paper" >
 						<tr>
 								<td>
-									<pre style="font-size: 18px">001</pre>	
+									<pre style="font-size: 14px; width:250px;">${paper.getPaperName()}</pre>	
 								</td>
 								<td>
-									<pre style="font-size: 18px">坚铨</pre>	
+									<pre style="font-size: 18px">${paper.getPaperName().substring(0, paper.getPaperName().indexOf("-"))}</pre>	
 								</td>								
 								<td>
-									<pre style="font-size: 18px">男</pre>	
+									<pre style="font-size: 18px">${paper.getAdaptationDegree() }</pre>	
+								</td>								
+								<td>
+									<pre style="font-size: 18px">${paper.getTotalScore()}</pre>	
+								</td>								
+								<td>
+									<pre style="font-size: 15px">${paper.getCreateTime()}</pre>	
 								</td>
 								<td>
-									<pre style="font-size: 18px">计算机科学与技术</pre>	
+									<pre style="font-size: 18px">${paper.getDifficulty()}</pre>	
 								</td>	
-								<td>
-									<pre style="font-size: 18px">心理学</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">18826497005</pre>	
-								</td>
 								<td>
 									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
 								</td>
 						</tr>
-						<tr>
-								<td>
-									<pre style="font-size: 18px">001</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">坚铨</pre>	
-								</td>								
-								<td>
-									<pre style="font-size: 18px">男</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">计算机科学与技术</pre>	
-								</td>	
-								<td>
-									<pre style="font-size: 18px">心理学</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">18826497005</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
-								</td>
-						</tr>
-						<tr>
-								<td>
-									<pre style="font-size: 18px">001</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">坚铨</pre>	
-								</td>								
-								<td>
-									<pre style="font-size: 18px">男</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">计算机科学与技术</pre>	
-								</td>	
-								<td>
-									<pre style="font-size: 18px">心理学</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px">18826497005</pre>	
-								</td>
-								<td>
-									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
-								</td>
-						</tr>
+						</c:forEach>
+						
 						
 					</table>
 				</div>
@@ -692,8 +763,9 @@
 								<th>所属课程：</th>
 								<td>
 									<select name="add_kecheng" id="shiti4kecheng" class="add_shiti_list">
-										<option value="#">--请选择--</option>
-										<option value="${sessionScope.course.courseName}">&nbsp;&nbsp;${sessionScope.course.courseName}&nbsp;&nbsp;</option>
+										<c:forEach items="${courselist }" var="course">
+											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+										</c:forEach>
 									</select>
 								</td>
 							</tr>
@@ -706,9 +778,14 @@
 								<td>
 									<select name="add_zhangjie" id="zhangjie" class="add_shiti_list">
 										<option value="#">--请选择--</option>
-										<c:forEach items="${chapterList }" var="chapter">
-											<option value="${chapter }">&nbsp;&nbsp;${chapter }&nbsp;&nbsp;</option>
-										</c:forEach>
+											<option value="第一章">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+											<option value="第二章">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+											<option value="第三章">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+											<option value="第四章">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+											<option value="第五章">&nbsp;&nbsp;第五章&nbsp;&nbsp;</option>
+											<option value="第六章">&nbsp;&nbsp;第六章&nbsp;&nbsp;</option>
+											<option value="第七章">&nbsp;&nbsp;第七章&nbsp;&nbsp;</option>
+											<option value="第八章">&nbsp;&nbsp;第八章&nbsp;&nbsp;</option>
 									</select>
 								</td>
 							</tr>
