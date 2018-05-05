@@ -170,6 +170,7 @@ $(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display", "none");
 		if ($(this).children("span").text() == "搜索试题") {
 			$("#search_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "单选题列表") {
@@ -565,6 +566,102 @@ $(function() {
 	})
 	
 	$(".foronekecheng").text(foronekecheng);
+	
+	
+	$(".delete_teacher").click(function() {
+		var teacherName = $(this).parents("tr").children("td").eq(1).children("pre").text();
+		var teacherid = $(this).parents("tr").children("td").eq(0).children("pre").text();
+		var flag = confirm("确定删除吗? 提示：删除之后无法恢复!!!");
+		if(flag) {
+			alert("确认删除 " + teacherName + "老师!!!");
+			location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=delete&teacherid=" + teacherid;
+		}
+	})
+	
+	
+	$(".update_teacher").click(function() {
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display","block");
+		var teacherName = $(this).parents("tr").children("td").eq(1).children("pre").text();
+		var teacherid = $(this).parents("tr").children("td").eq(0).children("pre").text();
+		var teacherphone = $(this).parents("tr").children("td").eq(5).children("pre").text();
+		var teacherid_4 = $('input[name="update_teacherid"]').val(teacherid);
+		var teachername_4 = $('input[name="update_teachername"]').val(teacherName);
+		var teacherphoto_4 = ($("#update_teacherphoto").attr('src',"image/"+ teacherName +".jpg"));
+		var teacherphone_4 = ($('input[name="update_teacherphone"]').val(teacherphone));
+		
+	})
+	
+	$("#queren_update").click(function() {
+		var teacherid = $('input[name="update_teacherid"]').val();
+		var teachername = $('input[name="update_teachername"]').val();
+		var teachersex = $('input[name="selector2"]:checked').val();
+		var teachermajorid = $('#update_major option:checked').val();
+		
+		if(teachersex == null) {
+			$("#jiaohsixingbiequeren").prev().css("display","table-cell");
+			$("#jiaohsixingbiequeren").css("display","table-cell");
+			return;
+		}
+		
+		var techercourseid = $("input:checkbox[name='chc_kecheng']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join('_');
+		
+		if(techercourseid == '') {
+			$("#suojiaokechengqueren").prev().css("display","table-cell");
+			$("#suojiaokechengqueren").css("display","table-cell");
+			return;
+		}
+		
+		var teacherphone = $('input[name="update_teacherphone"]').val();
+		if(teacherphone == "") {
+			$("#dianhuaqueren").prev().css("display","table-cell");
+			$("#dianhuaqueren").children("span").text("*请输入电话号码！");
+			$("#dianhuaqueren").css("display","table-cell");
+			return;
+		} else if(!teacherphone.match(/^(((13[0-9]{1})|159|153|(18[0-9]{1}))+\d{8})$/)) { 
+			$("#dianhuaqueren").prev().css("display","table-cell");
+			$("#dianhuaqueren").children("span").text("*该电话号码不存在！");
+			$("#dianhuaqueren").css("display","table-cell");
+			return;
+		}
+		
+		var a = $.ajax({
+			
+			url : 'mexamServlet?op=update',
+			type : 'post',
+			data : '{"teacherid":"' + teacherid + '","teachername":"' + teachername + '","teachersex":"' + teachersex 
+					+ '","teacherphone":"' +teacherphone + '","techercourse":"' + techercourseid + '","teachermajorid":"' + teachermajorid +'"}',
+			//dataType:'json',   //指定返回值类型 
+			contentType : 'application/json;charset=utf-8',
+			success : function(data) {
+					alert("教师信息修改成功！！！！");
+					location.href = "http://localhost:8080/zujuanxitong/mexamServlet";
+			}
+		});
+		
+		
+		
+	})
+	 $('input[name="update_teacherphone"]').click(function() {
+		 	$("#dianhuaqueren").prev().css("display","none");
+			$("#dianhuaqueren").css("display","none");
+	 })
+	
+	 $("input:checkbox[name='chc_kecheng']").click(function() {
+		 	$("#suojiaokechengqueren").prev().css("display","none");
+			$("#suojiaokechengqueren").css("display","none");
+	 })
+	
+	$('input[name="selector2"]').click(function() {
+		 	$("#jiaohsixingbiequeren").prev().css("display","none");
+			$("#jiaohsixingbiequeren").css("display","none");
+	 })
+	
+	
 	
 	
 	

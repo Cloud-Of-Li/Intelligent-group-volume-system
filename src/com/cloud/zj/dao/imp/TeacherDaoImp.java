@@ -40,4 +40,80 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 
 		return teacher;
 	}
+
+	@Override
+	public void deleteByid(int teacherid) {
+		String sql1 = "delete from t4c where teacherid = " + teacherid;
+		String sql = "delete from teacher where teacherid = " + teacherid;		
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql1);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+	@Override
+	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone,
+			String teachermajorid) {
+		String sql = "update teacher set TeacherSex = '" + teachersex + "', " + "TeacherPhone = '" + teacherphone + "', " + "Majorid = "+ teachermajorid + " where teacherid= " + teacherid;
+		System.out.println(sql);
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+		
+	}
+
+	@Override
+	public void updateT4C(String teacherid, String techercourse) {
+		// TODO Auto-generated method stub
+		
+		String sql = "delete from t4c where teacherid = " + teacherid;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		String[] courseStr = techercourse.split("_");
+		int[] teacherCourseNums  = new int[courseStr.length]; 
+		for(int i =0; i < teacherCourseNums.length; i++) {
+			teacherCourseNums[i] =Integer.parseInt(courseStr[i]); 
+		}
+		for(int i =0; i < teacherCourseNums.length; i++) {
+			sql =  "insert into T4c(teacherid,courseid) values(" + teacherid + "," + teacherCourseNums[i] + ")";
+			System.out.println(sql);
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

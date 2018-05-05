@@ -55,6 +55,23 @@ private ManagerDao managerDao;
 		// TODO Auto-generated method stub
 		return this.teacherDao.findAll();
 	}
+
+	public void putOutTeacher(int teacherid) {
+		// TODO Auto-generated method stub
+		this.teacherDao.deleteByid(teacherid);
+	}
+
+	public void reflashTeacher(String teacherid, String teachername, String teachersex, String teacherphone,
+			String teachermajorid) {
+		// TODO Auto-generated method stub
+		this.teacherDao.updateTeacher(teacherid,teachername,teachersex,teacherphone,teachermajorid);
+		
+	}
+
+	public void reflashT4C(String teacherid, String techercourse) {
+		// TODO Auto-generated method stub
+		this.teacherDao.updateT4C(teacherid,techercourse);
+	}
 	
 }
 

@@ -118,8 +118,8 @@
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师电话</th>		
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
 						</tr>
-						<c:forEach items="${teacherlist}" var="teacher" >
-						
+						<c:forEach items="${teacherlist}" var="teacher">
+						<c:set var="x" value="0" />
 						<tr>
 								<td>
 									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
@@ -131,13 +131,13 @@
 									<pre style="font-size: 18px">${teacher.getTeacherSex ()}</pre>	
 								</td>								
 								<td>
-									<pre style="font-size: 18px">${teacher.getMajorid ()}</pre>	
+									<pre style="font-size: 18px">${majorlist.get(0).getMajorName() }</pre>	
 								</td>								
 								<td>
 									<c:forEach items="${courseMap }" var="entry">
 										<c:if test="${entry.key == teacher.getTeacherId()}">
 											<c:if test="${entry.value.size() == 0 }" >
-												<a style="color: blue">添加</a>
+												<input type="text" name="add_zhuanye" style="width:130px" disabled="disabled"/>
 											</c:if>
 											<c:forEach items="${entry.value }" var="course">
 												${course.getCourseName() }<br/>
@@ -151,11 +151,115 @@
 								</td>
 								
 								<td>
-									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
+									<pre style="font-size: 18px"><a style="color: red" class="delete_teacher">删除</a> | <a style="color: red" class="update_teacher">修改</a></pre>	
 								</td>
 						</tr>
 						</c:forEach>
 					</table>
+				</div>
+	
+			</div>
+	
+		</div>
+		
+		<!-- ====================================================教师信息内容更改==================================================== -->
+		<div class="content_right_1_update" style="display:none">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>教师信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form action="javascript:void(0)" method="post">
+					<table class="table_infomations_teacher">
+						<tr>
+								<th class="th4neirong">教师编号：</th>
+								<td style="width:500px;">
+									<input type="text" name="update_teacherid"  disabled="disabled"/>
+								</td>
+
+								<td rowspan="6" ><img id="update_teacherphoto" src="image/${udpate_teacher.teacherName}.jpg" class="teacher_photo"></td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师姓名：</th>
+								<td>
+									<input type="text" name="update_teachername"   value="${update_teacher.teacherName }" disabled="disabled"/>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师性别：</th>
+								<td>
+									<input type="radio" name="selector2" value="男" style="width:12px; weight:12px; height:auto">
+											<label class="mm" style="color: black">男</label>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="selector2" value="女" style="width:12px; weight:12px;height:auto">
+											<label class="mm" style="color: black">女</label>
+								</td>
+						</tr>
+						
+						<tr>
+							<td style="display:none"></td>
+							<td  id="jiaohsixingbiequeren" class="sousuokuang" style="display:none;"><span>*请选择教师性别</span></td>
+						</tr>
+						
+						
+						<tr>
+								<th class="th4neirong">所属专业：</th>
+								<td>
+									<select name="update_major_name"  id="update_major">
+										<c:forEach items="${majorall }" var="major">
+												<option value="${major.getMajorId() }" >&nbsp;&nbsp;${major.getMajorName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+									</select>
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所教课程：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:100px"></td>
+											<td style="text-align:left"> 
+												<c:forEach items="${courselist }" var="course">					
+													<input type="checkbox" name="chc_kecheng" value="${course.getCourseId() }"  style="width:12.8px; height:12.8"/>&nbsp;&nbsp;${course.getCourseName() }<br>
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
+						</tr>
+						
+						<tr>
+							<td style="display:none"></td>
+							<td  id="suojiaokechengqueren" class="sousuokuang" style="display:none;"><span>*请选择课程</span></td>
+						</tr>
+						
+						<tr>
+								<th class="th4neirong">教师电话：</th>
+								<td>
+									<input type="number" name="update_teacherphone"  value="${update_teacher.teacherPhone }"/>	
+								</td>
+						</tr>
+						
+						
+						<tr>
+							<td style="display:none"></td>
+							<td  id="dianhuaqueren" class="sousuokuang" style="display:none;"><span>*请填写电话号码</span></td>
+						</tr>
+				
+						<tr>
+								<td align="center" colspan="2">
+									<button id="queren_update">确认更改</button>&nbsp;&nbsp;
+									<a href="mexamServlet"><button type="button">返回上一层</button></a>
+								</td>
+						</tr>	
+					</table>				
+					</form>
 				</div>
 	
 			</div>
