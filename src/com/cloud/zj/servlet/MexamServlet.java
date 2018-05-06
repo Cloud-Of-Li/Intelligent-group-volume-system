@@ -149,19 +149,23 @@ public class MexamServlet extends HttpServlet {
 			this.examService.addExam(e);
 			response.sendRedirect("mexamServlet");
 		} else if ("delete".equals(op)) {
+			/*删除教师操作*/
 			int teacherid = Integer.parseInt(request.getParameter("teacherid"));
 			this.teacherService.putOutTeacher(teacherid);
 			response.sendRedirect("mexamServlet");
+		}  else if ("deletePaper".equals(op)) {
+			/*删除试卷操作*/
+			String paperName = request.getParameter("paperName");
+			this.paperService.putOutPaper(paperName);
+			response.sendRedirect("mexamServlet");
 		}  else if ("update".equals(op)) {
-			
+			/*更新教师信息*/
 			String json = readJSONString(request);
 			JSONObject jsonObject = null;
-			
 			String teacherid = "";
 			String teachername = "";
 			String teachersex = "";
 			String teacherphone = "";
-			String techercourse = "";
 			String teachermajorid = "";
 			
 			try {
@@ -170,25 +174,13 @@ public class MexamServlet extends HttpServlet {
 				teachername = jsonObject.getString("teachername");
 				teachersex = jsonObject.getString("teachersex");
 				teacherphone = jsonObject.getString("teacherphone");
-				techercourse = jsonObject.getString("techercourse");
 				teachermajorid = jsonObject.getString("teachermajorid");
 				
-			/*	System.out.println(teacherid);
-				System.out.println(teachername);
-				System.out.println(teachersex);
-				System.out.println(teacherphone);
-				System.out.println(techercourse);
-				System.out.println(teachermajorid);
-				*/
 				this.teacherService.reflashTeacher(teacherid,teachername,teachersex,teacherphone,teachermajorid);
-				this.teacherService.reflashT4C(teacherid,techercourse);
-				
-				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			response.sendRedirect("mexamServlet");
 		} else {
 			getServletContext().getRequestDispatcher("/manager.jsp").forward(request, response);

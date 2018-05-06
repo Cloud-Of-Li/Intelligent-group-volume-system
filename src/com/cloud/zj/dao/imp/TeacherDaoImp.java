@@ -87,6 +87,19 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 		DB.close(stmt);
 		DB.close(conn);
 	}
+
+	@Override
+	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone) {
+		// TODO Auto-generated method stub
+		String sql = "update teacher set TeacherSex = '" + teachersex + "', " + "TeacherPhone = '" + teacherphone + "', " + " where teacherid= " + teacherid;
+		System.out.println(sql);
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
 }
 
 

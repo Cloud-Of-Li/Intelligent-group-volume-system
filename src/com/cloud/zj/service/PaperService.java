@@ -29,5 +29,11 @@ public class PaperService {
 		// TODO Auto-generated method stub
 		return this.paperDao.findAllpapers();
 	}
+
+
+	public void putOutPaper(String paperName) {
+		// TODO Auto-generated method stub
+		this.paperDao.deletePaperByName(paperName);
+	}
 	
 }

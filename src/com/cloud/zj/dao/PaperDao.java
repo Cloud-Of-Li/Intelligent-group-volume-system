@@ -14,5 +14,7 @@ public interface PaperDao{
 	int getExamNumByCourseIdAndKind(Integer courseId, String string);
 
 	List<Paper> findAllpapers();
+
+	void deletePaperByName(String paperName);
 	
 }

@@ -11,4 +11,7 @@ public interface TeacherDao extends BaseDao<Teacher>{
 			String teachermajorid);
 
 	public void updateT4C(String teacherid, String techercourse);
+
+	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone);
+
 }

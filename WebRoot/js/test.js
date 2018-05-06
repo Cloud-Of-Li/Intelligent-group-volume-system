@@ -4,7 +4,7 @@ $(function() {
 	$.getUrlParam = function(name) {  
 		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");  
 		var r = window.location.search.substr(1).match(reg);  
-		if (r!=null) return unescape(r[2]); return null;  
+		if (r!=null) return decodeURI(r[2]); return null;  
 	}
 	
 	/*function toRed(content,fanwei){
@@ -37,6 +37,8 @@ $(function() {
 	
 	var op = $.getUrlParam('op');
 	var xingshi = $.getUrlParam('xingshi');
+	var leixing = $.getUrlParam('leixing');
+	var foronekecheng = $.getUrlParam('courseName');
 	
 	/*表示是现在的操作是搜索*/
 	if(op == "search") {
@@ -65,6 +67,38 @@ $(function() {
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
 		$("#list_shijuan").css("display", "block");
+	} else if(op == "list") {
+		 if(leixing == "单选题") {
+			$("#shitilistId").css("display", "block");
+			$(".content_right").css("display", "none");
+			$(".content_right_1").css("display", "none");
+			$(".content_right_2").css("display", "none");
+			$("#list_danxuan").css("display", "block");
+		 }else if(leixing == "多选题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_duoxuan").css("display", "block");
+		 } else if(leixing == "判断题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_panduan").css("display", "block");
+		 }else  if(leixing == "填空题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_tiankong").css("display", "block");
+		 }else  if(leixing == "简答题") {
+				$("#shitilistId").css("display", "block");
+				$(".content_right").css("display", "none");
+				$(".content_right_1").css("display", "none");
+				$(".content_right_2").css("display", "none");
+				$("#list_jianda").css("display", "block");
+		 }
 	}
 	
 	
@@ -73,6 +107,30 @@ $(function() {
 	if ($("#userName").text() == "") {
 		location.href = "http://localhost:8080/zujuanxitong/login.html"
 	}
+	
+	
+	
+	$("#logout").click(function() {
+		var a = $.ajax({
+			url : 'teacherServlet',
+			type : 'post',
+			data : '{"op":"logout"}',
+			//dataType:'json',   //指定返回值类型 
+			contentType : 'application/json;charset=utf-8',
+			success : function(data) {
+					location.href = "http://localhost:8080/zujuanxitong/login.html";
+			}
+		});
+		
+	})
+	
+	
+	
+	
+	
+	
+	
+	
 
 	$("#exit a").mouseover(function() {
 		$("#exit a").css("color", "red");
@@ -194,6 +252,45 @@ $(function() {
 		$(".tishi4nanduxishu").css("display", "none");
 	})
 
+	
+	/*试题查询*/
+		
+	$("#danxuan_search_querenchazhao").click(function() {
+		var kecheng = $("#danxuan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=list&courseName=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#duoxuan_search_querenchazhao").click(function() {
+		var kecheng = $("#duoxuan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=list&courseName=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#panduan_search_querenchazhao").click(function() {
+		var kecheng = $("#panduan_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=list&courseName=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#tiankong_search_querenchazhao").click(function() {
+		var kecheng = $("#tiankong_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=list&courseName=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	$("#jianda_search_querenchazhao").click(function() {
+		var kecheng = $("#jianda_serch4kecheng option:checked").val();
+		var leixing = $(this).children("span").text();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=list&courseName=" + kecheng + "&leixing=" + leixing;
+	})
+	
+	
+	$(".foronekecheng").text(foronekecheng);
+	
+	
+	
+	
 	$("#submit4auto").click(function() {
 
 		var totalScore = $('input[name="scores"]').val();
@@ -228,12 +325,15 @@ $(function() {
 		var score_panduan = $('input[name="score_panduan"]').val();
 		var score_tiankong = $('input[name="score_tiankong"]').val();
 		var score_jianda = $('input[name="score_jianda"]').val();
+		
+		var courseName = $("#danxuan_kecheng option:checked").val();
 
 		var a = $.ajax({
 			url : 'createPaperServlet',
 			type : 'post',
 			dataType:'json',
-			data : '{"count_danxuan":' + count_danxuan +
+			data : '{"courseName":"' + courseName +
+				'","count_danxuan":' + count_danxuan +
 				',"count_duoxuan":' + count_duoxuan +
 				',"count_panduan":' + count_panduan +
 				',"count_tiankong":' + count_tiankong +
@@ -243,23 +343,23 @@ $(function() {
 			success : function(data) {
 				var jsonData = data;
 				if(jsonData.flag == "danxuan_error") {
-					$("#chucuola span").text("*组卷出错，题库单选题数量不足" + count_danxuan + "个," + "单选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola span").text("*组卷出错，题库单选题数量不足" + count_danxuan + "个," + courseName +"单选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ; 
 				} else if(jsonData.flag == "duoxuan_error") {
-					$("#chucuola span").text("*组卷出错，题库多选题数量不足" + count_duoxuan + "个," + "多选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola span").text("*组卷出错，题库多选题数量不足" + count_duoxuan + "个," +  courseName +"多选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ;
 				}  else if(jsonData.flag == "tiankong_error") {
-					$("#chucuola span").text("*组卷出错，题库填空题数量不足" + count_tiankong + "个," + "填空题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola span").text("*组卷出错，题库填空题数量不足" + count_tiankong + "个," +  courseName +"填空题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ;
 				}  else if(jsonData.flag == "panduan_error") {
-					$("#chucuola span").text("*组卷出错，题库判断题数量不足" + count_panduan + "个," + "判断题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola span").text("*组卷出错，题库判断题数量不足" + count_panduan + "个," +  courseName +"判断题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ;
 				}  else if(jsonData.flag == "jianda_error") {
-					$("#chucuola span").text("*组卷出错，题库简答题数量不足" + count_jianda + "个," + "简答题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+					$("#chucuola span").text("*组卷出错，题库简答题数量不足" + count_jianda + "个," +  courseName +"简答题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ;
 				} else {
@@ -267,7 +367,8 @@ $(function() {
 					var b = $.ajax({
 						url : 'createPaperServlet',
 						type : 'post',
-						data : '{"count_danxuan":' + count_danxuan +
+						data : '{"courseName":"' + courseName +
+							'","count_danxuan":' + count_danxuan +
 							',"count_duoxuan":' + count_duoxuan +
 							',"count_panduan":' + count_panduan +
 							',"count_tiankong":' + count_tiankong +
@@ -420,7 +521,8 @@ $(function() {
 		var leixing =$("#serch4leixing option:checked").val();
 		var xingshi =$("#serch4xingshi option:checked").val();
 		var xinxi = $(this).prev().val();
-		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi;
+		var courseName = $("#serch4kecheng option:checked").val();
+		location.href = "http://localhost:8080/zujuanxitong/examServlet?op=search&leixing=" + leixing + "&search=" + xinxi + "&xingshi=" + xingshi + "&courseName=" + courseName;
 	})
 	
 	
@@ -497,6 +599,71 @@ $(function() {
 	
 	/**/
 
+	/*修改教师信息*/
+		$(".update_teacher").click(function() {
+			$(".content_right").css("display", "none");
+			$(".content_right_1").css("display", "none");
+			$(".content_right_2").css("display", "none");
+			$(".content_right_1_update").css("display","block");
+		})
+	
+	$("#queren_update").click(function() {
+		var teacherid = $('input[name="update_teacherid"]').val();
+		var teachername = $('input[name="update_teachername"]').val();
+		var teachersex = $('input[name="selector2"]:checked').val();
+		var teachermajorid = $('#input[name="update_major"]').val();
+		
+		if(teachersex == null) {
+			$("#jiaohsixingbiequeren").prev().css("display","table-cell");
+			$("#jiaohsixingbiequeren").css("display","table-cell");
+			return;
+		}
+		
+		var teacherphone = $('input[name="update_teacherphone"]').val();
+		if(teacherphone == "") {
+			$("#dianhuaqueren").prev().css("display","table-cell");
+			$("#dianhuaqueren").children("span").text("*请输入电话号码！");
+			$("#dianhuaqueren").css("display","table-cell");
+			return;
+		} else if(!teacherphone.match(/^(((13[0-9]{1})|159|153|(18[0-9]{1}))+\d{8})$/)) { 
+			$("#dianhuaqueren").prev().css("display","table-cell");
+			$("#dianhuaqueren").children("span").text("*该电话号码不存在！");
+			$("#dianhuaqueren").css("display","table-cell");
+			return;
+		}
+		
+		var a = $.ajax({
+			
+			url : 'examServlet?op=update',
+			type : 'post',
+			data : '{"teacherid":"' + teacherid + '","teachername":"' + teachername + '","teachersex":"' + teachersex 
+					+ '","teacherphone":"' +teacherphone +'"}',
+			//dataType:'json',   //指定返回值类型 
+			contentType : 'application/json;charset=utf-8',
+			success : function(data) {
+					alert("教师信息修改成功！！！！");
+					/*location.href = "http://localhost:8080/zujuanxitong/examServlet";*/
+			}
+		});
+	})
+	 $('input[name="update_teacherphone"]').click(function() {
+		 	$("#dianhuaqueren").prev().css("display","none");
+			$("#dianhuaqueren").css("display","none");
+	 })
+	
+	 $("input:checkbox[name='chc_kecheng']").click(function() {
+		 	$("#suojiaokechengqueren").prev().css("display","none");
+			$("#suojiaokechengqueren").css("display","none");
+	 })
+	
+	$('input[name="selector2"]').click(function() {
+		 	$("#jiaohsixingbiequeren").prev().css("display","none");
+			$("#jiaohsixingbiequeren").css("display","none");
+	 })
+	
+	
+	
+	
 });
 
 

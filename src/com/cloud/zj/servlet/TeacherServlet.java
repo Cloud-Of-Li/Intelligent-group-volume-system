@@ -101,6 +101,7 @@ public class TeacherServlet extends HttpServlet{
 						List<String> chapterList = this.examService.findByExam(this.examService.findByCourseId(course.getCourseId()));
 						List<List<Exam>>  examList = this.examService.findExamByChapter(chapterList);
 						session.setAttribute("major", major);
+						session.setAttribute("courseList", courseList);
 						session.setAttribute("course", course);
 						session.setAttribute("chapterList", chapterList);
 						session.setAttribute("examList", examList);
@@ -110,8 +111,10 @@ public class TeacherServlet extends HttpServlet{
 				
 			} else
 				response.getWriter().print("error");
-		} else if ("show".equals(op)) {
-			
+		} else if ("logout".equals(op)) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.getWriter().print("/zujuanxitong/login.html");
 		}
 	}
 	

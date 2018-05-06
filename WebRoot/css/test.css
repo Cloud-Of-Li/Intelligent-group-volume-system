@@ -106,7 +106,7 @@ a {
 	left:0px;
 }
 
-.content_right_1{
+.content_right_1,.content_right_1_update{
 	width:87%;
 	float:right;
 	height:100%;

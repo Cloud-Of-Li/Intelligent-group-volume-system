@@ -34,7 +34,7 @@ public class PaperDaoImp implements PaperDao {
 		List<Exam> questionList = resultPaper.getQuestionList();
 		String examList = getExamListToString(questionList , rule);
 		
-		Course course = courseDao.loadById(resultPaper.getCourseId());
+		Course course = courseDao.getCourseById(resultPaper.getCourseId());
 		
 		String sql = "insert into paper(paperName, courseid, adaptationDegree, examList, totalScore, diffculty, createTime, kpcoverage, "
 				+ "singlescore, multiscore, completeScore, tfscore, subjectscore) "
@@ -218,4 +218,42 @@ public class PaperDaoImp implements PaperDao {
 		DB.close(conn);
 		return paperlist;
 	}
+
+	@Override
+	public void deletePaperByName(String paperName) {
+		// TODO Auto-generated method stub
+		String sql = "delete from paper where papername = '" + paperName + "'";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

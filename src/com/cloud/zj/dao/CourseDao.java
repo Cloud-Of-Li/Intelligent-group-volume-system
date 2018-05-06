@@ -16,4 +16,6 @@ public interface CourseDao extends BaseDao<Course>{
 
 	public Course findCourseByName(String coursestr);
 
+	public Course getCourseById(int courseId);
+
 }

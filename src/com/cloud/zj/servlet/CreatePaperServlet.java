@@ -16,12 +16,14 @@ import org.json.JSONObject;
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.generation.Paper;
 import com.cloud.zj.generation.RuleBean;
+import com.cloud.zj.service.CourseService;
 import com.cloud.zj.service.CreatePaperService;
 
 @WebServlet("/createPaperServlet")
 public class CreatePaperServlet extends HttpServlet {
 
 	private CreatePaperService createPaperService;
+	private CourseService courseService;
 	/**
 	 * 
 	 */
@@ -29,6 +31,7 @@ public class CreatePaperServlet extends HttpServlet {
 	
 	public CreatePaperServlet() {
 		createPaperService = new CreatePaperService();
+		courseService = new CourseService();
 	}
 
 	@Override
@@ -63,7 +66,10 @@ public class CreatePaperServlet extends HttpServlet {
 			int completeNum = 0;
 			int tfNum = 0;
 			int subjectiveNum = 0;
+			String courseName = "";
 			try {
+				courseName = jsonObject.getString("courseName");
+				course = this.courseService.getCourseByName(courseName);
 				singleNum = jsonObject.getInt("count_danxuan");
 				multiNum = jsonObject.getInt("count_duoxuan");
 				tfNum = jsonObject.getInt("count_panduan");
@@ -117,7 +123,13 @@ public class CreatePaperServlet extends HttpServlet {
 			
 			double totalMark =100.0;
 			double difficulty = 0.5;
+			
+			String courseName = "";
 			try {
+				
+				courseName = jsonObject.getString("courseName");
+				course = this.courseService.getCourseByName(courseName);
+				
 				singleNum = jsonObject.getInt("count_danxuan");
 				multiNum = jsonObject.getInt("count_duoxuan");
 				tfNum = jsonObject.getInt("count_panduan");

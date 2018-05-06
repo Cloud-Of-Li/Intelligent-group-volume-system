@@ -310,12 +310,12 @@
 											
 						
 						
+						<c:if test="${danxuan_exam.size() != 0}">
 							<tr>
 								<td colspan="3" style="text-align: center">
 									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
 								</td>	
 							</tr>						
-						<c:if test="${danxuan_exam.size() != 0}">
 						
 							<c:set var="x" value="0"/>
 							<c:forEach items="${danxuan_exam}" var="examforSeacher_var" >
@@ -378,46 +378,46 @@
 							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
 						</tr>
 						
-						<c:if test="${duoxuan_exam.size() == 0}">
-							<tr>
-								<td></td>
-								<td>
-									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
-								</td>
-							</tr>
-						</c:if>	
-					
-						
-							<tr>
-								<td colspan="3" style="text-align: center">
-									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-								</td>	
-							</tr>						
-												
-						<c:if test="${duoxuan_exam.size() != 0}">
-						
-							<c:set var="x" value="0"/>
-							<c:forEach items="${duoxuan_exam}" var="examforSeacher_var" >
-								<c:set var="x" value="${x+1 }"/>
-									<tr>
-											<th class="th4neirong">试题内容：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
-											</td>
-									</tr>
-									<tr>
-											<th class="th4neirong">试题难度：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
+						<c:choose>
+							<c:when test="${duoxuan_exam.size() == 0}">
+								<tr>
+									<td></td>
+									<td>
+										<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+									</td>
+								</tr>
+							</c:when>
+							
+							<c:otherwise>
+								<tr>
+									<td colspan="3" style="text-align: center">
+										<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
+									</td>	
+								</tr>						
+							
+								<c:set var="x" value="0"/>
+								<c:forEach items="${duoxuan_exam}" var="examforSeacher_var" >
+									<c:set var="x" value="${x+1 }"/>
+										<tr>
+												<th class="th4neirong">试题内容：</th>
+												<td>
+													<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+												</td>
+										</tr>
+										<tr>
+												<th class="th4neirong">试题难度：</th>
+												<td>
+													<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
+												</td>
+										</tr>
+										<tr>
+											<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+										</tr>
 							</c:forEach>
-						</c:if>
-						
-						
+							
+							</c:otherwise>	
+						</c:choose>
+							
 						
 					</table>
 					</form>
@@ -468,12 +468,12 @@
 						</c:if>	
 											
 					
+							<c:if test="${tiankong_exam.size() != 0}">
 							<tr>
 								<td colspan="3" style="text-align: center">
 									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
 								</td>	
 							</tr>						
-							<c:if test="${tiankong_exam.size() != 0}">
 						
 						
 							<c:set var="x" value="0"/>
@@ -551,12 +551,12 @@
 											
 					
 						
+							<c:if test="${panduan_exam.size() != 0}">
 							<tr>
 								<td colspan="3" style="text-align: center">
 									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
 								</td>	
 							</tr>						
-							<c:if test="${panduan_exam.size() != 0}">
 						
 							<c:set var="x" value="0"/>
 							<c:forEach items="${panduan_exam}" var="examforSeacher_var" >
@@ -630,12 +630,12 @@
 							</tr>
 						</c:if>	
 											
+						<c:if test="${jianda_exam.size() != 0}">
 						<tr>
 							<td colspan="3" style="text-align: center">
 								<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
 							</td>	
 						</tr>						
-						<c:if test="${jianda_exam.size() != 0}">
 						
 						
 						
@@ -792,7 +792,7 @@
 		
 		
 <!-- =============================================================================================================================================================== -->
-	<!-- 添加试卷 -->
+	<!-- delete试卷 -->
 		<div class="content_right" id="delete_zhineng_shijuan">
 			<div class="content4houtai">
 				&nbsp;&nbsp;&nbsp;&nbsp;<span>试卷清理</span>
@@ -837,7 +837,7 @@
 									<pre style="font-size: 18px">${paper.getDifficulty()}</pre>	
 								</td>	
 								<td>
-									<pre style="font-size: 18px"><a style="color: red">删除</a> | <a style="color: red">修改</a></pre>	
+									<pre style="font-size: 18px"><a style="color: red" class="delete_paper">删除</a> | <a style="color: red" class="update_paper">修改</a></pre>	
 								</td>
 						</tr>
 						</c:forEach>

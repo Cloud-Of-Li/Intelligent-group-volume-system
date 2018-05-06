@@ -568,6 +568,8 @@ $(function() {
 	$(".foronekecheng").text(foronekecheng);
 	
 	
+	/*删除教师和更新教师信息操作*/
+	
 	$(".delete_teacher").click(function() {
 		var teacherName = $(this).parents("tr").children("td").eq(1).children("pre").text();
 		var teacherid = $(this).parents("tr").children("td").eq(0).children("pre").text();
@@ -577,7 +579,6 @@ $(function() {
 			location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=delete&teacherid=" + teacherid;
 		}
 	})
-	
 	
 	$(".update_teacher").click(function() {
 		$(".content_right").css("display", "none");
@@ -662,6 +663,17 @@ $(function() {
 	 })
 	
 	
+	 /*以下是删除试卷操作*/
+	 $(".delete_paper").click(function() {
+		var paperName = $(this).parents("tr").children("td").eq(0).children("pre").text();
+		var flag = confirm("确定删除试卷“" + paperName + "”吗? 提示：删除之后无法恢复!!!");
+		if(flag) {
+			alert("确认删除 试卷“" + paperName + "”!!!");
+			location.href = "http://localhost:8080/zujuanxitong/mexamServlet?op=deletePaper&paperName=" + paperName;
+		}
+	})
+	 
+	 
 	
 	
 	

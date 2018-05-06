@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.dao.imp.ExamDaoImp;
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 
@@ -65,6 +66,11 @@ public class ExamService {
 	public List<Exam> findExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str) {
 		// TODO Auto-generated method stub
 		return this.examDao.searchExamByCourseIdAndExamKindAndSearch(courseId, leixing, xinxi, str);
+	}
+
+	public List<Paper> findPaperByCourserList(List<Course> courseList) {
+		// TODO Auto-generated method stub
+		return this.examDao.findPaper(courseList);
 	}
 
 	

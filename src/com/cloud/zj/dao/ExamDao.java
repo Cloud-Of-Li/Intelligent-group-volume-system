@@ -2,6 +2,7 @@ package com.cloud.zj.dao;
 
 import java.util.List;
 
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 
@@ -24,5 +25,7 @@ public interface ExamDao extends BaseDao<Exam>{
 	public void insertExam(Exam e);
 
 	public List<Exam> searchExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str);
+
+	public List<Paper> findPaper(List<Course> courseList);
 
 }

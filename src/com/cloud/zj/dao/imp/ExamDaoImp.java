@@ -11,6 +11,7 @@ import java.util.Set;
 
 import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.db.DB;
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 
@@ -167,41 +168,6 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		return examList;
 	}
 
-	@Override
-	public List<Paper> getPaperListByCourseId(Integer courseId) {
-		// TODO Auto-generated method stub
-		String sql = "select * from paper where courseid = "  + courseId;
-		Connection conn = DB.getConn();
-		Statement stmt = DB.createStatement(conn);
-		ResultSet rs = DB.executeQuery(stmt, sql);
-		List<Paper> paperList = new ArrayList<>();
-		Set<Paper> paperSet = new HashSet<>();
-		try {
-			while (rs.next()) {
-				Paper paper = new Paper();
-				paper.setAdaptationDegree(rs.getDouble("adaptationdegree"));
-				paper.setCourseId(courseId);
-				paper.setCreateTime(rs.getTimestamp("createtime"));
-				paper.setDifficulty(rs.getDouble("diffculty"));
-				paper.setId(rs.getInt("id"));
-				paper.setkPCoverage(rs.getDouble("kpcoverage"));
-				paper.setTotalScore(rs.getDouble("totalscore"));
-				paper.setPaperName(rs.getString("papername"));
-				String questionStr = rs.getString("examlist");
-				paper.setQuestionList(changeStrtoList(questionStr));
-				if(paperSet.add(paper))
-					paperList.add(paper);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		DB.close(rs);
-		DB.close(stmt);
-		DB.close(conn);
-		return paperList;
-	}
-	
 	public List<Exam> changeStrtoList(String str) {
 		str = str.replace("#", "");
 		String[] sub = str.split("-");
@@ -332,7 +298,59 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		DB.close(conn);
 		return examList;
 	}
+
+	@Override
+	public List<Paper> getPaperListByCourseId(Integer courseId) {
+		// TODO Auto-generated method stub
+		String sql = "select * from paper where courseid = "  + courseId;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Paper> paperList = new ArrayList<>();
+		Set<Paper> paperSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				Paper paper = new Paper();
+				paper.setAdaptationDegree(rs.getDouble("adaptationdegree"));
+				paper.setCourseId(courseId);
+				paper.setCreateTime(rs.getTimestamp("createtime"));
+				paper.setDifficulty(rs.getDouble("diffculty"));
+				paper.setId(rs.getInt("id"));
+				paper.setkPCoverage(rs.getDouble("kpcoverage"));
+				paper.setTotalScore(rs.getDouble("totalscore"));
+				paper.setPaperName(rs.getString("papername"));
+				String questionStr = rs.getString("examlist");
+				paper.setQuestionList(changeStrtoList(questionStr));
+				if(paperSet.add(paper))
+					paperList.add(paper);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return paperList;
+	}
 	
+	
+	@Override
+	public List<Paper> findPaper(List<Course> courseList) {
+		// TODO Auto-generated method stub
+		List<Paper> temp = null;
+		List<Paper> paperList = new ArrayList<>();
+		Set<Paper> paperSet = new HashSet<>();
+		for(Course c : courseList) {
+			temp = getPaperListByCourseId(c.getCourseId());
+			for(Paper p : temp) {
+				if(paperSet.add(p)) {
+					paperList.add(p);
+				}
+			}
+		}
+		return paperList;
+	}
 }
 	
 

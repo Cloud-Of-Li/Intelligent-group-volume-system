@@ -72,6 +72,11 @@ private ManagerDao managerDao;
 		// TODO Auto-generated method stub
 		this.teacherDao.updateT4C(teacherid,techercourse);
 	}
+
+	public void reflashTeacher(String teacherid, String teachername, String teachersex, String teacherphone) {
+		// TODO Auto-generated method stub
+		this.teacherDao.updateTeacher(teacherid,teachername,teachersex,teacherphone);
+	}
 	
 }
 

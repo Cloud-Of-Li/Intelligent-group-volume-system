@@ -141,6 +141,32 @@ public class CourseDaoImp extends BaseDaoImp<Course> implements CourseDao {
 		DB.close(conn);
 		return course;
 	}
+
+
+	@Override
+	public Course getCourseById(int courseId) {
+		// TODO Auto-generated method stub
+		String sql = "select * from course where courseid = " + courseId;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		Course course = null;
+		try {
+			while (rs.next()) {
+				course = new Course();
+				course.setCourseId(rs.getInt("courseid"));
+				course.setCourseName(rs.getString("courseName"));
+				course.setMajorId(rs.getInt("majorId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return course;
+	}
 }
 
 
