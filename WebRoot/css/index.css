@@ -44,9 +44,8 @@ body a,form li,input[type="submit"],input[type="text"],.sixth-login input[type="
 }
 /*--close--*/
 .close{
-background: url('../image/close.png') no-repeat 0px 0px;
   cursor: pointer;
-  width: 20px;
+  width: 150px;
   height: 20px;
   position: absolute;
   left: 20px;
@@ -127,7 +126,7 @@ input[type="text"] {
    background: url(../image/pass.png) no-repeat 447px 17px;
 }
 input[type="submit"]{
-  font-size: 30px;
+  font-size: 18px;
   color: #fff;
   outline: none;
   border: none;

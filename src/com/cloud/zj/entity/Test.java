@@ -4,7 +4,13 @@ public class Test {
 	private Integer testId;
 	private int examId;
 	private String testNaem;
-	
+	private String identity;
+	public String getIdentity() {
+		return identity;
+	}
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 	public Integer getTestId() {
 		return testId;
 	}

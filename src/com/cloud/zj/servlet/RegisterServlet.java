@@ -1,5 +1,6 @@
 package com.cloud.zj.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.cloud.zj.service.RegisterService;
 
@@ -39,18 +43,68 @@ public class RegisterServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		request.setCharacterEncoding("utf-8");
 		
-		String name = request.getParameter("name");
-		String number = request.getParameter("number");
-		String password = request.getParameter("password");
-		String sex = request.getParameter("selector1");
 		
-		registerService.registeUser(name, number, password, sex);
+		String json = readJSONString(request);
+		JSONObject jsonObject = null;
+		
+		String op = "";
+		try {
+			jsonObject = new JSONObject(json);
+			op = jsonObject.getString("op");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if("changepsw".equals(op)) {
+			String teacherName = "";
+			String teacherPassword = "";
+			String identity = "";
+			String phone = "";
+			try {
+				teacherName = jsonObject.getString("teacherName");
+				teacherPassword = jsonObject.getString("teacherPassword");
+				identity = jsonObject.getString("identity");
+				phone = jsonObject.getString("phone");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(teacherName == "" || teacherPassword == "" || identity == "" || phone == "") {
+				response.getWriter().print("id_error");
+				return;
+			} else {
+				System.out.println(this.registerService.comfirmAndChangpsw(teacherName, teacherPassword, identity, phone));
+				response.getWriter().print(this.registerService.comfirmAndChangpsw(teacherName, teacherPassword, identity, phone));
+				
+			}
+		} else {
+			String name = request.getParameter("name");
+			String number = request.getParameter("number");
+			String password = request.getParameter("password");
+			String sex = request.getParameter("selector1");
+			registerService.registeUser(name, number, password, sex);
+			response.sendRedirect("/zujuanxitong/login.html");
+		}
 		
 		
-		response.sendRedirect("/zujuanxitong/login.html");
+		
 		
 	}
 	
-	
+	public String readJSONString(HttpServletRequest request) {
+		StringBuffer json = new StringBuffer();
+		String line = null;
+		try {
+			BufferedReader reader = request.getReader();
+			while ((line = reader.readLine()) != null) {
+				json.append(line);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return json.toString();
+	} 
 
 }

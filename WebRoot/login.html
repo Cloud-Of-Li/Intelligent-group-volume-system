@@ -9,18 +9,17 @@
 <link href="css/index.css" rel='stylesheet' type='text/css' />
 </head>
 <body>
-<script>$(document).ready(function(c) {
+<!-- <script>$(document).ready(function(c) {
 	$('.close').on('click', function(c){
-		$('.login-form').fadeOut('slow', function(c){
-	  		$('.login-form').remove();
-		});
+		location.href="/zujuanxitong/forgetPassword.html"
 	});	  
 });
-</script>
+</script> -->
  <!--SIGN UP-->
  <h1>智能组卷系统登录界面</h1>
 <div class="login-form">
-	<!-- <div class="close"> </div> -->
+	 <div class="close"> <a href="/zujuanxitong/register.html" style="color:white">注册</a> 
+	 &nbsp;&nbsp;&nbsp;<a href="/zujuanxitong/forgetPassword.html" style="color:white">忘记密码</a></div> 
 		<div class="head-info">
 			<label class="lbl-1"> </label>
 			<label class="lbl-2"> </label>
@@ -40,11 +39,10 @@
 	</form>
 	
 	<div class="signin">
-		<input type="submit" value="Teacher" class="login_button" >
+		<input type="submit" value="教师登陆" class="login_button" >
 		<hr>
-		<input type="submit" value="Managerment" class="adminlogin_button" >
+		<input type="submit" value="管理员登陆" class="adminlogin_button" >
 		<hr>
-		<a href="/zujuanxitong/register.html"><input type="submit" value="Register" class="register_button" ></a>
 	</div>
 	
 </div>
