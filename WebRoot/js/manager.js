@@ -37,7 +37,9 @@ $(function() {
 	
 	var op = $.getUrlParam('op');
 	var xingshi = $.getUrlParam('xingshi');
-	var foronekecheng = $.getUrlParam('kecheng');
+	var foronekecheng = $.getUrlParam('courseName');
+
+	
 	var leixing = $.getUrlParam('leixing');
 	
 	
@@ -123,12 +125,12 @@ $(function() {
 
 	$(".menue").mouseout(function() {
 		$(".menue").css("background", "url('../image/contentjianbian2.jpg')");
-		$(".menue").css("color", "black");
+		$(".menue").css("color", "white");
 	})
 
 	$(".houtai_coment_all").mouseout(function() {
 		$(this).css("background", "url('../image/contentjianbian2.jpg')");
-		$(this).css("color", "black");
+		$(this).css("color", "white");
 
 	})
 
@@ -145,7 +147,7 @@ $(function() {
 
 	$(".houtai_keyan_all").mouseout(function() {
 		$(".houtai_keyan_all").css("background", "url('../image/contentjianbian2.jpg')");
-		$(".houtai_keyan_all").css("color", "black");
+		$(".houtai_keyan_all").css("color", "white");
 	})
 
 
@@ -164,6 +166,7 @@ $(function() {
 		$(".content_right_1").css("display", "block");
 		$(".content_right").css("display", "none");
 		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display", "none");
 	})
 
 	$(".houtai_all_neirong").click(function() {
@@ -362,7 +365,7 @@ $(function() {
 
 
 	$(".houtai_all_neirong").mouseout(function() {
-		$(this).css("color", "black");
+		$(this).css("color", "white");
 	})
 	$(".houtai_all_neirong").mouseover(function() {
 		$(this).css("color", "red");
@@ -381,7 +384,7 @@ $(function() {
 
 
 	$(".houtai_add_prj").mouseout(function() {
-		$(".houtai_add_prj").css("color", "black");
+		$(".houtai_add_prj").css("color", "white");
 	})
 	$(".houtai_add_prj").mouseover(function() {
 		$(".houtai_add_prj").css("color", "red");
@@ -401,7 +404,7 @@ $(function() {
 
 
 	$(".houtai_end_prj").mouseout(function() {
-		$(".houtai_end_prj").css("color", "black");
+		$(".houtai_end_prj").css("color", "white");
 	})
 	$(".houtai_end_prj").mouseover(function() {
 		$(".houtai_end_prj").css("color", "red");
@@ -417,7 +420,7 @@ $(function() {
 	})
 
 	$(".houtai_achieve_prj").mouseout(function() {
-		$(".houtai_achieve_prj").css("color", "black");
+		$(".houtai_achieve_prj").css("color", "white");
 	})
 	$(".houtai_achieve_prj").mouseover(function() {
 		$(".houtai_achieve_prj").css("color", "red");
@@ -673,9 +676,6 @@ $(function() {
 		}
 	})
 	 
-	 
-	
-	
 	
 });
 

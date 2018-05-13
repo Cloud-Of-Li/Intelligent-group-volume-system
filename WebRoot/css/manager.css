@@ -18,14 +18,13 @@ a {
 .tite {
 	height: 100px;
 	line-height: 100px;
-	background-image: url("../image/houtai.jpg");
 	background-repeat: no-repeat;
 	width:100%;
 	background-size: 75% 300%;
 	float: left;
 }
 
-#exit {
+#welcome {
 	float: right;
 	margin-left: 80px;
 	margin-right: 50px;
@@ -33,28 +32,45 @@ a {
 	vertical-align: bottom;
 	line-height: 50px;
 	position: relative;
-	top:50px;
 	left:10px;
 	color: pink;
 }
 
+#exit {
+	float: right;
+	margin-left: 80px;
+	margin-right: 50px;
+	display: table-cell;
+	vertical-align: top;
+	line-height: 50px;
+	position: relative;
+	top:50px;
+	left:10px;
+	color: pink; 
+}
+
+
 .coment_all {
-	width: 28%;
+	width: 100%;
 	background: url("../image/jianbian.jpg");
 	background-repeat: no-repeat;
 	background-size: 100%;
 	float: right;
+    position: fixed;
+    z-index: 999;
 }
 
 .coment {
 	position: relative;
-	text-align: center;
-	font-family: "Microsoft YaHei";
-	color: white;
-	font-size: 28px;
-	float: right;
+    text-align: center;
+    font-family: "Microsoft YaHei";
+    font-family: "华文行楷";
+    color: white;
+    font-size: 38px;
+    float: left;
+    padding-left: 84px;
+    z-index: 999;
 }
-
 .content{
 	width:100%;
 	float: left;
@@ -67,8 +83,11 @@ a {
 	float: left;
 	width: 13%;
 	font-family: "Microsoft YaHei";
-	background: url("../image/content2.jpg");
-	position: absolute;
+	/* background-color: #0181cc; */
+	/* background-color: #144973; */
+	background-color: #055D93;
+	height:100%;
+	position: fixed;
 }
 
 .menue {
@@ -76,23 +95,29 @@ a {
 	line-height: 30px;
 	padding:10px;
 	text-align: center;
+	color:white;
+	font-size:20px;
 }
 
 .houtai {
 	height:100%;
-	line-height: 30px;
+	line-height: 31px;
 	/* padding: 0px 10px 0px 10px; */
 	border: 10px;
 	text-align: center;
 	position: relative;
+	font-size:20px;
 }
+
 .houtai_coment_all, .houtai_keyan_all{
 	padding:8px 0px 8px 0px;
+	color:white;'
 }
 
 .houtai_all {
 	height: 100%;
-	display: none;
+	display: block;
+	color:white;
 }
 
 .houtai_teacher,.houtai_managment,.houtai_all_neirong{
@@ -144,7 +169,7 @@ a {
 	 */
 	 
 	 
-	border: 1px solid silver;
+	/* border: 1px solid silver; */
 	/* border: 1px solid silver;  */
 	padding-left:20px;
 }
@@ -153,9 +178,13 @@ a {
 .table_infomations_zhangjie th, .table_infomations_zhangjie td{
 	display: table-cell;
 	margin: 0 auto;
-	border: 1px solid silver; 
+	border: 0px solid silver; 
 	text-align: center;
 } 
+
+#table_info th,#table_info  td {
+	border: 1px solid silver; 
+}
 
 .content_right, .content_right_2 {
 	width:87%;
@@ -187,7 +216,7 @@ a {
 	background-color: white;
 	margin: 0 auto;
 	background-size:500%;
-	background-image: url("../image/color.jpg");
+	/* background-image: url("../image/color.jpg"); */
 }
 .table_infomations{
 	/* width:50%; */

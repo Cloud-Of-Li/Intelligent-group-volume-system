@@ -7,6 +7,13 @@ public class Teacher {
 	private String teacherSex;
 	private String teacherPhone;
 	private int majorid;
+	private String identity;
+	public String getIdentity() {
+		return identity;
+	}
+	public void setIdentity(String identity) {
+		this.identity = identity;
+	}
 	public String getTeacherSex() {
 		return teacherSex;
 	}

@@ -77,6 +77,11 @@ private ManagerDao managerDao;
 		// TODO Auto-generated method stub
 		this.teacherDao.updateTeacher(teacherid,teachername,teachersex,teacherphone);
 	}
+
+	public Teacher getTeacherById(int teacherid) {
+		// TODO Auto-generated method stub
+		return this.teacherDao.selectByid(teacherid);
+	}
 	
 }
 

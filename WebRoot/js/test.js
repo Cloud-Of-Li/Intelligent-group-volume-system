@@ -146,12 +146,12 @@ $(function() {
 
 	$(".menue").mouseout(function() {
 		$(".menue").css("background", "url('../image/contentjianbian2.jpg')");
-		$(".menue").css("color", "black");
+		$(".menue").css("color", "white");
 	})
 
 	$(".houtai_coment_all").mouseout(function() {
 		$(this).css("background", "url('../image/contentjianbian2.jpg')");
-		$(this).css("color", "black");
+		$(this).css("color", "white");
 
 	})
 
@@ -168,7 +168,7 @@ $(function() {
 
 	$(".houtai_keyan_all").mouseout(function() {
 		$(".houtai_keyan_all").css("background", "url('../image/contentjianbian2.jpg')");
-		$(".houtai_keyan_all").css("color", "black");
+		$(".houtai_keyan_all").css("color", "white");
 	})
 
 
@@ -187,12 +187,14 @@ $(function() {
 		$(".content_right_1").css("display", "block");
 		$(".content_right").css("display", "none");
 		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display", "none");
 	})
 
 	$(".houtai_all_neirong").click(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display", "none");
 		if ($(this).children("span").text() == "搜索试题") {
 			$("#search_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "单选题列表") {
@@ -427,7 +429,7 @@ $(function() {
 
 
 	$(".houtai_all_neirong").mouseout(function() {
-		$(this).css("color", "black");
+		$(this).css("color", "white");
 	})
 	$(".houtai_all_neirong").mouseover(function() {
 		$(this).css("color", "red");
@@ -446,7 +448,7 @@ $(function() {
 
 
 	$(".houtai_add_prj").mouseout(function() {
-		$(".houtai_add_prj").css("color", "black");
+		$(".houtai_add_prj").css("color", "white");
 	})
 	$(".houtai_add_prj").mouseover(function() {
 		$(".houtai_add_prj").css("color", "red");
@@ -466,7 +468,7 @@ $(function() {
 
 
 	$(".houtai_end_prj").mouseout(function() {
-		$(".houtai_end_prj").css("color", "black");
+		$(".houtai_end_prj").css("color", "white");
 	})
 	$(".houtai_end_prj").mouseover(function() {
 		$(".houtai_end_prj").css("color", "red");
@@ -482,7 +484,7 @@ $(function() {
 	})
 
 	$(".houtai_achieve_prj").mouseout(function() {
-		$(".houtai_achieve_prj").css("color", "black");
+		$(".houtai_achieve_prj").css("color", "white");
 	})
 	$(".houtai_achieve_prj").mouseover(function() {
 		$(".houtai_achieve_prj").css("color", "red");
@@ -642,7 +644,17 @@ $(function() {
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
 					alert("教师信息修改成功！！！！");
-					/*location.href = "http://localhost:8080/zujuanxitong/examServlet";*/
+					var b = $.ajax({
+						
+						url : 'teacherServlet',
+						type : 'post',
+						data : '{"op":refresh,' + data,
+						//dataType:'json',   //指定返回值类型 
+						contentType : 'application/json;charset=utf-8',
+						success : function(data) {
+								location.href = "http://localhost:8080/zujuanxitong/examServlet";
+						}
+					})
 			}
 		});
 	})

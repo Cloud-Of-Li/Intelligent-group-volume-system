@@ -28,6 +28,7 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 				teacher.setTeacherSex(rs.getString("teachersex"));
 				teacher.setTeacherPhone(rs.getString("teacherphone"));
 				teacher.setMajorid(rs.getInt("majorid"));
+				teacher.setIdentity(rs.getString("identity"));
 
 			}
 		} catch (SQLException e) {
@@ -91,13 +92,41 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 	@Override
 	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone) {
 		// TODO Auto-generated method stub
-		String sql = "update teacher set TeacherSex = '" + teachersex + "', " + "TeacherPhone = '" + teacherphone + "', " + " where teacherid= " + teacherid;
+		String sql = "update teacher set TeacherSex = '" + teachersex + "', " + "TeacherPhone = '" + teacherphone + "' " + " where teacherid = " + teacherid;
 		System.out.println(sql);
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		DB.executeUpdate(conn, sql);
 		DB.close(stmt);
 		DB.close(conn);
+	}
+
+	@Override
+	public Teacher selectByid(int teacherid) {
+		// TODO Auto-generated method stub
+		String sql = "select *  from teacher where teacherid = " + teacherid;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(conn, sql);
+		Teacher t = null;
+		try {
+			while(rs.next()) {
+				t = new Teacher();
+				t.setMajorid(rs.getInt("majorid"));
+				t.setTeacherId(teacherid);
+				t.setTeacherName(rs.getString("teachername"));
+				t.setTeacherPassword(rs.getString("teacherPassword"));
+				t.setTeacherPhone(rs.getString("teacherPhone"));
+				t.setTeacherSex(rs.getString("teacherSex"));
+				t.setIdentity(rs.getString("identity"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(stmt);
+		DB.close(conn);
+		return t;
 	}
 
 }

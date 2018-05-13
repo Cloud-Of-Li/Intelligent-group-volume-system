@@ -7,16 +7,24 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
     <script src='js/jquery-3.1.1.min.js'></script>
     <script src='js/test.js'></script>
+    <link rel="stylesheet" href="css\icono.min.css">
 	<link rel="stylesheet" type="text/css" href="css\test.css">
+	<link rel="stylesheet" type="text/css" href="css\style.css">
 	<title>智能组卷系统</title>
 </head>
 <body>
 	<div class="tite">
 		<div class="coment_all">
-			<div id="exit">
-			<span id="userName">${sessionScope.teacher.teacherName }</span>
-				<a id="logout" >退出</a></div>
-			<div class="coment">智能组卷系统</div>
+			<div>
+				<div id="exit">
+					<a id="logout" style="font-size:15px; margin-right:0px" ><span class="icon-switch"></span> 退出登陆</a>
+				</div>
+				<div id="welcome">
+					<span id="userName" style="font-size:18px; /* color:white */"><span class="icon-user" style="font-size:16px;"></span>  ${sessionScope.teacher.teacherName }，欢迎进入智能组卷系统！</span> 
+				</div>
+			</div>
+			
+			<div class="coment">基于遗传算法的智能组卷系统 （教师用户）</div>
 		</div>
 	</div>
 	<div class="content">
@@ -28,7 +36,7 @@
 		
 		<!-- 教师信息部分 -->
 			<div class="menue">
-				教师信息		
+				<span class="icon-user-tie"></span> &nbsp;教师信息		
 			</div>
 
 		<!-- 后台管理部分 -->
@@ -36,13 +44,13 @@
 			<!-- 后台内容==章节试题 -->
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
-						<span>章节试题</span>
+						<span class="icon-stack"></span> &nbsp;<span>章节试题</span>
 					</div>
 					<div class="houtai_all">
 						<c:forEach items="${chapterList}" var="chapter">
 		
 							<div class="houtai_all_neirong">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span id="${chapter }">${chapter}</span>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-pushpin"></span> &nbsp;<span id="${chapter }">${chapter}</span>
 							</div>	
 						
 						</c:forEach>
@@ -52,14 +60,14 @@
 			<!-- 后台内容==单选题 -->
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
-						题库管理
+						<span class="icon-file-text"></span> &nbsp;题库管理
 					</div>
 					<div class="houtai_all">
 						<div class="houtai_all_neirong" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>添加试题</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-quill"></span> &nbsp;<span>添加试题</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>搜索试题</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-compass"></span> &nbsp;<span>搜索试题</span>
 						</div>
 					</div>
 				</div>
@@ -67,79 +75,40 @@
 			<!-- 后台内容==多选题 -->
 				 <div class="houtai_coment">
 					<div class="houtai_coment_all">
-						试题列表
+						<span class="icon-newspaper"></span> &nbsp;试题列表
 					</div>
 					<div class="houtai_all" id="shitilistId">
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>单选题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>单选题列表</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>多选题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>多选题列表</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>填空题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>填空题列表</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>判断题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>判断题列表</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>简答题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>简答题列表</span>
 						</div>
 					</div>
 				</div>
-
-			<!--后台内容==填空题
-				<div class="houtai_coment">
-					<div class="houtai_coment_all">
-						填&nbsp;空&nbsp;题&nbsp;
-					</div>
-					<div class="houtai_all">
-			
-						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>填空题列表</span>
-						</div>
-					</div>
-				</div>
-			
-			后台内容==判断题
-				<div class="houtai_coment">
-					<div class="houtai_coment_all">
-						判&nbsp;断&nbsp;题
-					</div>
-					<div class="houtai_all">
-			
-						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>判断题列表</span>
-						</div>
-					</div>
-				</div>
-			
-			后台内容==简答题
-				<div class="houtai_coment">
-					<div class="houtai_coment_all">
-						简&nbsp;答&nbsp;题
-					</div>
-					<div class="houtai_all">
-			
-						<div class="houtai_all_neirong">
-							<img class="folder" src="image/folder.png">&nbsp; <span>简答题列表</span>
-						</div>
-					</div>
-				</div> -->
 
 			<!-- 后台内容==试卷组成 -->
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
-						试卷组成
+						<span class="icon-list"></span> &nbsp;试卷组成
 					</div>
 					<div class="houtai_all" id="shijuanlistId">
 
 						<div class="houtai_all_neirong" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>智能组卷</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-leaf"></span> &nbsp;<span>智能组卷</span>
 						</div>
 
 						<div class="houtai_all_neirong" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="folder" src="image/folder.png">-><span>试卷列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-list-numbered"></span> &nbsp;<span>试卷列表</span>
 						</div>
 					</div>
 				</div>
@@ -160,7 +129,7 @@
 					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
 				</div>
 				
-				<div class="content_main_content">
+				<div class="content_main_content" style="height:510px;">
 					<table class="table_infomations_teacher">
 						<tr>
 								<th class="th4neirong">教师编号：</th>
@@ -177,6 +146,12 @@
 								</td>
 						</tr>
 						<tr>
+								<th class="th4neirong">身份证号：</th>
+								<td>
+									<pre style="font-size: 18px">${sessionScope.teacher.identity}</pre>	
+								</td>
+						</tr>
+						<tr>
 								<th class="th4neirong">教师性别：</th>
 								<td>
 									<pre style="font-size: 18px">${sessionScope.teacher.teacherSex}</pre>	
@@ -189,7 +164,7 @@
 								</td>
 						</tr>
 						<tr>
-								<th class="th4neirong">所教课程：</th>
+								<th class="th4neirong" style="vertical-align: top">所教课程：</th>
 								<td>
 									<c:forEach items="${sessionScope.courseList }" var="course">
 												${course.getCourseName() }<br/>
@@ -242,6 +217,12 @@
 								<th class="th4neirong">教师姓名：</th>
 								<td>
 									<input type="text" name="update_teachername"   value="${teacher.teacherName }" disabled="disabled"/>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">身份证号：</th>
+								<td>
+									<input type="text" name="update_identity"   value="${teacher.identity }" disabled="disabled"/>	
 								</td>
 						</tr>
 						<tr>

@@ -54,12 +54,12 @@ public class ExamServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		// System.out.println("你好");
 		Teacher teacher = (Teacher) session.getAttribute("teacher");
-		if(teacher == null) {
+		if(teacher == null || teacher.getTeacherId()== null) {
 			response.sendRedirect("/zujuanxitong/login.html");
 		}
 		Course course = (Course) session.getAttribute("course");
 		List<Course> courseList = this.courseService.getCourseByTid(teacher.getTeacherId());
-		if (course == null) {
+		if (course == null || courseList == null) {
 			response.sendRedirect("/zujuanxitong/login.html");
 			return;
 		}
@@ -155,11 +155,11 @@ public class ExamServlet extends HttpServlet {
 				teachersex = jsonObject.getString("teachersex");
 				teacherphone = jsonObject.getString("teacherphone");
 				this.teacherService.reflashTeacher(teacherid,teachername,teachersex,teacherphone);
+				response.getWriter().print("\"teacherid\":" + teacherid + "}");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			response.sendRedirect("mexamServlet");
 		} else {
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		}

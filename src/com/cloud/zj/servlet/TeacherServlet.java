@@ -111,7 +111,22 @@ public class TeacherServlet extends HttpServlet{
 				
 			} else
 				response.getWriter().print("error");
-		} else if ("logout".equals(op)) {
+		}  else if ("refresh".equals(op)){
+			int teacherid = 0;
+			try {
+				teacherid = jsonObject.getInt("teacherid");
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Teacher teacher = new Teacher();
+			teacher = this.teacherService.getTeacherById(teacherid);
+			HttpSession session = request.getSession();
+			session.setAttribute("teacher", teacher);
+			
+			
+			
+		}	else if ("logout".equals(op)) {
 			HttpSession session = request.getSession();
 			session.invalidate();
 			response.getWriter().print("/zujuanxitong/login.html");

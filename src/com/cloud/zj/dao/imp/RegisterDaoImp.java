@@ -27,7 +27,7 @@ public class RegisterDaoImp implements RegisterDao {
 		// TODO Auto-generated method stub
 		String sql = "select * from teacher where teachername = '" + teacherName + "' and identity = '" + identity + "'";
 		String sql1 = "select * from teacher where teachername = '" + teacherName + "' and identity = '" + identity + "' and " + "teacherphone = '" + phone + "'";
-		String sql2 = "update teacher set teacherpassword = '" + teacherPassword + "' where teacherName = " + teacherName + "' and identity = '" + identity + "'";
+		String sql2 = "update teacher set teacherpassword = '" + teacherPassword + "' where teacherName = '" + teacherName + "' and identity = '" + identity + "'";
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		ResultSet rs = DB.executeQuery(stmt, sql);

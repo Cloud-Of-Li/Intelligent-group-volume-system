@@ -14,4 +14,6 @@ public interface TeacherDao extends BaseDao<Teacher>{
 
 	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone);
 
+	public Teacher selectByid(int teacherid);
+
 }
