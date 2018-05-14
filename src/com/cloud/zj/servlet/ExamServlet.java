@@ -155,6 +155,7 @@ public class ExamServlet extends HttpServlet {
 				teachersex = jsonObject.getString("teachersex");
 				teacherphone = jsonObject.getString("teacherphone");
 				this.teacherService.reflashTeacher(teacherid,teachername,teachersex,teacherphone);
+				
 				response.getWriter().print("\"teacherid\":" + teacherid + "}");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

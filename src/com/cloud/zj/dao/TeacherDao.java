@@ -1,5 +1,9 @@
 package com.cloud.zj.dao;
 
+import java.util.List;
+import java.util.Map;
+
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Teacher;
 
 public interface TeacherDao extends BaseDao<Teacher>{
@@ -15,5 +19,11 @@ public interface TeacherDao extends BaseDao<Teacher>{
 	public void updateTeacher(String teacherid, String teachername, String teachersex, String teacherphone);
 
 	public Teacher selectByid(int teacherid);
+
+	public void addTeacher(String identity, String teachername, String teachersex, String teacherphone,String majorid);
+
+	public void addT4C(String identity, String teachername, String teachercourseid);
+
+	public Map<Integer, List<Teacher>> findTeacherByTList(List<Course> courselist);
 
 }

@@ -7,6 +7,8 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
     <script src='js/jquery-3.1.1.min.js'></script>
     <script src='js/manager.js'></script>
+    <script src='js/addCourse.js'></script>
+    <script src='js/show.js'></script>
 	<link rel="stylesheet" type="text/css" href="css\manager.css">
 	<link rel="stylesheet" type="text/css" href="css\style.css">
 	<title>智能组卷系统</title>
@@ -42,7 +44,7 @@
 			<div class="houtai">
 			
 				
-			<!-- 后台内容==单选题 -->
+			<!-- 后台内容==题库管理 -->
 				<div class="houtai_coment">
 					<div class="houtai_coment_all">
 						<span class="icon-file-text"></span> &nbsp;题库管理
@@ -57,29 +59,41 @@
 					</div>
 				</div>
 
-			<!-- 后台内容==多选题 -->
+			<!-- 后台内容==课程管理 -->
 				 <div class="houtai_coment">
 					<div class="houtai_coment_all">
-						<span class="icon-newspaper"></span> &nbsp;试题列表
+						<span class="icon-newspaper"></span> &nbsp;<!-- 试题列表 -->课程管理
 					</div>
 					<div class="houtai_all" id="shitilistId">
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>单选题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>课程列表</span>
 						</div>
 						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>多选题列表</span>
-						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>填空题列表</span>
-						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>判断题列表</span>
-						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>简答题列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>专业信息</span>
 						</div>
 					</div>
 				</div>
+				
+			<!-- 后台内容==专业管理 -->
+				 <div class="houtai_coment">
+					<div class="houtai_coment_all">
+						<span class="icon-newspaper"></span> &nbsp;<!-- 试题列表 -->专业管理
+					</div>
+					<div class="houtai_all" id="shitilistId">
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>专业列表信息</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>添加专业信息</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>删除专业信息</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>修改专业信息</span>
+						</div>
+					</div>
+				</div>	
 
 			<!-- 后台内容==试卷组成 -->
 				<div class="houtai_coment">
@@ -123,10 +137,12 @@
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">所属专业</th>
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">所教课程</th>
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师电话</th>		
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">身份证号</th>		
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
 						</tr>
+						<c:set var="x" value="-1" />
 						<c:forEach items="${teacherlist}" var="teacher">
-						<c:set var="x" value="0" />
+						<c:set var="x" value="${x+1 }" />
 						<tr>
 								<td>
 									<pre style="font-size: 18px">${teacher.getTeacherId()}</pre>	
@@ -138,7 +154,7 @@
 									<pre style="font-size: 18px">${teacher.getTeacherSex ()}</pre>	
 								</td>								
 								<td>
-									<pre style="font-size: 18px">${majorlist.get(0).getMajorName() }</pre>	
+									<pre style="font-size: 18px">${majorlist.get(x).getMajorName() }</pre>	
 								</td>								
 								<td>
 									<c:forEach items="${courseMap }" var="entry">
@@ -156,12 +172,20 @@
 								<td>
 									<pre style="font-size: 18px">${teacher.getTeacherPhone()}</pre>	
 								</td>
+								<td>
+									<pre style="font-size: 18px">${teacher.identity}</pre>	
+								</td>
 								
 								<td>
 									<pre style="font-size: 18px"><a style="color: red" class="delete_teacher">删除</a> | <a style="color: red" class="update_teacher">修改</a></pre>	
 								</td>
 						</tr>
 						</c:forEach>
+						<tr>
+							<td colspan="8"><a class="add_teacher" style="color:blue;">添加教师</a></td>
+						</tr>
+						
+						
 					</table>
 				</div>
 	
@@ -196,6 +220,12 @@
 								<th class="th4neirong">教师姓名：</th>
 								<td>
 									<input type="text" name="update_teachername"   value="${update_teacher.teacherName }" disabled="disabled"/>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">身份证号：</th>
+								<td>
+									<input type="text" name="update_teacheridentity"   value="${update_teacher.identity}" disabled="disabled"/>	
 								</td>
 						</tr>
 						<tr>
@@ -261,7 +291,108 @@
 				
 						<tr>
 								<td align="center" colspan="2">
-									<button id="queren_update">确认更改</button>&nbsp;&nbsp;
+									<button id="queren_update">确认添加</button>&nbsp;&nbsp;
+									<a href="mexamServlet"><button type="button">返回上一层</button></a>
+								</td>
+						</tr>	
+					</table>				
+					</form>
+				</div>
+	
+			</div>
+	
+		</div>
+		
+		<!-- ====================================================教师信息添加==================================================== -->
+		
+		<div class="content_right_1_add" style="display:none">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>教师信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form action="javascript:void(0)" method="post">
+					<table style="margin:0 auto">
+						<tr>
+								<th class="th4neirong">教师姓名：</th>
+								<td>
+									<input type="text" name="add_teachername"  placeholder="教师姓名" required="required"/>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">身份证号：</th>
+								<td>
+									<input type="text" name="add_teacheridentity"  placeholder="教师身份证号" required="required"/>	
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">教师性别：</th>
+								<td>
+									<input type="radio" name="selector3" value="男" style="width:12px; weight:12px; height:auto" required="required">
+											<label class="mm" style="color: black">男</label>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="radio" name="selector3" value="女" style="width:12px; weight:12px;height:auto" required="required">
+											<label class="mm" style="color: black">女</label>
+								</td>
+						</tr>
+						
+						<tr>
+							<td style="display:none"></td>
+							<td  id="jiaohsixingbiequeren_add" class="sousuokuang" style="display:none;"><span>*请选择教师性别</span></td>
+						</tr>
+						
+						
+						<tr>
+								<th class="th4neirong">所属专业：</th>
+								<td>
+									<select name="add_major_name"  id="add_major">
+										<c:forEach items="${majorall }" var="major">
+												<option value="${major.getMajorId() }" >&nbsp;&nbsp;${major.getMajorName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+									</select>
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">所教课程：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:100px"></td>
+											<td style="text-align:left"> 
+												<c:forEach items="${courselist }" var="course">					
+													<input type="checkbox" name="add_chc_kecheng" value="${course.getCourseId() }"  style="width:12.8px; height:12.8"/>&nbsp;&nbsp;${course.getCourseName() }<br>
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
+						</tr>
+						<tr>
+							<td style="display:none"></td>
+							<td  id="suojiaokechengqueren_add" class="sousuokuang" style="display:none;"><span>*请选择课程</span></td>
+						</tr>
+						
+						<tr>
+								<th class="th4neirong">教师电话：</th>
+								<td>
+									<input type="number" name="add_teacherphone" placeholder="电话号码" required="required"/>	
+								</td>
+						</tr>
+						
+						<tr>
+							<td style="display:none"></td>
+							<td  id="add_dianhuaqueren" class="sousuokuang" style="display:none;"><span>*请填写电话号码</span></td>
+						</tr>
+						
+						<tr>
+								<td align="center" colspan="2">
+									<button id="queren_add">确认更改</button>&nbsp;&nbsp;
 									<a href="mexamServlet"><button type="button">返回上一层</button></a>
 								</td>
 						</tr>	
@@ -275,10 +406,10 @@
 	
 	
 		
-	<!-- 单选题列表 -->
-		<div class="content_right" id="list_danxuan">
+	<!-- 课程列表 -->
+		<div class="content_right" id="list_kecheng">
 			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>单选题列表</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>课程信息</span>
 				<hr>
 			</div>	
 			
@@ -288,76 +419,57 @@
 				</div>
 				
 				<div class="content_main_content">
-					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list"> 
-						<tr>
-							<td>所属课程:&nbsp;&nbsp;</td>
-							<td>
-								<select name="search_d_kecheng"  id="danxuan_serch4kecheng">
-										<c:forEach items="${courselist }" var="course">
-											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
-										</c:forEach>
-								</select>
-								<button class="list_search_querenchazhao" id="danxuan_search_querenchazhao">确认查找<span>单选题</span></button>
-							</td>
+					<table class="table_infomations_teacher" id="course_info">
+						<tr style="border: 1px">
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">课程编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">课程名</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">所属专业</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师列表</th>		
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
 						</tr>
-						
+						<c:set var="x" value="-1" />
+						<c:forEach items="${courselist}" var="course">
+						<c:set var="x" value="${x+1 }" />
 						<tr>
-							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-						</tr>
-						
-						<c:if test="${danxuan_exam.size() == 0}">
-							<tr>
-								<td></td>
 								<td>
-									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+									<pre style="font-size: 18px">${course.getCourseId()}</pre>	
 								</td>
-							</tr>
-						</c:if>	
-											
-						
-						
-						<c:if test="${danxuan_exam.size() != 0}">
-							<tr>
-								<td colspan="3" style="text-align: center">
-									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-								</td>	
-							</tr>						
-						
-							<c:set var="x" value="0"/>
-							<c:forEach items="${danxuan_exam}" var="examforSeacher_var" >
-								<c:set var="x" value="${x+1 }"/>
-									<tr>
-											<th class="th4neirong">试题内容：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
-											</td>
-									</tr>
-									<tr>
-											<th class="th4neirong">试题难度：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
-							</c:forEach>
-						</c:if>
-						
+								<td>
+									<pre style="font-size: 18px">${course.getCourseName()}</pre>	
+								</td>								
+								<td>
+									<pre style="font-size: 18px">${majorlist4course.get(x).getMajorName() }</pre>	
+								</td>								
+								<td>
+									<c:forEach items="${teacherMap }" var="entry">
+										<c:if test="${entry.key == course.getCourseId()}">
+											<c:forEach items="${entry.value }" var="teacher">
+												${teacher.getTeacherName() }<br/>
+											</c:forEach>
+										</c:if>
+									</c:forEach>	
+								</td>
+								<td>
+									<pre style="font-size: 18px"><a style="color: red" class="delete_course">删除</a> | <a style="color: red" class="update_course">修改</a></pre>	
+								</td>
+						</tr>
+						</c:forEach>
+						<tr>
+							<td colspan="8"><a class="add_course" style="color:blue;">添加课程</a></td>
+						</tr>
 						
 						
 					</table>
-					</form>
 				</div>
+	
 			</div>
-			
-		</div>		
+	
+		</div>	
 		
-	<!-- 多选题列表 -->
-		<div class="content_right" id="list_duoxuan">
+	<!--==================================== 课程的添加 ==============================================-->	
+		<div class="content_right" id="content_right_add_course" style="display:none">
 			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>多选题列表</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>课程信息</span>
 				<hr>
 			</div>	
 			
@@ -367,77 +479,61 @@
 				</div>
 				
 				<div class="content_main_content">
-					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list"> 
+					<form action="javascript:void(0)" method="post">
+					<table style="margin:0 auto">
 						<tr>
-							<td>所属课程:&nbsp;&nbsp;</td>
-							<td>
-								<select name="search_d_kecheng"  id="duoxuan_serch4kecheng">
-										<c:forEach items="${courselist }" var="course">
-											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
+								<th class="th4neirong">课程名称：</th>
+								<td>
+									<input type="text" name="add_coursername"  placeholder="课程名称" required="required"/>	
+								</td>
+						</tr>
+						
+						<tr>
+								<th class="th4neirong">所属专业：</th>
+								<td>
+									<select name="add_coursemajor_name"  id="add_coursemajor">
+										<c:forEach items="${majorall }" var="major">
+												<option value="${major.getMajorId() }" >&nbsp;&nbsp;${major.getMajorName() }&nbsp;&nbsp;</option>
 										</c:forEach>
-								</select>
-								<button class="list_search_querenchazhao" id="duoxuan_search_querenchazhao">确认查找<span>多选题</span></button>
-							</td>
+									</select>
+								</td>
 						</tr>
 						
 						<tr>
-							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+								<th class="th4neirong">任课老师：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:100px"></td>
+											<td style="text-align:left"> 
+												<c:forEach items="${teacherlist }" var="teacher">					
+													<input type="checkbox" name="chc_tea" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>&nbsp;&nbsp;${teacher.getTeacherName() }<br>
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
 						</tr>
 						
-						<c:choose>
-							<c:when test="${duoxuan_exam.size() == 0}">
-								<tr>
-									<td></td>
-									<td>
-										<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
-									</td>
-								</tr>
-							</c:when>
-							
-							<c:otherwise>
-								<tr>
-									<td colspan="3" style="text-align: center">
-										<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-									</td>	
-								</tr>						
-							
-								<c:set var="x" value="0"/>
-								<c:forEach items="${duoxuan_exam}" var="examforSeacher_var" >
-									<c:set var="x" value="${x+1 }"/>
-										<tr>
-												<th class="th4neirong">试题内容：</th>
-												<td>
-													<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
-												</td>
-										</tr>
-										<tr>
-												<th class="th4neirong">试题难度：</th>
-												<td>
-													<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-												</td>
-										</tr>
-										<tr>
-											<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-										</tr>
-							</c:forEach>
-							
-							</c:otherwise>	
-						</c:choose>
-							
-						
-					</table>
+						<tr>
+								<td align="center" colspan="2">
+									<button id="queren_addcourse">确认添加</button>&nbsp;&nbsp;
+									<a class="returnBack"><button type="button">返回上一层</button></a>
+								</td>
+						</tr>	
+					</table>				
 					</form>
 				</div>
 	
 			</div>
-
+	
 		</div>
+		
+<!--==================================== 课程的修改 ==============================================-->	
 
-	<!-- 填空题列表 -->
-		<div class="content_right" id="list_tiankong">
+		<div class="content_right" id="content_right_update_course" style="display:none">
 			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>填空题列表</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>课程信息</span>
 				<hr>
 			</div>	
 			
@@ -447,235 +543,63 @@
 				</div>
 				
 				<div class="content_main_content">
-					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list"> 
+					<form action="javascript:void(0)" method="post">
+					<table style="margin:0 auto">
 						<tr>
-							<td>所属课程:&nbsp;&nbsp;</td>
-							<td>
-								<select name="search_d_kecheng"  id="tiankong_serch4kecheng">
-										<c:forEach items="${courselist }" var="course">
-											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
-										</c:forEach>
-								</select>
-								<button class="list_search_querenchazhao" id="tiankong_search_querenchazhao">确认查找<span>填空题</span></button>
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-						</tr>
-						
-						<c:if test="${tiankong_exam.size() == 0}">
-							<tr>
-								<td></td>
-								<td>
-									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								<th class="th4neirong">课程编号：</th>
+								<td style="width:500px;">
+									<input type="text" name="update_courseid"  disabled="disabled"/>
 								</td>
-							</tr>
-						</c:if>	
-											
-					
-							<c:if test="${tiankong_exam.size() != 0}">
-							<tr>
-								<td colspan="3" style="text-align: center">
-									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-								</td>	
-							</tr>						
+						</tr>
+						<tr>
+								<th class="th4neirong">课程名字：</th>
+								<td style="width:500px;">
+									<input type="text" name="update_coursename" />
+								</td>
+						</tr>
 						
-						
-							<c:set var="x" value="0"/>
-							<c:forEach items="${tiankong_exam}" var="examforSeacher_var" >
-								<c:set var="x" value="${x+1 }"/>
-									<tr>
-											<th class="th4neirong">试题内容：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
+						<tr>
+								<th class="th4neirong">所属专业：</th>
+								<td>
+									<select name="update_courmajor_name"  id="update_coursemajor">
+										<c:forEach items="${majorall }" var="major">
+												<option value="${major.getMajorId() }" >&nbsp;&nbsp;${major.getMajorName() }&nbsp;&nbsp;</option>
+										</c:forEach>
+									</select>
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">任课老师：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:100px"></td>
+											<td style="text-align:left"> 
+												<c:forEach items="${teacherlist }" var="teacher">					
+													<input type="checkbox" name="chc_tea_up" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>&nbsp;&nbsp;${teacher.getTeacherName() }<br>
+												</c:forEach>
 											</td>
-									</tr>
-									<tr>
-											<th class="th4neirong">试题难度：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
-							</c:forEach>
-						</c:if>
-						
-						
-						
-					</table>
-					</form>
-				</div>
-	
-	
-			</div>
-
-	
-		</div>
-
-	<!-- 判断题列表  -->
-		<div class="content_right" id="list_panduan">
-			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>判断题列表</span>
-				<hr>
-			</div>	
-			
-			<div class="content_main">
-				<div class="content_main_title">
-					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
-				</div>
+										</tr>
+									</table>
+								</td>
+						</tr>
 				
-				<div class="content_main_content">
-					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list"> 
 						<tr>
-							<td>所属课程:&nbsp;&nbsp;</td>
-							<td>
-								<select name="search_d_kecheng"  id="panduan_serch4kecheng">
-										<c:forEach items="${courselist }" var="course">
-											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
-										</c:forEach>
-								</select>
-								<button class="list_search_querenchazhao" id="panduan_search_querenchazhao">确认查找<span>判断题</span></button>
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-						</tr>
-						
-						<c:if test="${panduan_exam.size() == 0}">
-							<tr>
-								<td></td>
-								<td>
-									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
+								<td align="center" colspan="2">
+									<button id="queren_update_course">确认更新</button>&nbsp;&nbsp;
+									<a class="returnBack"><button type="button">返回上一层</button></a>
 								</td>
-							</tr>
-						</c:if>	
-											
-					
-						
-							<c:if test="${panduan_exam.size() != 0}">
-							<tr>
-								<td colspan="3" style="text-align: center">
-									<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-								</td>	
-							</tr>						
-						
-							<c:set var="x" value="0"/>
-							<c:forEach items="${panduan_exam}" var="examforSeacher_var" >
-								<c:set var="x" value="${x+1 }"/>
-									<tr>
-											<th class="th4neirong">试题内容：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
-											</td>
-									</tr>
-									<tr>
-											<th class="th4neirong">试题难度：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
-							</c:forEach>
-						</c:if>
-						
-						
-						
-					</table>
+						</tr>	
+					</table>				
 					</form>
 				</div>
 	
 			</div>
-
 	
 		</div>
-
-	<!-- 简答题列表 -->
-		<div class="content_right" id="list_jianda">
-			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>简答题列表</span>
-				<hr>
-			</div>	
-			
-			<div class="content_main">
-				<div class="content_main_title">
-					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
-				</div>
-				
-					<div class="content_main_content">
-					<form method="post" action="javascript:void(0)">
-					<table class="table_infomations_list"> 
-						<tr>
-							<td>所属课程:&nbsp;&nbsp;</td>
-							<td>
-								<select name="search_d_kecheng"  id="jianda_serch4kecheng">
-										<c:forEach items="${courselist }" var="course">
-											<option value="${course.getCourseName() }" >&nbsp;&nbsp;${course.getCourseName() }&nbsp;&nbsp;</option>
-										</c:forEach>
-								</select>
-								<button class="list_search_querenchazhao" id="jianda_search_querenchazhao">确认查找<span>简答题</span></button>
-							</td>
-						</tr>
-						
-						<tr>
-							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-						</tr>
-						
-						<c:if test="${jianda_exam.size() == 0}">
-							<tr>
-								<td></td>
-								<td>
-									<pre style="font-size: 18px; color:red" >*没有查询到任何相关试题</pre>	
-								</td>
-							</tr>
-						</c:if>	
-											
-						<c:if test="${jianda_exam.size() != 0}">
-						<tr>
-							<td colspan="3" style="text-align: center">
-								<pre style="font-size: 18px; color:red" >所属课程：<span class="foronekecheng"></span></pre>
-							</td>	
-						</tr>						
-						
-						
-						
-							<c:set var="x" value="0"/>
-							<c:forEach items="${jianda_exam}" var="examforSeacher_var" >
-								<c:set var="x" value="${x+1 }"/>
-									<tr>
-											<th class="th4neirong">试题内容：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_content">${x }.  ${examforSeacher_var.getExamContent() }</pre>	
-											</td>
-									</tr>
-									<tr>
-											<th class="th4neirong">试题难度：</th>
-											<td>
-												<pre style="font-size: 18px" class="searched_nandu">${examforSeacher_var.getExamDegree() }</pre>	
-											</td>
-									</tr>
-									<tr>
-										<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
-									</tr>
-							</c:forEach>
-						</c:if>
-						
-						
-						
-					</table>
-					</form>
-				</div>
-			</div>
-
+		
+		
 	
-		</div>
 	
 	<!-- 搜索试题 -->
 		<div class="content_right" id="search_danxuan">

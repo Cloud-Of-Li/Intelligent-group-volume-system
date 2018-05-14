@@ -162,52 +162,6 @@ $(function() {
 	})
 
 
-	$(".menue").click(function() {
-		$(".content_right_1").css("display", "block");
-		$(".content_right").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_1_update").css("display", "none");
-	})
-
-	$(".houtai_all_neirong").click(function() {
-		$(".content_right").css("display", "none");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_1_update").css("display", "none");
-		if ($(this).children("span").text() == "搜索试题") {
-			$("#search_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "单选题列表") {
-			$("#list_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "多选题列表") {
-			$("#list_duoxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "填空题列表") {
-			$("#list_tiankong").css("display", "block");
-		} else if ($(this).children("span").text() == "判断题列表") {
-			$("#list_panduan").css("display", "block");
-		} else if ($(this).children("span").text() == "简答题列表") {
-			$("#list_jianda").css("display", "block");
-		} else if ($(this).children("span").text() == "试卷列表") {
-			$("#list_shijuan").css("display", "block");
-			
-			
-			
-			
-			
-			
-		} else if ($(this).children("span").text() == "试卷清理") {
-			$("#delete_zhineng_shijuan").css("display", "block");
-		} else if ($(this).children("span").text() == "添加试题") {
-			$("#add_shiti").css("display", "block");
-		} else {
-			//表示点击的是章节试题的其中一个
-			var zhangjie = $(this).children("span").text();
-			//			alert(zhangjie);
-			$(".content_right_2").css("display", "block");
-			$(".content_right_2").children("div").css("display", "none");
-			$("." + zhangjie).css("display", "block");
-		}
-
-	})
 
 
 	$(".input_check").click(function() {
@@ -583,6 +537,8 @@ $(function() {
 		}
 	})
 	
+	/*信息修改操作*/
+	
 	$(".update_teacher").click(function() {
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
@@ -591,12 +547,16 @@ $(function() {
 		var teacherName = $(this).parents("tr").children("td").eq(1).children("pre").text();
 		var teacherid = $(this).parents("tr").children("td").eq(0).children("pre").text();
 		var teacherphone = $(this).parents("tr").children("td").eq(5).children("pre").text();
+		var idntity = $(this).parents("tr").children("td").eq(6).children("pre").text();
 		var teacherid_4 = $('input[name="update_teacherid"]').val(teacherid);
 		var teachername_4 = $('input[name="update_teachername"]').val(teacherName);
 		var teacherphoto_4 = ($("#update_teacherphoto").attr('src',"image/"+ teacherName +".jpg"));
 		var teacherphone_4 = ($('input[name="update_teacherphone"]').val(teacherphone));
+		var identity_4 = ($('input[name="update_teacheridentity"]').val(idntity));
 		
 	})
+	
+	
 	
 	$("#queren_update").click(function() {
 		var teacherid = $('input[name="update_teacherid"]').val();
@@ -638,7 +598,8 @@ $(function() {
 			url : 'mexamServlet?op=update',
 			type : 'post',
 			data : '{"teacherid":"' + teacherid + '","teachername":"' + teachername + '","teachersex":"' + teachersex 
-					+ '","teacherphone":"' +teacherphone + '","techercourse":"' + techercourseid + '","teachermajorid":"' + teachermajorid +'"}',
+					+ '","teacherphone":"' +teacherphone + '","techercourse":"' + techercourseid + '","teachermajorid":"' + teachermajorid 
+					+ '","techercourseid":"' + techercourseid +'"}',
 			//dataType:'json',   //指定返回值类型 
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
@@ -646,9 +607,6 @@ $(function() {
 					location.href = "http://localhost:8080/zujuanxitong/mexamServlet";
 			}
 		});
-		
-		
-		
 	})
 	 $('input[name="update_teacherphone"]').click(function() {
 		 	$("#dianhuaqueren").prev().css("display","none");
@@ -665,6 +623,54 @@ $(function() {
 			$("#jiaohsixingbiequeren").css("display","none");
 	 })
 	
+	 /*信息添加操作*/
+	 
+	$(".add_teacher").click(function() {
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$(".content_right_1_update").css("display","none");
+		$(".content_right_1_add").css("display","block");
+	})
+	
+	 $("#queren_add").click(function() {
+		var teachername = $('input[name="add_teachername"]').val();
+		var identity = $('input[name="add_teacheridentity"]').val();
+		var teachersex = $('input[name="selector3"]:checked').val();
+		var teachermajorid = $('#add_major option:checked').val();
+		
+		var techercourseid = $("input:checkbox[name='add_chc_kecheng']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join('_');
+		
+		if(techercourseid == '') {
+			$("#suojiaokechengqueren_add").prev().css("display","table-cell");
+			$("#suojiaokechengqueren_add").css("display","table-cell");
+			return;
+		}
+		
+		var teacherphone = $('input[name="add_teacherphone"]').val();
+		
+		var a = $.ajax({
+			
+			url : 'mexamServlet?op=addTeacher',
+			type : 'post',
+			data : '{"teachername":"' + teachername + '","teachersex":"' + teachersex + '","identity":"' + identity
+					+ '","teacherphone":"' +teacherphone + '","techercourse":"' + techercourseid + '","teachermajorid":"' + teachermajorid 
+					+ '","techercourseid":"' + techercourseid +'"}',
+			//dataType:'json',   //指定返回值类型 
+			contentType : 'application/json;charset=utf-8',
+			success : function(data) {
+					alert("教师信息添加成功！！！！");
+					location.href = "http://localhost:8080/zujuanxitong/mexamServlet";
+			}
+		});
+	})
+	$("input:checkbox[name='add_chc_kecheng']").click(function() {
+		 	$("#suojiaokechengqueren_add").prev().css("display","none");
+			$("#suojiaokechengqueren_add").css("display","none");
+	 })
+	 
 	
 	 /*以下是删除试卷操作*/
 	 $(".delete_paper").click(function() {

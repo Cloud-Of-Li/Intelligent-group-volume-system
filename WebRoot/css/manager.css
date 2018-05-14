@@ -131,7 +131,7 @@ a {
 	left:0px;
 }
 
-.content_right_1,.content_right_1_update{
+.content_right_1,.content_right_1_update,.content_right_1_add{
 	width:87%;
 	float:right;
 	height:100%;
@@ -182,7 +182,12 @@ a {
 	text-align: center;
 } 
 
-#table_info th,#table_info  td {
+
+#teaL {
+	height:auto;
+}
+
+#table_info th,#table_info  td,#course_info th,#course_info td {
 	border: 1px solid silver; 
 }
 

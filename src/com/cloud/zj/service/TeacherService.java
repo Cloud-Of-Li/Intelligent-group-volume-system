@@ -1,11 +1,13 @@
 package com.cloud.zj.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cloud.zj.dao.ManagerDao;
 import com.cloud.zj.dao.TeacherDao;
 import com.cloud.zj.dao.imp.ManagerDaoImp;
 import com.cloud.zj.dao.imp.TeacherDaoImp;
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Manager;
 import com.cloud.zj.entity.Teacher;
 
@@ -81,6 +83,22 @@ private ManagerDao managerDao;
 	public Teacher getTeacherById(int teacherid) {
 		// TODO Auto-generated method stub
 		return this.teacherDao.selectByid(teacherid);
+	}
+
+	public void addTeacher(String identity, String teachername, String teachersex, String teacherphone,
+			String teachermajorid) {
+		// TODO Auto-generated method stub
+		this.teacherDao.addTeacher(identity,teachername,teachersex,teacherphone,teachermajorid);
+	}
+
+	public void addT4C(String identity, String teachername, String teachercourseid) {
+		// TODO Auto-generated method stub
+		this.teacherDao.addT4C(identity, teachername,teachercourseid);
+	}
+
+	public Map<Integer, List<Teacher>> getTeacherByTList(List<Course> courselist) {
+		// TODO Auto-generated method stub
+		return this.teacherDao.findTeacherByTList(courselist);
 	}
 	
 }

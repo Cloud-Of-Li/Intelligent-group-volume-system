@@ -19,6 +19,7 @@ public class MajorService {
 		return this.majorDao.getMajorByid(majorId);
 	}
 
+
 	public List<Major> getAllmajor() {
 		// TODO Auto-generated method stub
 		return this.majorDao.getMajor();

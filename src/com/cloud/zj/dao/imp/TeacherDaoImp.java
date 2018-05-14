@@ -4,9 +4,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import com.cloud.zj.dao.TeacherDao;
 import com.cloud.zj.db.DB;
+import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Teacher;
 
 public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
@@ -127,6 +134,110 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 		DB.close(stmt);
 		DB.close(conn);
 		return t;
+	}
+
+	@Override
+	public void addTeacher(String identity, String teachername, String teachersex, String teacherphone, String majorid) {
+		// TODO Auto-generated method stub
+		String sql = "insert into teacher(identity, teachername, teachersex, teacherphone,majorid)  values('" + identity + "','" + teachername + "','" + teachersex + "','" 
+					+ teacherphone + "'," + majorid + ")";
+		System.out.println(sql);
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+	@Override
+	public void addT4C(String identity, String teachername, String teachercourseid) {
+		// TODO Auto-generated method stub
+		
+		Teacher teacher = findTeacherByTname(teachername);
+		int teacherid = teacher.getTeacherId();
+		String[] courseStr = teachercourseid.split("_");
+		String sql = "";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		int[] teacherCourseNums  = new int[courseStr.length]; 
+		for(int i =0; i < teacherCourseNums.length; i++) {
+			teacherCourseNums[i] =Integer.parseInt(courseStr[i]); 
+		}
+		for(int i =0; i < teacherCourseNums.length; i++) {
+			sql =  "insert into T4c(teacherid,courseid) values(" + teacherid + "," + teacherCourseNums[i] + ")";
+			System.out.println(sql);
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+	@Override
+	public Map<Integer, List<Teacher>> findTeacherByTList(List<Course> courselist) {
+		// TODO Auto-generated method stub
+		Map<Integer, List<Teacher>> map = new HashMap<>();
+		for(Course c : courselist) {
+			List<Teacher> teacherlist = findTeacherBycourseid(c.getCourseId());
+			map.put(c.getCourseId(), teacherlist);
+		}
+		return map;
+
+	}
+
+	public List<Teacher> findTeacherBycourseid(Integer courseId) {
+		// TODO Auto-generated method stub
+		List<Integer> list = gettid(courseId);
+		List<Teacher> teacherList = new ArrayList<>();
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		Teacher t = null;
+		for (int i = 0; i < list.size(); i++) {
+			String sql = "select * from teacher where teacherid = " + list.get(i);
+			ResultSet rs = DB.executeQuery(stmt, sql);
+			try {
+				while (rs.next()) {
+					t = new Teacher();
+					t.setMajorid(rs.getInt("majorid"));
+					t.setTeacherId(rs.getInt("teacherid"));
+					t.setTeacherName(rs.getString("teachername"));
+					t.setTeacherPassword(rs.getString("teacherPassword"));
+					t.setTeacherPhone(rs.getString("teacherPhone"));
+					t.setTeacherSex(rs.getString("teacherSex"));
+					t.setIdentity(rs.getString("identity"));
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			teacherList.add(t);
+			DB.close(rs);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+		return teacherList;
+	}
+	
+	public List<Integer> gettid(int cid) {
+		String sql = "select * from t4c where courseid = " + cid;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Integer> teacheridList = new ArrayList<>();
+		Set<Integer> teacehridSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				if(teacehridSet.add(rs.getInt("teacherid"))) {
+					teacheridList.add(rs.getInt("teacherid"));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return teacheridList;
 	}
 
 }

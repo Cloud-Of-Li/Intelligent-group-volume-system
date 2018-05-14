@@ -167,6 +167,95 @@ public class CourseDaoImp extends BaseDaoImp<Course> implements CourseDao {
 		DB.close(conn);
 		return course;
 	}
+
+
+	@Override
+	public void inputCourse(String coursename, String coursemajorid) {
+		// TODO Auto-generated method stub
+		String sql = "insert into course(coursename, majorid)  values('" + coursename + "'," + coursemajorid + ")";
+		System.out.println(sql);
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+
+	@Override
+	public void deleteByid(int courseid) {
+		// TODO Auto-generated method stub
+		String sql1 = "delete from t4c where courseid = " + courseid;
+		String sql = "delete from course where courseid = " + courseid;		
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql1);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+
+	@Override
+	public void addT4C(String coursename, String coursetecherid) {
+		// TODO Auto-generated method stub
+		String[] teacherStr = coursetecherid.split("_");
+		Course course = findCourseByName(coursename);
+		String sql = "";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		int[] courseTeacherNum  = new int[teacherStr.length]; 
+		//初始化教师数组
+		for(int i =0; i < courseTeacherNum.length; i++) {
+			courseTeacherNum[i] =Integer.parseInt(teacherStr[i]); 
+		}
+		
+		for(int i =0; i < courseTeacherNum.length; i++) {
+			sql =  "insert into T4c(teacherid,courseid) values(" + courseTeacherNum[i] + "," + course.getCourseId() + ")";
+			System.out.println(sql);
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+
+	@Override
+	public void updateCourse(int courseid, String coursename, int coursemajorid) {
+		// TODO Auto-generated method stub
+		String sql = "update course set coursename = '" + coursename + "', " + "majorid = " + coursemajorid + " where courseid= " + courseid;
+		System.out.println(sql);
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+
+	@Override
+	public void updateT4C(int courseid, String coursetecherid) {
+		// TODO Auto-generated method stub
+		String sql = "delete from t4c where courseid = " + courseid;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		String[] teacherstr = coursetecherid.split("_");
+		int[] teacherNums  = new int[teacherstr.length]; 
+		for(int i =0; i < teacherNums.length; i++) {
+			teacherNums[i] =Integer.parseInt(teacherstr[i]); 
+		}
+		for(int i =0; i < teacherNums.length; i++) {
+			sql =  "insert into T4c(teacherid,courseid) values(" + teacherNums[i] + "," + courseid + ")";
+			System.out.println(sql);
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
+	
+	
+	
 }
 
 

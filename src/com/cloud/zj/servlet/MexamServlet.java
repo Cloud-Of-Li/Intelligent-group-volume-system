@@ -65,26 +65,24 @@ public class MexamServlet extends HttpServlet {
 		List<Course> courselist = this.courseService.getAllCourse();
 		List<Major> majorall = this.majorService.getAllmajor();
 		Map<Integer, List<Course>> courseMap = this.courseService.getCourseByTList(teacherlist);
-		/*Iterator<Integer> it = courseMap.keySet().iterator();
-		while(it.hasNext()) {
-			Integer key = it.next();
-			System.out.print("Teacherid：" + key + ",");
-			List<Course> list = courseMap.get(key);
-			for(Course c: list) {
-				System.out.print(c + "   ");
-			}
-			System.out.println();
-		}
-		*/
+		Map<Integer, List<Teacher>> teacherMap = this.teacherService.getTeacherByTList(courselist);
+		
 		
 		List<Major> majorlist = new ArrayList<>();
 		for (Teacher t : teacherlist) {
 			majorlist.add(this.majorService.getMajorById(t.getMajorid()));
 		}
+		List<Major> majorlist4course = new ArrayList<>();
+		for (Course c : courselist) {
+			majorlist4course.add(this.majorService.getMajorById(c.getMajorId()));
+		}
+		
 		request.setAttribute("teacherlist", teacherlist);
 		request.setAttribute("majorlist",  majorlist);
+		request.setAttribute("majorlist4course",  majorlist4course);
 		request.setAttribute("majorall",  majorall);
 		request.setAttribute("courseMap", courseMap);
+		request.setAttribute("teacherMap", teacherMap);
 		request.setAttribute("paperList", paperList);
 		request.setAttribute("courselist", courselist);
 		String op = request.getParameter("op");
@@ -108,7 +106,8 @@ public class MexamServlet extends HttpServlet {
 			}
 			request.setAttribute("examforSeacher", examforSeacher);
 			getServletContext().getRequestDispatcher("/manager.jsp").forward(request, response);
-		} else if ("list".equals(op)) {
+		} 
+		else if ("list".equals(op)) {
 			String coursestr = request.getParameter("kecheng");
 			Course course = this.courseService.getCourseByName(coursestr);
 			if(course == null){
@@ -125,7 +124,9 @@ public class MexamServlet extends HttpServlet {
 			request.setAttribute("tiankong_exam", tiankong_exam);
 			request.setAttribute("jianda_exam", jianda_exam);
 			getServletContext().getRequestDispatcher("/manager.jsp").forward(request, response);
-		} else if ("add".equals(op)) {
+		
+		} 
+		else if ("add".equals(op)) {
 			String coursestr = request.getParameter("add_kecheng");
 			Course course = this.courseService.getCourseByName(coursestr);
 			if(course == null){
@@ -148,17 +149,20 @@ public class MexamServlet extends HttpServlet {
 			e.setExamScore(score);
 			this.examService.addExam(e);
 			response.sendRedirect("mexamServlet");
-		} else if ("delete".equals(op)) {
+		} 
+		else if ("delete".equals(op)) {
 			/*删除教师操作*/
 			int teacherid = Integer.parseInt(request.getParameter("teacherid"));
 			this.teacherService.putOutTeacher(teacherid);
 			response.sendRedirect("mexamServlet");
-		}  else if ("deletePaper".equals(op)) {
+		}  
+		else if ("deletePaper".equals(op)) {
 			/*删除试卷操作*/
 			String paperName = request.getParameter("paperName");
 			this.paperService.putOutPaper(paperName);
 			response.sendRedirect("mexamServlet");
-		}  else if ("update".equals(op)) {
+		}  
+		else if ("update".equals(op)) {
 			/*更新教师信息*/
 			String json = readJSONString(request);
 			JSONObject jsonObject = null;
@@ -167,6 +171,7 @@ public class MexamServlet extends HttpServlet {
 			String teachersex = "";
 			String teacherphone = "";
 			String teachermajorid = "";
+			String teachercourseid = "";
 			
 			try {
 				jsonObject = new JSONObject(json);
@@ -175,12 +180,97 @@ public class MexamServlet extends HttpServlet {
 				teachersex = jsonObject.getString("teachersex");
 				teacherphone = jsonObject.getString("teacherphone");
 				teachermajorid = jsonObject.getString("teachermajorid");
-				
+				teachercourseid = jsonObject.getString("techercourseid");
 				this.teacherService.reflashTeacher(teacherid,teachername,teachersex,teacherphone,teachermajorid);
+				this.teacherService.reflashT4C(teacherid, teachercourseid);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			response.sendRedirect("mexamServlet");
+		}   else if ("addTeacher".equals(op)) {
+			/*添加教师信息*/
+			String json = readJSONString(request);
+			JSONObject jsonObject = null;
+			String identity = "";
+			String teachername = "";
+			String teachersex = "";
+			String teacherphone = "";
+			String teachermajorid = "";
+			String teachercourseid = "";
+			
+			try {
+				jsonObject = new JSONObject(json);
+				identity = jsonObject.getString("identity");
+				teachername = jsonObject.getString("teachername");
+				teachersex = jsonObject.getString("teachersex");
+				teacherphone = jsonObject.getString("teacherphone");
+				teachermajorid = jsonObject.getString("teachermajorid");
+				teachercourseid = jsonObject.getString("techercourseid");
+				this.teacherService.addTeacher(identity,teachername,teachersex,teacherphone,teachermajorid);
+				this.teacherService.addT4C(identity,teachername,teachercourseid);
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response.sendRedirect("mexamServlet");
+		}
+		else if ("addCourse".equals(op)) {
+			/*添加课程信息*/
+			String json = readJSONString(request);
+			JSONObject jsonObject = null;
+			String coursename = "";
+			String coursemajorid = "";
+			String coursetecherid = "";
+			try {
+				jsonObject = new JSONObject(json);
+				coursename = jsonObject.getString("coursename");
+				coursemajorid = jsonObject.getString("coursemajorid");
+				coursetecherid = jsonObject.getString("coursetecherid");
+				this.courseService.addCourse(coursename,coursemajorid);
+				this.courseService.addT4C(coursename,coursetecherid);
+				
+				
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response.sendRedirect("mexamServlet");
+		} 
+		else if ("updateCourse".equals(op)) {
+			/*修改课程信息信息*/
+			String json = readJSONString(request);
+			JSONObject jsonObject = null;
+			int courseid = 0;
+			String coursename = "";
+			int coursemajorid = 0;
+			String coursetecherid = "";
+			try {
+				jsonObject = new JSONObject(json);
+				courseid = jsonObject.getInt("courseid");
+				coursename = jsonObject.getString("coursename");
+				coursemajorid = jsonObject.getInt("coursemajorid");
+				coursetecherid = jsonObject.getString("coursetecherid");
+				this.courseService.reflashTeacher(courseid,coursename,coursemajorid);
+				this.courseService.reflashT4C(courseid, coursetecherid);
+				
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			response.sendRedirect("mexamServlet");
+		} 
+		
+		
+		
+		
+		else if ("deleteCourse".equals(op)) {
+			/*删除教师操作*/
+			int courseid = Integer.parseInt(request.getParameter("courseid"));
+			this.courseService.putOutCourse(courseid);
 			response.sendRedirect("mexamServlet");
 		} else {
 			getServletContext().getRequestDispatcher("/manager.jsp").forward(request, response);

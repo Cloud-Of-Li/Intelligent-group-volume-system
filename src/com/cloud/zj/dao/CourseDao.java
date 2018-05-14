@@ -18,4 +18,14 @@ public interface CourseDao extends BaseDao<Course>{
 
 	public Course getCourseById(int courseId);
 
+	public void inputCourse(String coursename, String coursemajorid);
+
+	public void deleteByid(int courseid);
+
+	public void addT4C(String coursename, String coursetecherid);
+
+	public void updateCourse(int courseid, String coursename, int coursemajorid);
+
+	public void updateT4C(int courseid, String coursetecherid);
+
 }
