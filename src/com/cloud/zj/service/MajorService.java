@@ -24,5 +24,25 @@ public class MajorService {
 		// TODO Auto-generated method stub
 		return this.majorDao.getMajor();
 	}
+
+	public void reflashMajor(int majorid, String majorname) {
+		// TODO Auto-generated method stub
+		this.majorDao.updateMajor(majorid, majorname);
+	}
+
+	public void putOutMajor(int majorid) {
+		// TODO Auto-generated method stub
+		this.majorDao.deleteMajor(majorid);
+	}
+
+	public void addMajor(String majorname) {
+		// TODO Auto-generated method stub
+		this.majorDao.insertMajor(majorname);
+	}
+
+	public int findMajorByName(String majorname) {
+		// TODO Auto-generated method stub
+		return this.majorDao.selectMajorByName(majorname);
+	}
 	
 }

@@ -8,6 +8,7 @@ import com.cloud.zj.dao.TeacherDao;
 import com.cloud.zj.dao.imp.ManagerDaoImp;
 import com.cloud.zj.dao.imp.TeacherDaoImp;
 import com.cloud.zj.entity.Course;
+import com.cloud.zj.entity.Major;
 import com.cloud.zj.entity.Manager;
 import com.cloud.zj.entity.Teacher;
 
@@ -101,6 +102,16 @@ private ManagerDao managerDao;
 		return this.teacherDao.findTeacherByTList(courselist);
 	}
 	
+	public Map<Integer, List<Teacher>> getTeacherByMList(List<Major> majorall) {
+		// TODO Auto-generated method stub
+		return this.teacherDao.findTeacherByMList(majorall);
+	}
+
+	public void changeTsMajor(int majorid, String majorteacherid) {
+		// TODO Auto-generated method stub
+		this.teacherDao.updateTsMajor(majorid, majorteacherid);
+	}
+
 }
 
 

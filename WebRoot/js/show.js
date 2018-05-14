@@ -22,12 +22,14 @@ $(function() {
 			$("#search_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "课程列表") {
 			$("#list_kecheng").css("display", "block");
-		} else if ($(this).children("span").text() == "多选题列表") {
-			$("#list_duoxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "试卷列表") {
-			$("#list_shijuan").css("display", "block");
+		} else if ($(this).children("span").text() == "专业列表信息") {
+			$("#list_major").css("display", "block");
+		} else if ($(this).children("span").text() == "添加专业信息") {
+			$("#add_major").css("display", "block");
 		} else if ($(this).children("span").text() == "试卷清理") {
 			$("#delete_zhineng_shijuan").css("display", "block");
+		} else if ($(this).children("span").text() == "试卷列表") {
+			$("#list_shijuan").css("display", "block");
 		} else if ($(this).children("span").text() == "添加试题") {
 			$("#add_shiti").css("display", "block");
 		} else {

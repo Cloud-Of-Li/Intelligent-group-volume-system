@@ -10,4 +10,12 @@ public interface MajorDao extends BaseDao<Major>{
 
 	List<Major> getMajor();
 
+	void updateMajor(int majorid, String majorname);
+
+	void deleteMajor(int majorid);
+
+	void insertMajor(String majorname);
+
+	int selectMajorByName(String majorname);
+
 }

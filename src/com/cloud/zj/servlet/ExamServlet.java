@@ -2,7 +2,9 @@ package com.cloud.zj.servlet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,13 +65,18 @@ public class ExamServlet extends HttpServlet {
 			response.sendRedirect("/zujuanxitong/login.html");
 			return;
 		}
-		
 		List<Exam> danxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "单选题");
 		List<Exam> duoxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "多选题");
 		List<Exam> panduan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "判断题");
 		List<Exam> tiankong_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "填空题");
 		List<Exam> jianda_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "简答题");
 		List<Paper> paperList = this.examService.findPaperByCourserList(courseList);
+		List<Exam> teacher4examList = this.examService.findteacher4examList(teacher.getTeacherId());
+		List<Course> course4examList = this.examService.findCourse4examList(teacher4examList);
+		Map<Exam, Course> ECMap = new HashMap<>();
+		for(int i = 0; i < teacher4examList.size(); i++) {
+			ECMap.put(teacher4examList.get(i), course4examList.get(i));
+		}
 		request.setAttribute("danxuan_exam", danxuan_exam);
 		request.setAttribute("duoxuan_exam", duoxuan_exam);
 		request.setAttribute("panduan_exam", panduan_exam);
@@ -77,6 +84,8 @@ public class ExamServlet extends HttpServlet {
 		request.setAttribute("jianda_exam", jianda_exam);
 		request.setAttribute("paperList", paperList);
 		request.setAttribute("courseList", courseList);
+		request.setAttribute("ECMap", ECMap);
+		
 		
 		
 		

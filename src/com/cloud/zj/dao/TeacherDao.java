@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.cloud.zj.entity.Course;
+import com.cloud.zj.entity.Major;
 import com.cloud.zj.entity.Teacher;
 
 public interface TeacherDao extends BaseDao<Teacher>{
@@ -25,5 +26,9 @@ public interface TeacherDao extends BaseDao<Teacher>{
 	public void addT4C(String identity, String teachername, String teachercourseid);
 
 	public Map<Integer, List<Teacher>> findTeacherByTList(List<Course> courselist);
+
+	public Map<Integer, List<Teacher>> findTeacherByMList(List<Major> majorall);
+
+	public void updateTsMajor(int majorid, String majorteacherid);
 
 }

@@ -73,5 +73,15 @@ public class ExamService {
 		return this.examDao.findPaper(courseList);
 	}
 
+	public List<Exam> findteacher4examList(Integer teacherId) {
+		// TODO Auto-generated method stub
+		return this.examDao.findExamByTeacher(teacherId);
+	}
+
+	public List<Course> findCourse4examList(List<Exam> teacher4examList) {
+		// TODO Auto-generated method stub
+		return this.examDao.findCourselistByEL(teacher4examList);
+	}
+
 	
 }

@@ -9,6 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.cloud.zj.dao.CourseDao;
 import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.db.DB;
 import com.cloud.zj.entity.Course;
@@ -350,6 +351,56 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 			}
 		}
 		return paperList;
+	}
+
+	@Override
+	public List<Exam> findExamByTeacher(Integer teacherId) {
+		// TODO Auto-generated method stub
+		CourseDao cdp = new CourseDaoImp();
+		List<Course> courselist = cdp.findCourseByTid(teacherId);
+		List<Exam> list = new ArrayList<>();
+		Set<Exam> set = new HashSet<>();
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		for(Course c : courselist) {
+			String sql = "select * from exam where courseid = " + c.getCourseId();
+			ResultSet rs = DB.executeQuery(stmt, sql);
+			try {
+				while (rs.next()) {
+					Exam e = new Exam();
+					e.setCourseId(c.getCourseId());
+					e.setExamAnwser(rs.getString("examanwser"));
+					e.setExamChapter(rs.getString("examchapter"));
+					e.setExamContent(rs.getString("examcontent"));
+					e.setExamDegree(rs.getFloat("examdegree"));
+					e.setExamId(rs.getInt("examid"));
+					e.setExamKind(rs.getString("ExamKind"));
+					e.setExamScore(rs.getInt("examscore"));
+					if(set.add(e)) {
+						list.add(e);
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DB.close(rs);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+		return list;
+	}
+
+	@Override
+	public List<Course> findCourselistByEL(List<Exam> teacher4examList) {
+		// TODO Auto-generated method stub
+		List<Course> courselist = new ArrayList<>();
+		CourseDao cdp = new CourseDaoImp();
+		for(Exam e : teacher4examList) {
+			int courseid = e.getCourseId();
+			courselist.add(cdp.getCourseById(courseid));
+		}
+		return courselist;
 	}
 }
 	

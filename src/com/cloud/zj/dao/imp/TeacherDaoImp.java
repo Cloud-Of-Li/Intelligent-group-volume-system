@@ -14,6 +14,7 @@ import java.util.Set;
 import com.cloud.zj.dao.TeacherDao;
 import com.cloud.zj.db.DB;
 import com.cloud.zj.entity.Course;
+import com.cloud.zj.entity.Major;
 import com.cloud.zj.entity.Teacher;
 
 public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
@@ -182,6 +183,69 @@ public class TeacherDaoImp extends BaseDaoImp<Teacher> implements TeacherDao {
 		}
 		return map;
 
+	}
+
+	@Override
+	public Map<Integer, List<Teacher>> findTeacherByMList(List<Major> majorall) {
+		// TODO Auto-generated method stub
+		Map<Integer, List<Teacher>> map = new HashMap<>();
+		for(Major m : majorall) {
+			List<Teacher> teacherlist = findTeacherBymajorid(m.getMajorId());
+			map.put(m.getMajorId(), teacherlist);
+		}
+		return map;
+	}
+
+	@Override
+	public void updateTsMajor(int majorid, String majorteacherid) {
+		// TODO Auto-generated method stub
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		String[] teacheridstr = majorteacherid.split("_");
+		String sql = "";
+		int[] teacheridNums  = new int[teacheridstr.length]; 
+		for(int i = 0; i < teacheridNums.length; i++) {
+			teacheridNums[i] = Integer.parseInt(teacheridstr[i]); 
+		}
+		for(int i =0; i < teacheridNums.length; i++) {
+			sql =  "update teacher set majorid = " + majorid + " where teacherid = " + teacheridNums[i];
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
+
+	public List<Teacher> findTeacherBymajorid(Integer majorId) {
+		// TODO Auto-generated method stub
+		String sql = "select * from teacher where majorid = " + majorId;
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Teacher> teacheridList = new ArrayList<>();
+		Set<Teacher> teacehridSet = new HashSet<>();
+		Teacher t = null;
+		try {
+			while (rs.next()) {
+				t = new Teacher();
+				t.setMajorid(rs.getInt("majorid"));
+				t.setTeacherId(rs.getInt("teacherid"));
+				t.setTeacherName(rs.getString("teachername"));
+				t.setTeacherPassword(rs.getString("teacherPassword"));
+				t.setTeacherPhone(rs.getString("teacherPhone"));
+				t.setTeacherSex(rs.getString("teacherSex"));
+				t.setIdentity(rs.getString("identity"));
+				if(teacehridSet.add(t)) {
+					teacheridList.add(t);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return teacheridList;
 	}
 
 	public List<Teacher> findTeacherBycourseid(Integer courseId) {

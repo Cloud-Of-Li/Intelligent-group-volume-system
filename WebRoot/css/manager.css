@@ -120,7 +120,8 @@ a {
 	color:white;
 }
 
-.houtai_teacher,.houtai_managment,.houtai_all_neirong{
+.houtai_teacher,.houtai_managment,.houtai_all_neirong,.add_course,.add_major
+{
 	/* margin-top: 10px; */
 	padding-left: 50px;
 	padding-bottom: 8px;
@@ -130,6 +131,7 @@ a {
 	top:10px;
 	left:0px;
 }
+
 
 .content_right_1,.content_right_1_update,.content_right_1_add{
 	width:87%;

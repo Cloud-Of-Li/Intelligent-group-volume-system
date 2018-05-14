@@ -68,8 +68,8 @@
 						<div class="houtai_all_neirong">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>课程列表</span>
 						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>专业信息</span>
+						<div class="add_course">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>添加课程</span>
 						</div>
 					</div>
 				</div>
@@ -83,14 +83,8 @@
 						<div class="houtai_all_neirong">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>专业列表信息</span>
 						</div>
-						<div class="houtai_all_neirong">
+						<div class="add_major">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>添加专业信息</span>
-						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>删除专业信息</span>
-						</div>
-						<div class="houtai_all_neirong">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-link"></span> &nbsp;<span>修改专业信息</span>
 						</div>
 					</div>
 				</div>	
@@ -130,6 +124,9 @@
 				
 				<div class="content_main_content">
 					<table class="table_infomations_teacher" id="table_info">
+						<tr>
+							<td colspan="8" style="background-color: silver"><a class="add_teacher" style="font-size:25px;color:red;font-family: '华文正楷';">添加教师</a></td>
+						</tr>
 						<tr>
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师编号</th>
 								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师姓名</th>
@@ -181,9 +178,7 @@
 								</td>
 						</tr>
 						</c:forEach>
-						<tr>
-							<td colspan="8"><a class="add_teacher" style="color:blue;">添加教师</a></td>
-						</tr>
+						
 						
 						
 					</table>
@@ -291,7 +286,7 @@
 				
 						<tr>
 								<td align="center" colspan="2">
-									<button id="queren_update">确认添加</button>&nbsp;&nbsp;
+									<button id="queren_update">确认修改</button>&nbsp;&nbsp;
 									<a href="mexamServlet"><button type="button">返回上一层</button></a>
 								</td>
 						</tr>	
@@ -392,7 +387,7 @@
 						
 						<tr>
 								<td align="center" colspan="2">
-									<button id="queren_add">确认更改</button>&nbsp;&nbsp;
+									<button id="queren_add">确认添加</button>&nbsp;&nbsp;
 									<a href="mexamServlet"><button type="button">返回上一层</button></a>
 								</td>
 						</tr>	
@@ -454,9 +449,9 @@
 								</td>
 						</tr>
 						</c:forEach>
-						<tr>
+						<!-- <tr>
 							<td colspan="8"><a class="add_course" style="color:blue;">添加课程</a></td>
-						</tr>
+						</tr> -->
 						
 						
 					</table>
@@ -467,9 +462,10 @@
 		</div>	
 		
 	<!--==================================== 课程的添加 ==============================================-->	
+	
 		<div class="content_right" id="content_right_add_course" style="display:none">
 			<div class="content4houtai">
-				&nbsp;&nbsp;&nbsp;&nbsp;<span>课程信息</span>
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加课程</span>
 				<hr>
 			</div>	
 			
@@ -504,10 +500,16 @@
 								<td>
 									<table>
 										<tr>
-											<td style="width:100px"></td>
+											<td style="width:50px"></td>
 											<td style="text-align:left"> 
+											<c:set var="x" value="${0}" />
 												<c:forEach items="${teacherlist }" var="teacher">					
-													<input type="checkbox" name="chc_tea" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>&nbsp;&nbsp;${teacher.getTeacherName() }<br>
+													<input type="checkbox" name="chc_tea" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>${teacher.getTeacherName() }
+													&nbsp;&nbsp;&nbsp;&nbsp;
+													<c:set var="x" value="${x+1 }"/>
+													<c:if test="${(x!=0)&&(x%3==0) }">
+														<br>
+													</c:if>
 												</c:forEach>
 											</td>
 										</tr>
@@ -597,6 +599,193 @@
 			</div>
 	
 		</div>
+		
+		
+	<!--================================================================= 专业信息部分 =============================================================== -->	
+	
+	<div class="content_right" id="list_major">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>专业信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_teacher" id="course_info">
+						<tr style="border: 1px">
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">专业编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">专业名称</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">教师列表</th>		
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">相关操作 </th>		
+						</tr>
+						<c:set var="x" value="-1" />
+						<c:forEach items="${majorall}" var="major">
+						<c:set var="x" value="${x+1 }" />
+						<tr>
+								<td>
+									<pre style="font-size: 18px">${major.getMajorId()}</pre>	
+								</td>
+								<td>
+									<pre style="font-size: 18px">${major.getMajorName()}</pre>	
+								</td>								
+															
+								<td>
+									<c:forEach items="${teacherMap4Major }" var="entry">
+										<c:if test="${entry.key == major.getMajorId()}">
+											<c:forEach items="${entry.value }" var="teacher">
+												${teacher.getTeacherName() }<br/>
+											</c:forEach>	
+										</c:if>
+									</c:forEach>	
+								</td>
+								<td>
+									<pre style="font-size: 18px"><a style="color: red" class="delete_major">删除</a> | <a style="color: red" class="update_major">修改</a></pre>	
+								</td>
+						</tr>
+						</c:forEach>
+						<!-- <tr>
+							<td colspan="8"><a class="add_course" style="color:blue;">添加课程</a></td>
+						</tr> -->
+						
+						
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>	
+	<!--========================专业信息修改================================-->
+	<div class="content_right" id="content_right_update_major" style="display:none">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>专业信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form action="javascript:void(0)" method="post">
+					<table style="margin:0 auto">
+						<tr>
+								<th class="th4neirong">专业编号：</th>
+								<td style="width:500px;">
+									<input type="text" name="update_majorid"  disabled="disabled"/>
+								</td>
+						</tr>
+						<tr>
+								<th class="th4neirong">专业名字：</th>
+								<td style="width:500px;">
+									<input type="text" name="update_majorname" />
+								</td>
+						</tr>
+						
+						<tr>
+								<th class="th4neirong">任课老师：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:100px"></td>
+											<td style="text-align:left"> 
+												<c:forEach items="${teacherlist }" var="teacher">					
+													<input type="checkbox" name="major_tea_up" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>&nbsp;&nbsp;${teacher.getTeacherName() }<br>
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
+						</tr>
+				
+						<tr>
+								<td align="center" colspan="2">
+									<button id="queren_update_major">确认更新</button>&nbsp;&nbsp;
+									<a class="returnBacktomajorlist"><button type="button">返回上一层</button></a>
+								</td>
+						</tr>	
+					</table>				
+					</form>
+				</div>
+	
+			</div>
+	
+		</div>
+	
+	
+	<!--======================== 专业信息添加============================== -->
+		
+		<div class="content_right" id="content_right_add_major" style="display:none">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>添加专业信息</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form action="javascript:void(0)" method="post">
+					<table style="margin:0 auto">
+						<tr>
+								<th class="th4neirong">专业名称：</th>
+								<td>
+									<input type="text" name="add_majorname"  placeholder="专业名称" required="required"/>	
+								</td>
+						</tr>
+						
+						
+						<tr>
+								<th class="th4neirong">任课老师：</th>
+								<td>
+									<table>
+										<tr>
+											<td style="width:50px"></td>
+											<td style="text-align:left"> 
+											<c:set var="x" value="${0}" />
+												<c:forEach items="${teacherlist }" var="teacher">					
+													<input type="checkbox" name="m_tea" value="${teacher.getTeacherId() }"  style="width:12.8px;" id="teaL"/>${teacher.getTeacherName() }
+													&nbsp;&nbsp;&nbsp;&nbsp;
+													<c:set var="x" value="${x+1 }"/>
+													<c:if test="${(x!=0)&&(x%3==0) }">
+														<br>
+													</c:if>
+												</c:forEach>
+											</td>
+										</tr>
+									</table>
+								</td>
+						</tr>
+						
+						<tr>
+								<td align="center" colspan="2">
+									<button id="queren_addmajor">确认添加</button>&nbsp;&nbsp;
+									<a class="returnBacktomajorlist"><button type="button">返回上一层</button></a>
+								</td>
+						</tr>	
+					</table>				
+					</form>
+				</div>
+	
+			</div>
+	
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	

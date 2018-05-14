@@ -28,4 +28,8 @@ public interface ExamDao extends BaseDao<Exam>{
 
 	public List<Paper> findPaper(List<Course> courseList);
 
+	public List<Exam> findExamByTeacher(Integer teacherId);
+
+	public List<Course> findCourselistByEL(List<Exam> teacher4examList);
+
 }

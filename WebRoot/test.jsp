@@ -69,6 +69,12 @@
 						<div class="houtai_all_neirong">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-compass"></span> &nbsp;<span>搜索试题</span>
 						</div>
+						<div class="houtai_all_neirong" >
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-quill"></span> &nbsp;<span>修改试题</span>
+						</div>
+						<div class="houtai_all_neirong">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-compass"></span> &nbsp;<span>试题删除</span>
+						</div>
 					</div>
 				</div>
 
@@ -1198,6 +1204,65 @@
 			</div>
 	
 		</div>
+		
+	<!-- 试题删除 -->	
+	<div class="content_right" id="delete_shiti">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>试题信息删除</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_teacher" id="course_info">
+						<tr>
+							<td colspan="8" style="background-color: silver"><a class="delet_select_shiti" style="font-size:15px;color:red;">删除选择的试题</a></td>
+							<td>当前已选<span>0</span>个</td>
+						</tr>
+					
+						<tr style="border: 1px">
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">试题编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">试题内容</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">所属课程</th>
+						</tr>
+						<c:set var="x" value="-1" />
+						<c:forEach items="${teacher4examList}" var="exam">
+						<c:set var="x" value="${x+1 }" />
+						<tr>
+								<td>
+									<input type="checkbox" name="delete_1_shiti" value="${exam.getExamId() }" style="width:12.8px;"/>${exam.getExamId() }
+													&nbsp;&nbsp;&nbsp;&nbsp;
+								</td>
+								<td>
+									<pre style="font-size: 18px">${exam.getExamContent() }</pre>	
+								</td>								
+								<td>
+									<pre style="font-size: 18px">${exam.getCourseId() }</pre>	
+								</td>								
+						</tr>
+						</c:forEach>
+						<!-- <tr>
+							<td colspan="8"><a class="add_course" style="color:blue;">添加课程</a></td>
+						</tr> -->
+						
+						
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>		
+		
+		
+		
+		
+		
+		
+		
 
 	<!-- 试卷列表 -->
 		<div class="content_right" id="list_shijuan">

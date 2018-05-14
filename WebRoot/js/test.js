@@ -209,16 +209,12 @@ $(function() {
 			$("#list_jianda").css("display", "block");
 		} else if ($(this).children("span").text() == "试卷列表") {
 			$("#list_shijuan").css("display", "block");
-			
-			
-			
-			
-			
-			
 		} else if ($(this).children("span").text() == "智能组卷") {
 			$("#add_zhineng_shijuan").css("display", "block");
 		} else if ($(this).children("span").text() == "添加试题") {
 			$("#add_shiti").css("display", "block");
+		} else if ($(this).children("span").text() == "试题删除") {
+			$("#delete_shiti").css("display", "block");
 		} else {
 			//表示点击的是章节试题的其中一个
 			var zhangjie = $(this).children("span").text();
