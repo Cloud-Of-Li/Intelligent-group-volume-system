@@ -84,6 +84,8 @@ public class ExamServlet extends HttpServlet {
 		request.setAttribute("jianda_exam", jianda_exam);
 		request.setAttribute("paperList", paperList);
 		request.setAttribute("courseList", courseList);
+		request.setAttribute("teacher4examList", teacher4examList);
+		request.setAttribute("course4examList", course4examList);
 		request.setAttribute("ECMap", ECMap);
 		
 		

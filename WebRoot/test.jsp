@@ -7,6 +7,7 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
     <script src='js/jquery-3.1.1.min.js'></script>
     <script src='js/test.js'></script>
+    <script src='js/exam.js'></script>
     <link rel="stylesheet" href="css\icono.min.css">
 	<link rel="stylesheet" type="text/css" href="css\test.css">
 	<link rel="stylesheet" type="text/css" href="css\style.css">
@@ -1218,30 +1219,30 @@
 				</div>
 				
 				<div class="content_main_content">
-					<table class="table_infomations_teacher" id="course_info">
+					<table class="table_infomations_teacher" id="exam_info" style="width:100%">
 						<tr>
-							<td colspan="8" style="background-color: silver"><a class="delet_select_shiti" style="font-size:15px;color:red;">删除选择的试题</a></td>
-							<td>当前已选<span>0</span>个</td>
+							<td colspan="2" style="background-color: silver"><a class="delet_select_shiti" style="font-size:15px;color:red;">删除选择的试题</a></td>
+							 <td>当前已选 <span id="selecttoDel">0</span> 个</td>
 						</tr>
 					
 						<tr style="border: 1px">
-								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">试题编号</th>
-								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">试题内容</th>
-								<th class="th4neirong" style="color: #0067aa; background-color: #ddd">所属课程</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:10%">试题编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:75%">试题内容</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:15%">所属课程</th>
 						</tr>
 						<c:set var="x" value="-1" />
-						<c:forEach items="${teacher4examList}" var="exam">
+						<c:forEach items="${ECMap}" var="entry">
 						<c:set var="x" value="${x+1 }" />
 						<tr>
-								<td>
-									<input type="checkbox" name="delete_1_shiti" value="${exam.getExamId() }" style="width:12.8px;"/>${exam.getExamId() }
+								<td style="text-align:right">
+									<input type="checkbox" name="delete_1_shiti" value="${entry.key.getExamId() }" style="width:12.8px;height:auto"/>${entry.key.getExamId() }
 													&nbsp;&nbsp;&nbsp;&nbsp;
 								</td>
-								<td>
-									<pre style="font-size: 18px">${exam.getExamContent() }</pre>	
+								<td style="text-align:left">
+									${entry.key.getExamContent() }
 								</td>								
 								<td>
-									<pre style="font-size: 18px">${exam.getCourseId() }</pre>	
+									<pre style="font-size: 18px">${entry.value.getCourseName() }</pre>	
 								</td>								
 						</tr>
 						</c:forEach>
