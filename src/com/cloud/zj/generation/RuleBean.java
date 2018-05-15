@@ -28,178 +28,71 @@ public class RuleBean {
 	 */
 	private double difficulty;
 	/**
-	 * 单选题数量
+	 * 试题类型
 	 */
-	private int singleNum;
+	private String partens;
 	/**
-	 * 单选题单个分值
+	 * 各个试题数量
 	 */
-	private double singleScore;
-	
-	
+	private String partenCounts;
 	/**
-	 * 多选题数量
+	 * 各个试题分值
 	 */
-	private int multiNum;
-	/**
-	 * 多选题单个分值
-	 */
-	private double multiScore;
-	
-	
-	/**
-	 * 填空题数量
-	 */
-	private int completeNum;
-	/**
-	 * 填空题单个分值
-	 */
-	private double completeScore;
-	
-	
-	/**
-	 * 判断题数量
-	 */
-	private int tfNum;
-	/**
-	 * 判断题单个分值
-	 */
-	private double tfScore;
-	
-	
-	/**
-	 * 主观题数量
-	 */
-	private int subjectiveNum;
-	/**
-	 * 主观题单个分值
-	 */
-	private double subjectiveScore;
+	private String partenScores;
 	/**
 	 * 规则创建时间
 	 */
 	private Date createTime;
-
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 	public long getExamId() {
 		return examId;
 	}
-
 	public void setExamId(long examId) {
 		this.examId = examId;
 	}
-
 	public double getTotalMark() {
 		return totalMark;
 	}
-
-	public void setTotalMark(double totalMark2) {
-		this.totalMark = totalMark2;
+	public void setTotalMark(double totalMark) {
+		this.totalMark = totalMark;
 	}
-
 	public double getDifficulty() {
 		return difficulty;
 	}
-
 	public void setDifficulty(double difficulty) {
 		this.difficulty = difficulty;
 	}
-
-	public int getSingleNum() {
-		return singleNum;
+	public String getPartens() {
+		return partens;
 	}
-
-	public void setSingleNum(int singleNum) {
-		this.singleNum = singleNum;
+	public void setPartens(String partens) {
+		this.partens = partens;
 	}
-
-	public double getSingleScore() {
-		return singleScore;
+	public String getPartenCounts() {
+		return partenCounts;
 	}
-
-	public void setSingleScore(double singleScore) {
-		this.singleScore = singleScore;
+	public void setPartenCounts(String partenCounts) {
+		this.partenCounts = partenCounts;
 	}
-
-	public int getCompleteNum() {
-		return completeNum;
+	public String getPartenScores() {
+		return partenScores;
 	}
-
-	public void setCompleteNum(int completeNum) {
-		this.completeNum = completeNum;
+	public void setPartenScores(String partenScores) {
+		this.partenScores = partenScores;
 	}
-
-	public double getCompleteScore() {
-		return completeScore;
-	}
-
-	public void setCompleteScore(double completeScore) {
-		this.completeScore = completeScore;
-	}
-
-	public int getSubjectiveNum() {
-		return subjectiveNum;
-	}
-
-	public void setSubjectiveNum(int subjectiveNum) {
-		this.subjectiveNum = subjectiveNum;
-	}
-
-	public double getSubjectiveScore() {
-		return subjectiveScore;
-	}
-
-	public void setSubjectiveScore(double subjectiveScore) {
-		this.subjectiveScore = subjectiveScore;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
-
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
+
 	
-
-	public int getMultiNum() {
-		return multiNum;
-	}
-
-	public void setMultiNum(int multiNum) {
-		this.multiNum = multiNum;
-	}
-
-	public double getMultiScore() {
-		return multiScore;
-	}
-
-	public void setMultiScore(double multiScore) {
-		this.multiScore = multiScore;
-	}
-
-	public int getTfNum() {
-		return tfNum;
-	}
-
-	public void setTfNum(int tfNum) {
-		this.tfNum = tfNum;
-	}
-
-	public double getTfScore() {
-		return tfScore;
-	}
-
-	public void setTfScore(double tfScore) {
-		this.tfScore = tfScore;
-	}
 
 
 }

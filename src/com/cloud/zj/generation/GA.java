@@ -109,26 +109,28 @@ public class GA {
 		child.setTotalScore(parent1.getTotalScore());
 		return child;
 	}
-
+	
 	private static String getTypeByIndex(int index, RuleBean rule) {
+		String partens = rule.getPartens();
+		String partenCounts = rule.getPartenCounts();
+		
+		int countOfType = partens.split("_").length;
+		String[] partentCountstr = partenCounts.split("_");
+		String[] partenstr = partens.split("_");
+		
 		String type = "";
-		// 单选
-		if (index < rule.getSingleNum()) {
-			type = "单选题";
-		} else if (index < rule.getSingleNum() + rule.getMultiNum()) {
-			// 多选
-			type = "多选题";
-		} else if (index < rule.getSingleNum() + rule.getMultiNum() + rule.getCompleteNum()) {
-			//填空
-			type = "填空题";
-		} else if (index < rule.getSingleNum() + rule.getMultiNum() + rule.getCompleteNum()
-					+ rule.getTfNum()) {
-			// 判断
-			type = "判断题";
-		} else {
-			// 主观
-			type = "简答题";
+		
+		int temp = 0;
+		for(int i= 0; i < countOfType; i++) {
+			if(index < Integer.parseInt(partentCountstr[0])) {
+				return partenstr[0];
+			}
+			temp += Integer.parseInt(partentCountstr[i]);
+			if(temp < index && index < (temp + Integer.parseInt(partentCountstr[i+1]))) {
+				return partenstr[i];
+			}
 		}
+		
 		return type;
 	}
 

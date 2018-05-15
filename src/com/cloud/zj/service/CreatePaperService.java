@@ -21,6 +21,7 @@ public class CreatePaperService {
 		// TODO Auto-generated method stub
 		int count = 0;
 		int runCount = 3;
+		//期望适应度值
 		double expand = 0.98;
 		Paper resultPaper = null;
 		if (rule != null) {

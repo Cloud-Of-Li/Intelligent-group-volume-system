@@ -61,87 +61,73 @@ public class CreatePaperServlet extends HttpServlet {
 		}
 		
 		if("ifcreate".equals(op)) {
-			int singleNum = 0;
+			/*int singleNum = 0;
 			int multiNum = 0;
 			int completeNum = 0;
 			int tfNum = 0;
-			int subjectiveNum = 0;
+			int subjectiveNum = 0;*/
 			String courseName = "";
+			
+			String partenstr ="";
+			String pratenCountstr ="";
+			/*String pratenScorestr ="";*/
+			
 			try {
 				courseName = jsonObject.getString("courseName");
 				course = this.courseService.getCourseByName(courseName);
-				singleNum = jsonObject.getInt("count_danxuan");
-				multiNum = jsonObject.getInt("count_duoxuan");
-				tfNum = jsonObject.getInt("count_panduan");
-				subjectiveNum = jsonObject.getInt("count_jianda");
-				completeNum = jsonObject.getInt("count_tiankong");
+				partenstr = jsonObject.getString("partenstr");
+				pratenCountstr = jsonObject.getString("pratenCount");
+				/*pratenScorestr = jsonObject.getString("pratenScore");*/
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			int sj_singleNum = this.createPaperService.getSingNum(course.getCourseId(),"单选题");
-			if(sj_singleNum < singleNum) {
-				response.getWriter().print("{\"flag\":\"danxuan_error\",\"num\":" + sj_singleNum + "}");
-				return;
+			String[] partens = partenstr.split("_");
+			String[] pratenCounts = pratenCountstr.split("_");
+			/*String[] pratenScores = partenstr.split("_");*/
+			
+			for(int i = 0; i < partens.length; i++) {
+				int sj_Num = this.createPaperService.getSingNum(course.getCourseId(), partens[i]);
+				if(sj_Num < Integer.parseInt(pratenCounts[i])) {
+					response.getWriter().print("{\"flag\":\"" + partens[i] + "\",\"num_error\":" + Integer.parseInt(pratenCounts[i]) + ",\"num\":" + sj_Num + "}");
+					return;
+				}
+				
 			}
-			int sj_multiNum = this.createPaperService.getSingNum(course.getCourseId(),"多选题");
-			if(sj_multiNum < multiNum) {
-				response.getWriter().print("{\"flag\":\"duoxuan_error\",\"num\":"+ sj_multiNum+ "}");
-				return;
-			}
-			int sj_completeNum = this.createPaperService.getSingNum(course.getCourseId(),"填空题");
-			if(sj_completeNum < completeNum) {
-				response.getWriter().print("{\"flag\":\"tiankong_error\",\"num\":" + sj_completeNum+ "}");
-				return;
-			}
-			int sj_tfNum = this.createPaperService.getSingNum(course.getCourseId(),"判断题");
-			if(sj_tfNum < tfNum) {
-				response.getWriter().print("{\"flag\":\"panduan_error\",\"num\":" + sj_tfNum+ "}");
-				return;
-			}
-			int sj_subjectiveNum = this.createPaperService.getSingNum(course.getCourseId(),"简答题");
-			if(sj_subjectiveNum < subjectiveNum) {
-				response.getWriter().print("{\"flag\":\"jianda_error\",\"num\":" + sj_subjectiveNum+ "}");
-				return;
-			}
+			
+			
+			
+			
 			response.getWriter().print("{\"flag\":\"ok\",\"num\":" + 5 + "}");
 			
 			
 		} else if("auto".equals(op)) {
-			int singleNum = 0;
-			int multiNum = 0;
-			int completeNum = 0;
-			int tfNum = 0;
-			int subjectiveNum = 0;
+			String courseName = "";
 			
-			double singleScore = 0.0;
-			double multiScore = 0.0;
-			double completeScore = 0.0;
-			double tfScore = 0.0;
-			double subjectiveScore = 0.0;
+			String partenstr ="";
+			String pratenCountstr ="";
+			String pratenScorestr ="";
+			
+			try {
+				courseName = jsonObject.getString("courseName");
+				course = this.courseService.getCourseByName(courseName);
+				partenstr = jsonObject.getString("partenstr");
+				pratenCountstr = jsonObject.getString("pratenCount");
+				/*pratenScorestr = jsonObject.getString("pratenScore");*/
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			double totalMark =100.0;
 			double difficulty = 0.5;
-			
-			String courseName = "";
 			try {
-				
 				courseName = jsonObject.getString("courseName");
 				course = this.courseService.getCourseByName(courseName);
-				
-				singleNum = jsonObject.getInt("count_danxuan");
-				multiNum = jsonObject.getInt("count_duoxuan");
-				tfNum = jsonObject.getInt("count_panduan");
-				subjectiveNum = jsonObject.getInt("count_jianda");
-				completeNum = jsonObject.getInt("count_tiankong");
-				
-				singleScore = jsonObject.getDouble("score_danxuan");
-				multiScore = jsonObject.getDouble("score_duoxuan");
-				tfScore = jsonObject.getDouble("score_panduan");
-				subjectiveScore = jsonObject.getDouble("score_jianda");
-				completeScore = jsonObject.getDouble("score_tiankong");
-
+				partenstr = jsonObject.getString("partenstr");
+				pratenCountstr = jsonObject.getString("pratenCount");
+				pratenScorestr = jsonObject.getString("pratenScore");
 				totalMark = jsonObject.getDouble("totalScore");
 				difficulty = jsonObject.getDouble("diffculty");
 			} catch (JSONException e) {
@@ -149,17 +135,10 @@ public class CreatePaperServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 			RuleBean rule = new RuleBean();
-			rule.setCompleteNum(completeNum);
-			rule.setCompleteScore(completeScore);
+			rule.setPartens(partenstr);
+			rule.setPartenScores(pratenScorestr);
+			rule.setPartenCounts(pratenCountstr);
 			rule.setDifficulty(difficulty);
-			rule.setMultiNum(multiNum);
-			rule.setMultiScore(multiScore);
-			rule.setSingleNum(singleNum);
-			rule.setSingleScore(singleScore);
-			rule.setSubjectiveNum(subjectiveNum);
-			rule.setSubjectiveScore(subjectiveScore);
-			rule.setTfNum(tfNum);
-			rule.setTfScore(tfScore);
 			rule.setTotalMark(totalMark);
 			Paper resultPaper = this.createPaperService.createPaper(course.getCourseId(), rule);
 			//添加试卷到数据库中

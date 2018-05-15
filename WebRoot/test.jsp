@@ -541,11 +541,14 @@
 									<c:forEach items="${partenList }" var="parten">
 									<c:set var="x" value="${x+1 }" />
 										<span>	
-											<input type="checkbox" class="input_check" id="check${parten.getPartenName() }">
+											<input type="checkbox" class="input_check"  name="input_checkbox"  id="check${parten.getPartenName() }" value="${parten.getPartenName() }">
 											<label for="check${x }">${parten.getPartenName() }</label>
 										</span>
 										&nbsp;&nbsp;
 										&nbsp;&nbsp;
+										<c:if test="${(x!=0)&&(x%8==0) }">
+											<br>
+										</c:if>
 									</c:forEach>
 									</div>
 								</td>
@@ -554,7 +557,7 @@
 							
 							
 							<c:set var="x" value="0" />
-									<c:forEach items="${sessionScope.partenList }" var="parten">
+									<c:forEach items="${partenList }" var="parten">
 									<c:set var="x" value="${x+1 }" />
 										<tr class="${parten.getPartenName() }" style="display:none">
 											<th>${parten.getPartenName() }数量：</th>
@@ -805,9 +808,46 @@
 			</div>
 	
 		</div>
+		
+		<!-- 题型列表 -->
+		<div class="content_right" id="list_parten">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>题型列表</span>
+				<hr>
+			</div>	
 			
-		
-		
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_teacher" id="list_pa" style="border:1px;">
+						<tr style="border: 1px">
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; border: 1px">题型编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; border: 1px">题型名称</th>
+						</tr>
+						<c:forEach items="${partenList}" var="parten">
+						<tr>
+								<td>
+									<pre style="font-size: 18px">${parten.getPartenid()}</pre>	
+								</td>
+								<td>
+									<pre style="font-size: 18px">${parten.getPartenName()}</pre>	
+								</td>								
+						</tr>
+						</c:forEach>
+						<!-- <tr>
+							<td colspan="8"><a class="add_course" style="color:blue;">添加课程</a></td>
+						</tr> -->
+						
+						
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>	
 		
 		
 		<!-- 试题修改 -->	
@@ -1045,9 +1085,6 @@
 										<td style="padding-left: 5px;">
 											<pre style="font-size: 18px">${index }. ${p_danxuan.getExamContent() }</pre>
 										</td>
-										<!-- <td style="width:25px; padding:7px 0 0 0 ; vertical-align: top;">
-											<input type="checkbox" class="input_check" id="danxuan_1" style="width:20px">
-										</td> -->
 									</tr>
 									</c:forEach>
 								</table>												

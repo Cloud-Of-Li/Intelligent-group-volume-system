@@ -199,6 +199,8 @@ $(function() {
 			$("#search_danxuan").css("display", "block");
 		} else if ($(this).children("span").text() == "题型添加") {
 			$("#add_parten").css("display", "block");
+		}  else if ($(this).children("span").text() == "题型列表") {
+			$("#list_parten").css("display", "block");
 		} else if ($(this).children("span").text() == "试卷列表") {
 			$("#list_shijuan").css("display", "block");
 		} else if ($(this).children("span").text() == "智能组卷") {
@@ -266,7 +268,8 @@ $(function() {
 	$(".foronekecheng").text(foronekecheng);
 	
 	
-	
+	var pertenlen = $("input[name='input_checkbox']:checked").length;
+
 	
 	$("#submit4auto").click(function() {
 
@@ -278,6 +281,19 @@ $(function() {
 			$(".tishi4nanduxishu").css("display", "table-cell");
 			return;
 		}
+		var partenstr = $("input:checkbox[name='input_checkbox']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join('_');
+		
+		var pratenCount = $("input[name='input_checkbox']:checked").map(function(index,elem) {
+			return ($('input[name="count_'+$(elem).val()+'"]').val());
+		}).get().join('_');
+		
+		var pratenScore = $("input[name='input_checkbox']:checked").map(function(index,elem) {
+			return ($('input[name="score_'+$(elem).val()+'"]').val());
+		}).get().join('_');
+		
+		/*alert(partenstr +"-----"+ pratenCount+"-----"+pratenScore);*/
 
 		var object = $("#danxuan_kecheng option:checked").text();
 
@@ -291,7 +307,7 @@ $(function() {
 			return;
 		}
 
-		var count_danxuan = $('input[name="count_danxuan"]').val();
+		/*var count_danxuan = $('input[name="count_danxuan"]').val();
 		var count_duoxuan = $('input[name="count_duoxuan"]').val();
 		var count_panduan = $('input[name="count_panduan"]').val();
 		var count_tiankong = $('input[name="count_tiankong"]').val();
@@ -301,7 +317,7 @@ $(function() {
 		var score_duoxuan = $('input[name="score_duoxuan"]').val();
 		var score_panduan = $('input[name="score_panduan"]').val();
 		var score_tiankong = $('input[name="score_tiankong"]').val();
-		var score_jianda = $('input[name="score_jianda"]').val();
+		var score_jianda = $('input[name="score_jianda"]').val();*/
 		
 		var courseName = $("#danxuan_kecheng option:checked").val();
 
@@ -310,52 +326,28 @@ $(function() {
 			type : 'post',
 			dataType:'json',
 			data : '{"courseName":"' + courseName +
-				'","count_danxuan":' + count_danxuan +
-				',"count_duoxuan":' + count_duoxuan +
-				',"count_panduan":' + count_panduan +
-				',"count_tiankong":' + count_tiankong +
-				',"count_jianda":' + count_jianda +
-				',"op":"ifcreate"}',
+				'","partenstr":"' + partenstr +
+				'","pratenCount":"' + pratenCount +
+				'","pratenScore":"' + pratenScore +
+				'","op":"ifcreate"}',
 			contentType : 'application/json;charset=utf-8',
 			success : function(data) {
 				var jsonData = data;
-				if(jsonData.flag == "danxuan_error") {
-					$("#chucuola span").text("*组卷出错，题库单选题数量不足" + count_danxuan + "个," + courseName +"单选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
+				if(jsonData.flag != "ok") {
+					$("#chucuola span").text("*组卷出错，题库" + data.flag + "数量不足" + data.num_error + "个," 
+							+ courseName +""+data.flag+"数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
 					$("#chucuola").css("display","table-cell");
 					return ; 
-				} else if(jsonData.flag == "duoxuan_error") {
-					$("#chucuola span").text("*组卷出错，题库多选题数量不足" + count_duoxuan + "个," +  courseName +"多选题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
-					$("#chucuola").css("display","table-cell");
-					return ;
-				}  else if(jsonData.flag == "tiankong_error") {
-					$("#chucuola span").text("*组卷出错，题库填空题数量不足" + count_tiankong + "个," +  courseName +"填空题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
-					$("#chucuola").css("display","table-cell");
-					return ;
-				}  else if(jsonData.flag == "panduan_error") {
-					$("#chucuola span").text("*组卷出错，题库判断题数量不足" + count_panduan + "个," +  courseName +"判断题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
-					$("#chucuola").css("display","table-cell");
-					return ;
-				}  else if(jsonData.flag == "jianda_error") {
-					$("#chucuola span").text("*组卷出错，题库简答题数量不足" + count_jianda + "个," +  courseName +"简答题数量共" + jsonData.num  + "个," + "请输入小于" + jsonData.num +"的值");
-					$("#chucuola").css("display","table-cell");
-					return ;
 				} else {
 					alert("组卷成功!!!");
 					var b = $.ajax({
 						url : 'createPaperServlet',
 						type : 'post',
 						data : '{"courseName":"' + courseName +
-							'","count_danxuan":' + count_danxuan +
-							',"count_duoxuan":' + count_duoxuan +
-							',"count_panduan":' + count_panduan +
-							',"count_tiankong":' + count_tiankong +
-							',"count_jianda":' + count_jianda +
-							',"score_danxuan":' + score_danxuan +
-							',"score_duoxuan":' + score_duoxuan +
-							',"score_panduan":' + score_panduan +
-							',"score_tiankong":' + score_tiankong +
-							',"score_jianda":' + score_jianda +
-							',"diffculty":' + diffculty +
+							'","partenstr":"' + partenstr +
+							'","pratenCount":"' + pratenCount +
+							'","pratenScore":"' + pratenScore +
+							'","diffculty":' + diffculty +
 							',"totalScore":' + totalScore +
 							',"op":"auto"}',
 						contentType : 'application/json;charset=utf-8',
@@ -369,20 +361,17 @@ $(function() {
 		
 	})
 
+	/*获取试卷总分*/
 	$(".count_all").on("input", function() {
-
 		var total_score = 0;
-		if ($('input[name="count_danxuan"]').val() != "")
-			total_score += $('input[name="count_danxuan"]').val() * $('input[name="score_danxuan"]').val();
-		if ($('input[name="count_duoxuan"]').val() != "")
-			total_score += $('input[name="count_duoxuan"]').val() * $('input[name="score_duoxuan"]').val();
-		if ($('input[name="count_panduan"]').val() != "")
-			total_score += $('input[name="count_panduan"]').val() * $('input[name="score_panduan"]').val();
-		if ($('input[name="count_tiankong"]').val() != "")
-			total_score += $('input[name="count_tiankong"]').val() * $('input[name="score_tiankong"]').val();
-		if ($('input[name="count_jianda"]').val() != "")
-			total_score += $('input[name="count_jianda"]').val() * $('input[name="score_jianda"]').val();
-		$("#shijuanzongfen").val(total_score);
+
+		var adIds={};
+		var partens = $("input[name='input_checkbox']:checked").each(function(i) {
+			adIds[i]=$(this).val();
+			if ($('input[name="count_'+adIds[i]+'"]').val() != "")
+				total_score += $('input[name="count_'+adIds[i]+'"]').val() * $('input[name="score_'+adIds[i]+'"]').val();
+			$("#shijuanzongfen").val(total_score);
+		})
 	/*alert(total_score);*/
 	})
 
@@ -577,10 +566,11 @@ $(function() {
 			}
 		 var a = $.ajax({
 				
-				url : 'examServlet?op=addParten?partenName=' + partenName,
+				url : 'examServlet?op=addParten&partenName=' + partenName,
 				type : 'post',
-				contentType : 'application/text;charset=utf-8',
+				contentType : 'application/json;charset=utf-8',
 				success : function(data) {
+					console.log(data);
 					if(data != "ok") {
 						alert("添加失败，题型已存在");
 					} else{
@@ -599,10 +589,10 @@ $(function() {
 	
 	//智能组卷中组卷要求的显示（单选题，多选题。。。）
 	$(".input_check").click(function() {
+		pertenlen = $("input[name='input_checkbox']:checked").length;
 		if ($(this).is(":checked")) {
 			var abc = $(this).next().text();
 			$("." + abc).css("display", "table-row");
-
 		} else {
 			var abc = $(this).next().text();
 			$("." + abc).find("input").each(function() {
