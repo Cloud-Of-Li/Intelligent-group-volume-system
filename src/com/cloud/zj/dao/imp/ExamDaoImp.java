@@ -181,6 +181,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		return questionList;
 	}
 	
+	@Override
 	public Exam getExamByid(int examid) {
 		// TODO Auto-generated method stub
 		String sql = "select * from exam where examid = " + examid;

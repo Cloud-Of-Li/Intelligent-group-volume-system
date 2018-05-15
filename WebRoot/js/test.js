@@ -215,6 +215,8 @@ $(function() {
 			$("#add_shiti").css("display", "block");
 		} else if ($(this).children("span").text() == "试题删除") {
 			$("#delete_shiti").css("display", "block");
+		}  else if ($(this).children("span").text() == "修改试题") {
+			$("#update_shiti").css("display", "block");
 		} else {
 			//表示点击的是章节试题的其中一个
 			var zhangjie = $(this).children("span").text();
@@ -408,91 +410,11 @@ $(function() {
 	})
 
 
-	$(".houtai_approve_prj").click(function() {
-		$(".content4houtai span").text("项目申请");
-	})
-	$(".houtai_add_prj").click(function() {
-		$(".content4houtai span").text("立项统计");
-	})
-
-	$(".houtai_end_prj").click(function() {
-		$(".content4houtai span").text("结题查询");
-	})
-	$(".houtai_achieve_prj").click(function() {
-		$(".content4houtai span").text("科研成果");
-	})
-
-
-
 	$(".houtai_all_neirong").mouseout(function() {
 		$(this).css("color", "white");
 	})
 	$(".houtai_all_neirong").mouseover(function() {
 		$(this).css("color", "red");
-	})
-
-	$(".houtai_approve_prj").click(function() {
-		$(".content_right_0").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-
-
-
-	$(".houtai_add_prj").mouseout(function() {
-		$(".houtai_add_prj").css("color", "white");
-	})
-	$(".houtai_add_prj").mouseover(function() {
-		$(".houtai_add_prj").css("color", "red");
-	})
-	$(".houtai_add_prj").click(function() {
-		$(".content_right_2").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-
-
-
-
-
-	$(".houtai_end_prj").mouseout(function() {
-		$(".houtai_end_prj").css("color", "white");
-	})
-	$(".houtai_end_prj").mouseover(function() {
-		$(".houtai_end_prj").css("color", "red");
-	})
-	$(".houtai_end_prj").click(function() {
-		$(".content_right_3").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-
-	$(".houtai_achieve_prj").mouseout(function() {
-		$(".houtai_achieve_prj").css("color", "white");
-	})
-	$(".houtai_achieve_prj").mouseover(function() {
-		$(".houtai_achieve_prj").css("color", "red");
-	})
-	$(".houtai_achieve_prj").click(function() {
-		$(".content_right_4").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
 	})
 	
 	/*=============================以下是添加部分=================================*/

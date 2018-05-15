@@ -88,5 +88,10 @@ public class ExamService {
 		this.examDao.deleteExamByids(examidstr);
 	}
 
+	public Exam getExamByid(int examid) {
+		// TODO Auto-generated method stub
+		return this.examDao.getExamByid(examid);
+	}
+
 	
 }

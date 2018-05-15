@@ -63,7 +63,7 @@
 					<div class="houtai_coment_all">
 						<span class="icon-file-text"></span> &nbsp;题库管理
 					</div>
-					<div class="houtai_all">
+					<div class="houtai_all" style="display:block">
 						<div class="houtai_all_neirong" >
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-quill"></span> &nbsp;<span>添加试题</span>
 						</div>
@@ -108,7 +108,7 @@
 					<div class="houtai_coment_all">
 						<span class="icon-list"></span> &nbsp;试卷组成
 					</div>
-					<div class="houtai_all" id="shijuanlistId">
+					<div class="houtai_all" id="shijuanlistId" style="display:block">
 
 						<div class="houtai_all_neirong" >
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-leaf"></span> &nbsp;<span>智能组卷</span>
@@ -1221,8 +1221,9 @@
 				<div class="content_main_content">
 					<table class="table_infomations_teacher" id="exam_info" style="width:100%">
 						<tr>
-							<td colspan="2" style="background-color: silver"><a class="delet_select_shiti" style="font-size:15px;color:red;">删除选择的试题</a></td>
-							 <td>当前已选 <span id="selecttoDel">0</span> 个</td>
+							<td style="background-color: grey"><input type="checkbox" name="selectall_delete_shiti" style="width:12.8px;height:auto"/>&nbsp;全选</td>
+							<td colspan="1" style="background-color: silver"><a class="delet_select_shiti" style="font-size:15px;color:red;">删除选择的试题</a></td>
+							<td>当前已选 <span id="selecttoDel">0</span> 个</td>
 						</tr>
 					
 						<tr style="border: 1px">
@@ -1258,8 +1259,188 @@
 	
 		</div>		
 		
-		
-		
+		<!-- 试题修改 -->	
+	<div class="content_right" id="update_shiti">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>试题信息修改</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<table class="table_infomations_teacher" id="" style="width:100%">
+					
+						<tr style="border: 1px">
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:10%">试题编号</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:75%">试题内容</th>
+								<th class="th4neirong" style="color: #0067aa; background-color: #ddd; width:15%">所属课程</th>
+						</tr>
+						<c:set var="x" value="-1" />
+						<c:forEach items="${ECMap}" var="entry">
+							<c:set var="x" value="${x+1 }" />
+							<tr>
+									<td style="text-align:left">
+										<a class="a_update_exam" style="color:#76B3FE; text-align:left'">修改试题 </a><span>${entry.key.getExamId() }</span>
+														&nbsp;&nbsp;&nbsp;&nbsp;
+									</td>
+									<td style="text-align:left">
+										${entry.key.getExamContent() }
+									</td>								
+									<td>
+										${entry.value.getCourseName() }	
+									</td>
+											
+									<td style="display:none">
+										${entry.key.getExamAnwser() }	
+									</td>
+											
+									<td style="display:none">
+										${entry.key.getExamChapter() }	
+									</td>
+											
+									<td style="display:none">
+										${entry.key.getExamKind() }	
+									</td>
+											
+									<td style="display:none">
+										${entry.key.getExamScore() }	
+									</td>
+									
+									<td style="display:none">
+										${entry.key.getExamDegree() }	
+									</td>
+															
+							</tr>
+						</c:forEach>
+						
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>	
+		<!-- 试题更改详细界面 -->	
+		<div class="content_right" id="update_shiti_1">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>修改试题</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+					<form id="form_add_shiti" method="post" action="javascript:void(0)">
+						<table class="table_infomations">
+							<tr>
+								<th>试题编号：</th>
+								<td>
+									 <input type="text" name="update_examid" disabled="disabled"/>
+								</td>
+							</tr>
+						
+							<tr>
+								<th>所属课程：</th>
+								<td>
+									<select name="update_kecheng" id="up_shiti4kecheng" class="update_shiti_list">
+										<c:forEach items="${sessionScope.courseList }" var="course">
+											<option value="${course.getCourseName()}">&nbsp;&nbsp;${course.courseName}&nbsp;&nbsp;</option>
+										</c:forEach>
+									</select>
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+
+							<tr>
+								<th>所属章节：</th>
+								<td>
+									<select name="update_zhangjie" id="up_zhangjie" class="update_shiti_list">
+											<option value="第一章">&nbsp;&nbsp;第一章&nbsp;&nbsp;</option>
+											<option value="第二章">&nbsp;&nbsp;第二章&nbsp;&nbsp;</option>
+											<option value="第三章">&nbsp;&nbsp;第三章&nbsp;&nbsp;</option>
+											<option value="第四章">&nbsp;&nbsp;第四章&nbsp;&nbsp;</option>
+											<option value="第五章">&nbsp;&nbsp;第五章&nbsp;&nbsp;</option>
+											<option value="第六章">&nbsp;&nbsp;第六章&nbsp;&nbsp;</option>
+											<option value="第七章">&nbsp;&nbsp;第七章&nbsp;&nbsp;</option>
+											<option value="第八章">&nbsp;&nbsp;第八章&nbsp;&nbsp;</option>
+											<option value="第九章">&nbsp;&nbsp;第九章&nbsp;&nbsp;</option>
+											<option value="第十章">&nbsp;&nbsp;第十章&nbsp;&nbsp;</option>
+									</select>
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+							
+							<tr>
+								<th>试题类型：</th>
+								<td>
+									<select name="update_leixing" id="up_leixing" class="update_shiti_list">
+										<option value="单选题" >&nbsp;&nbsp;单选题&nbsp;&nbsp;</option>
+										<option value="多选题" >&nbsp;&nbsp;多选题&nbsp;&nbsp;</option>
+										<option value="填空题" >&nbsp;&nbsp;填空题&nbsp;&nbsp;</option>
+										<option value="判断题" >&nbsp;&nbsp;判断题&nbsp;&nbsp;</option>
+										<option value="简答题" >&nbsp;&nbsp;简答题&nbsp;&nbsp;</option>
+									</select>
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+							
+							<tr>
+								<th>试题难度：</th>
+								<td>
+									<input type="number" step="0.01" name="update_nandu" class="update_shiti_list" required="required" />
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+							
+							<tr>
+								<th>试题分值：</th>
+								<td>
+									<input type="number" step="0.1" name="update_fenzhi" class="update_shiti_list" required="required" />
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+							
+							<tr>
+								<th class="th4neirong">试题内容：</th>
+								<td>
+									<textarea id="update_shitineirong"  name="update_shitineirong_name" class="textArea" cols="37" rows="6" required="required"></textarea>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>试题答案：</th>
+								<td>
+									<input type="text" name="update_shiti_daan" class="update_shiti_list" required="required"/>
+								</td>
+							</tr>
+							
+							<tr><td style="display:none"></td></tr>
+							<tr>
+								<td align="center" colspan="2">
+									<button class="tianjaishiti">确认更改</button>&nbsp;&nbsp;
+									<button class="returnbacktoupexam">返回上一层</button>
+								</td>
+							</tr>
+							
+						</table>
+					</form>
+					
+				</div>
+	
+			</div>
+	
+		</div>
 		
 		
 		

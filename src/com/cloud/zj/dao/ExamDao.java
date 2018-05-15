@@ -34,4 +34,6 @@ public interface ExamDao extends BaseDao<Exam>{
 
 	public void deleteExamByids(String examidstr);
 
+	public Exam getExamByid(int examid);
+
 }

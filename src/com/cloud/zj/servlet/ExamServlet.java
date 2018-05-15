@@ -163,7 +163,6 @@ public class ExamServlet extends HttpServlet {
 			String teachername = "";
 			String teachersex = "";
 			String teacherphone = "";
-			
 			try {
 				jsonObject = new JSONObject(json);
 				teacherid = jsonObject.getString("teacherid");
@@ -171,13 +170,45 @@ public class ExamServlet extends HttpServlet {
 				teachersex = jsonObject.getString("teachersex");
 				teacherphone = jsonObject.getString("teacherphone");
 				this.teacherService.reflashTeacher(teacherid,teachername,teachersex,teacherphone);
-				
 				response.getWriter().print("\"teacherid\":" + teacherid + "}");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
+		}   else if("updateExam".equals(op)) {
+			//修改试题
+			String json = readJSONString(request);
+			JSONObject jsonObject = null;
+			int examid = 0;
+			try {
+				jsonObject = new JSONObject(json);
+				examid = jsonObject.getInt("examid");
+				Exam e = this.examService.getExamByid(examid);
+				int courseId = e.getCourseId();
+				String examAnwser = e.getExamAnwser()/*.replaceAll("\"", "\\\"")
+						.replaceAll("{", "\\{").replaceAll("}", "\\}").replaceAll(",", "\\,").replaceAll("[", "\\[").replaceAll("]", "\\]")*/;
+				String examChapter = e.getExamChapter();
+				String examContent = e.getExamContent()/*.replaceAll("\"", "\\\"")
+						.replaceAll("{", "\\{").replaceAll("}", "\\}").replaceAll(",", "\\,").replaceAll("[", "\\[").replaceAll("]", "\\]")*/;
+				float examDegree = e.getExamDegree();
+				String examKind = e.getExamKind();
+				double examScore = e.getExamScore();
+				response.getWriter().print("{\"examid\":" + examid + ",\"courseId\": "+ courseId + 
+											",\"examAnwser\":\"" + examAnwser + "\", " +
+											"\"examChapter\":\" "+ examChapter  +"\", "  +
+											"\"examContent\":\" "+ examContent  +"\", "  +
+											"\"examKind\": \""+ examKind  +"\", "  +
+											"\"examScore\": \""+ examScore  +"\", "  +
+											"\"examDegree\":\""+ examDegree  +"\""  +
+											"}");
+				
+				/*response.getWriter().print(e);*/
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block-
+				e.printStackTrace();
+			}
+		}   else {
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		}
 	}
