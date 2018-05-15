@@ -150,6 +150,11 @@ public class ExamServlet extends HttpServlet {
 			request.setAttribute("tiankong_exam", tiankong_exam);
 			request.setAttribute("jianda_exam", jianda_exam);
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
+		}   else if("deleteExam".equals(op)) {
+			//删除试题
+			String examidstr = request.getParameter("examidstr");
+			this.examService.putOutExam(examidstr);
+			response.sendRedirect("examServlet");
 		}  else if ("update".equals(op)) {
 			/*更新教师信息*/
 			String json = readJSONString(request);

@@ -83,5 +83,10 @@ public class ExamService {
 		return this.examDao.findCourselistByEL(teacher4examList);
 	}
 
+	public void putOutExam(String examidstr) {
+		// TODO Auto-generated method stub
+		this.examDao.deleteExamByids(examidstr);
+	}
+
 	
 }

@@ -402,6 +402,25 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		}
 		return courselist;
 	}
+
+	@Override
+	public void deleteExamByids(String examidstr) {
+		// TODO Auto-generated method stub
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		String[] examidstring = examidstr.split("_");
+		String sql = "";
+		int[] examids  = new int[examidstring.length]; 
+		for(int i =0; i < examids.length; i++) {
+			examids[i] =Integer.parseInt(examidstring[i]); 
+		}
+		for(int i =0; i < examids.length; i++) {
+			sql =  "delete from exam where examid = " + examids[i];
+			DB.executeUpdate(conn, sql);
+		}
+		DB.close(stmt);
+		DB.close(conn);
+	}
 }
 	
 

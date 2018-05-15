@@ -32,4 +32,6 @@ public interface ExamDao extends BaseDao<Exam>{
 
 	public List<Course> findCourselistByEL(List<Exam> teacher4examList);
 
+	public void deleteExamByids(String examidstr);
+
 }
