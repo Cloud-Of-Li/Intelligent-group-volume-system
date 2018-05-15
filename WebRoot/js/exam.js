@@ -40,37 +40,41 @@ $(function() {
 
 	/*修改试题*/
 	$(".a_update_exam").click(function() {
-
 		var examid = $(this).parents("tr").children("td").eq(0).children("span").text();
 		var examContent = $(this).parents("tr").children("td").eq(1).children("span").text();
-		var coursename = $(this).parents("tr").children("td").eq(2).children("span").text();
-		var examAnswer = $(this).parents("tr").children("td").eq(3).children("span").text();
-		var examChapter = $(this).parents("tr").children("td").eq(4).children("span").text();
-		var examkind = $(this).parents("tr").children("td").eq(5).children("span").text();
-		var examScore = $(this).parents("tr").children("td").eq(6).children("span").text();
-		var examdegree = $(this).parents("tr").children("td").eq(7).children("span").text();
-		alert(coursename);
+		
+		var examdegree = $(this).parents("tr").children("td").eq(1).children("span").eq(1).text();
+		var examAnwser = $(this).parents("tr").children("td").eq(1).children("span").eq(2).text();
+		var examchapter = $(this).parents("tr").children("td").eq(1).children("span").eq(3).text();
+		var examkind = $(this).parents("tr").children("td").eq(1).children("span").eq(4).text();
+		var examscore = $(this).parents("tr").children("td").eq(1).children("span").eq(5).text();
+		var examDegree = $(this).parents("tr").children("td").eq(1).children("span").eq(6).text();
+		var courseid = $(this).parents("tr").children("td").eq(1).children("span").eq(7).text();
+		
 		$(".content_right").css("display", "none");
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
 		$(".content_right_1_update").css("display", "none");
 		$("#update_shiti_1").css("display", "block");
+		
 		$("input[name='update_examid'").val(examid);
+		$("select[name='update_zhangjie'").val(examchapter);
+		$("select[name='update_leixing'").val(examkind);
+		$("select[name='update_kecheng'").val(courseid);
 		$("input[name='update_nandu'").val(examdegree);
-		$("#up_shiti4kecheng").val(coursename);
-		$("#up_zhangjie").val(examChapter);
-		$("#up_leixinge").val(examdegree);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
+		$("input[name='update_fenzhi'").val(examscore);
+		$("input[name='update_shiti_daan'").val(examAnwser);
+		$("input[name='update_shiti_daan'").val(courseid);
+		$("textarea[name='update_shitineirong_name'").text(examContent);
 	})
+	
+	$(".up_confirm").click(function() {
+		var examid = $("input[name='update_examid'").val();
+		alert("试题修改成功!!!");
+		$("#form_update_shiti").attr("action", "examServlet?op=updateExamforDB&examid=" + examid);
+		
+	})
+	
 
 	$(".returnbacktoupexam").click(function() {
 		$(".content_right").css("display", "none");

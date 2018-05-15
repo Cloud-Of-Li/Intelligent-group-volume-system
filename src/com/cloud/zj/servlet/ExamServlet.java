@@ -175,40 +175,29 @@ public class ExamServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}   else if("updateExam".equals(op)) {
-			//修改试题
-			String json = readJSONString(request);
-			JSONObject jsonObject = null;
-			int examid = 0;
-			try {
-				jsonObject = new JSONObject(json);
-				examid = jsonObject.getInt("examid");
-				Exam e = this.examService.getExamByid(examid);
-				int courseId = e.getCourseId();
-				String examAnwser = e.getExamAnwser()/*.replaceAll("\"", "\\\"")
-						.replaceAll("{", "\\{").replaceAll("}", "\\}").replaceAll(",", "\\,").replaceAll("[", "\\[").replaceAll("]", "\\]")*/;
-				String examChapter = e.getExamChapter();
-				String examContent = e.getExamContent()/*.replaceAll("\"", "\\\"")
-						.replaceAll("{", "\\{").replaceAll("}", "\\}").replaceAll(",", "\\,").replaceAll("[", "\\[").replaceAll("]", "\\]")*/;
-				float examDegree = e.getExamDegree();
-				String examKind = e.getExamKind();
-				double examScore = e.getExamScore();
-				response.getWriter().print("{\"examid\":" + examid + ",\"courseId\": "+ courseId + 
-											",\"examAnwser\":\"" + examAnwser + "\", " +
-											"\"examChapter\":\" "+ examChapter  +"\", "  +
-											"\"examContent\":\" "+ examContent  +"\", "  +
-											"\"examKind\": \""+ examKind  +"\", "  +
-											"\"examScore\": \""+ examScore  +"\", "  +
-											"\"examDegree\":\""+ examDegree  +"\""  +
-											"}");
+		} else if("updateExamforDB".equals(op)) {
+			/*修改试题信息*/
+				int examid = Integer.parseInt(request.getParameter("examid"));
+				int courseid = Integer.parseInt(request.getParameter("update_kecheng"));
+				String chapter = request.getParameter("update_zhangjie");
+				String content = request.getParameter("update_shitineirong_name");
+				float degree = Float.parseFloat(request.getParameter("update_nandu"));
+				String kind = request.getParameter("update_leixing");
+				double score = Double.parseDouble(request.getParameter("update_fenzhi"));
+				String anwser = request.getParameter("update_shiti_daan");
 				
-				/*response.getWriter().print(e);*/
-				
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block-
-				e.printStackTrace();
-			}
-		}   else {
+				Exam e = new Exam();
+				e.setExamId(examid);
+				e.setCourseId(courseid);
+				e.setExamAnwser(anwser);
+				e.setExamChapter(chapter);
+				e.setExamContent(content);
+				e.setExamDegree(degree);
+				e.setExamKind(kind);
+				e.setExamScore(score);
+				this.examService.updateExam(e);
+				response.sendRedirect("examServlet");
+		}	else {
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		}
 	}

@@ -93,5 +93,10 @@ public class ExamService {
 		return this.examDao.getExamByid(examid);
 	}
 
+	public void updateExam(Exam e) {
+		// TODO Auto-generated method stub
+		this.examDao.updateExam(e);
+	}
+
 	
 }

@@ -16,7 +16,7 @@ import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
 import com.cloud.zj.generation.Paper;
 
-public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
+public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 
 	@Override
 	public List<Exam> getExamListByCourseId(Integer courseId) {
@@ -38,7 +38,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				e.setExamId(rs.getInt("examid"));
 				e.setExamKind(rs.getString("ExamKind"));
 				e.setExamScore(rs.getInt("examscore"));
-				if(set.add(e)) {
+				if (set.add(e)) {
 					list.add(e);
 				}
 			}
@@ -60,7 +60,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		for (Exam e : examList) {
 			if (set.add(e.getExamChapter()))
 				chapterList.add(e.getExamChapter());
-		}	
+		}
 		return chapterList;
 	}
 
@@ -68,12 +68,12 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	public List<List<Exam>> getExamListBychapter(List<String> chapterList) {
 		// TODO Auto-generated method stub
 		List<List<Exam>> examList = new ArrayList<>();
-		for(String chapter : chapterList) {
+		for (String chapter : chapterList) {
 			examList.add(getExamSetBychapter(chapter));
 		}
 		return examList;
 	}
-	
+
 	public List<Exam> getExamSetBychapter(String chapter) {
 		String sql = "select * from exam where examchapter = '" + chapter + "'";
 		Connection conn = DB.getConn();
@@ -106,7 +106,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	@Override
 	public List<Exam> getExamByCourseIdAndExamKind(Integer courseId, String examKind) {
 		// TODO Auto-generated method stub
-		String sql = "select * from exam where examkind = '"+ examKind + " ' and courseid = "  + courseId;
+		String sql = "select * from exam where examkind = '" + examKind + " ' and courseid = " + courseId;
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		ResultSet rs = DB.executeQuery(stmt, sql);
@@ -123,7 +123,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				e.setExamId(rs.getInt("examid"));
 				e.setExamKind(rs.getString("ExamKind"));
 				e.setExamScore(rs.getInt("examscore"));
-				if(examSet.add(e))
+				if (examSet.add(e))
 					examList.add(e);
 			}
 		} catch (SQLException e) {
@@ -139,7 +139,8 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	@Override
 	public List<Exam> getExamListByExam(int courseId, Exam tmpQuestion) {
 		// 获取和参数题目分数一样，类型一样的题目
-		String sql = "select * from exam where examkind = '"+ tmpQuestion.getExamKind() + " ' and courseid = "  + courseId;
+		String sql = "select * from exam where examkind = '" + tmpQuestion.getExamKind() + " ' and courseid = "
+				+ courseId;
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		ResultSet rs = DB.executeQuery(stmt, sql);
@@ -156,7 +157,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				e.setExamId(rs.getInt("examid"));
 				e.setExamKind(rs.getString("ExamKind"));
 				e.setExamScore(rs.getInt("examscore"));
-				if(examSet.add(e))
+				if (examSet.add(e))
 					examList.add(e);
 			}
 		} catch (SQLException e) {
@@ -174,13 +175,13 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		String[] sub = str.split("-");
 		List<Exam> questionList = new ArrayList<Exam>();
 		Exam exam = new Exam();
-		for(int i = 1; i < sub.length - 1; i++) {
-			exam =  getExamByid(Integer.parseInt(sub[i]));
+		for (int i = 1; i < sub.length - 1; i++) {
+			exam = getExamByid(Integer.parseInt(sub[i]));
 			questionList.add(exam);
 		}
 		return questionList;
 	}
-	
+
 	@Override
 	public Exam getExamByid(int examid) {
 		// TODO Auto-generated method stub
@@ -204,10 +205,24 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
 		}
-		/*DB.close(rs);
-		DB.close(stmt);
-		DB.close(conn);*/
+		/*
+		 * DB.close(rs); DB.close(stmt); DB.close(conn);
+		 */
 		return e;
+	}
+
+	@Override
+	public void updateExam(Exam em) {
+		// TODO Auto-generated method stub
+		String sql = "update exam set courseid= " + em.getCourseId() + ", examkind='" + em.getExamKind()
+				+ "', examchapter='" + em.getExamChapter() + "', examdegree= " + em.getExamDegree() + ", examscore= "
+				+ em.getExamScore() + ", examcontent='" + em.getExamContent() + "', ExamAnwser='" + em.getExamAnwser()
+				+ "' where examid = " + em.getExamId();
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		DB.executeUpdate(conn, sql);
+		DB.close(stmt);
+		DB.close(conn);
 	}
 
 	@Override
@@ -216,7 +231,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		List<Exam> examList = paper.getQuestionList();
 		List<Exam> list = new ArrayList<Exam>();
 		String sql = "";
-		for(int i = 0; i < examList.size(); i++) {
+		for (int i = 0; i < examList.size(); i++) {
 			sql = "select * from exam where examid = " + examList.get(i).getExamId();
 			Connection conn = DB.getConn();
 			Statement stmt = DB.createStatement(conn);
@@ -237,7 +252,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
-			if(string.equals(e.getExamKind())) {
+			if (string.equals(e.getExamKind())) {
 				list.add(e);
 			}
 			DB.close(rs);
@@ -251,8 +266,8 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	public void insertExam(Exam e) {
 		// TODO Auto-generated method stub
 		String sql = "insert into exam(courseid, examkind, examchapter, examdegree, examscore, examcontent, examanwser) values( "
-						+ e.getCourseId() + ", '" + e.getExamKind() + "', '" + e.getExamChapter() + "', " + e.getExamDegree() 
-						+ ", " + e.getExamScore() + ", '" + e.getExamContent() + "', '" + e.getExamAnwser() + "'" + ")";
+				+ e.getCourseId() + ", '" + e.getExamKind() + "', '" + e.getExamChapter() + "', " + e.getExamDegree()
+				+ ", " + e.getExamScore() + ", '" + e.getExamContent() + "', '" + e.getExamAnwser() + "'" + ")";
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		DB.executeUpdate(conn, sql);
@@ -261,15 +276,20 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	}
 
 	@Override
-	public List<Exam> searchExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi, String str) {
+	public List<Exam> searchExamByCourseIdAndExamKindAndSearch(Integer courseId, String leixing, String xinxi,
+			String str) {
 		// TODO Auto-generated method stub
 		String sql;
-		if("根据分数".equals(str)) {
-			sql = "select * from exam where examkind = '"+ leixing + "' and courseid = "  + courseId + " and examScore = " + xinxi;
+		if ("根据分数".equals(str)) {
+			sql = "select * from exam where examkind = '" + leixing + "' and courseid = " + courseId
+					+ " and examScore = " + xinxi;
 		} else if ("根据难度".equals(str)) {
-			sql = "select * from exam where examkind = '"+ leixing + "' and courseid = "  + courseId + " and examDegree = " + xinxi;
+			sql = "select * from exam where examkind = '" + leixing + "' and courseid = " + courseId
+					+ " and examDegree = " + xinxi;
 		} else {
-			sql = "select * from exam where courseid = "  + courseId + " and examkind = '"+ leixing + "' and ExamContent like '%"+ xinxi +"%'";;
+			sql = "select * from exam where courseid = " + courseId + " and examkind = '" + leixing
+					+ "' and ExamContent like '%" + xinxi + "%'";
+			;
 			System.out.println(sql);
 		}
 		Connection conn = DB.getConn();
@@ -288,7 +308,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				e.setExamId(rs.getInt("examid"));
 				e.setExamKind(rs.getString("ExamKind"));
 				e.setExamScore(rs.getInt("examscore"));
-				if(examSet.add(e))
+				if (examSet.add(e))
 					examList.add(e);
 			}
 		} catch (SQLException e) {
@@ -304,7 +324,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 	@Override
 	public List<Paper> getPaperListByCourseId(Integer courseId) {
 		// TODO Auto-generated method stub
-		String sql = "select * from paper where courseid = "  + courseId;
+		String sql = "select * from paper where courseid = " + courseId;
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		ResultSet rs = DB.executeQuery(stmt, sql);
@@ -323,7 +343,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 				paper.setPaperName(rs.getString("papername"));
 				String questionStr = rs.getString("examlist");
 				paper.setQuestionList(changeStrtoList(questionStr));
-				if(paperSet.add(paper))
+				if (paperSet.add(paper))
 					paperList.add(paper);
 			}
 		} catch (SQLException e) {
@@ -335,18 +355,17 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		DB.close(conn);
 		return paperList;
 	}
-	
-	
+
 	@Override
 	public List<Paper> findPaper(List<Course> courseList) {
 		// TODO Auto-generated method stub
 		List<Paper> temp = null;
 		List<Paper> paperList = new ArrayList<>();
 		Set<Paper> paperSet = new HashSet<>();
-		for(Course c : courseList) {
+		for (Course c : courseList) {
 			temp = getPaperListByCourseId(c.getCourseId());
-			for(Paper p : temp) {
-				if(paperSet.add(p)) {
+			for (Paper p : temp) {
+				if (paperSet.add(p)) {
 					paperList.add(p);
 				}
 			}
@@ -363,7 +382,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		Set<Exam> set = new HashSet<>();
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
-		for(Course c : courselist) {
+		for (Course c : courselist) {
 			String sql = "select * from exam where courseid = " + c.getCourseId();
 			ResultSet rs = DB.executeQuery(stmt, sql);
 			try {
@@ -377,7 +396,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 					e.setExamId(rs.getInt("examid"));
 					e.setExamKind(rs.getString("ExamKind"));
 					e.setExamScore(rs.getInt("examscore"));
-					if(set.add(e)) {
+					if (set.add(e)) {
 						list.add(e);
 					}
 				}
@@ -397,7 +416,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		// TODO Auto-generated method stub
 		List<Course> courselist = new ArrayList<>();
 		CourseDao cdp = new CourseDaoImp();
-		for(Exam e : teacher4examList) {
+		for (Exam e : teacher4examList) {
 			int courseid = e.getCourseId();
 			courselist.add(cdp.getCourseById(courseid));
 		}
@@ -411,58 +430,15 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao{
 		Statement stmt = DB.createStatement(conn);
 		String[] examidstring = examidstr.split("_");
 		String sql = "";
-		int[] examids  = new int[examidstring.length]; 
-		for(int i =0; i < examids.length; i++) {
-			examids[i] =Integer.parseInt(examidstring[i]); 
+		int[] examids = new int[examidstring.length];
+		for (int i = 0; i < examids.length; i++) {
+			examids[i] = Integer.parseInt(examidstring[i]);
 		}
-		for(int i =0; i < examids.length; i++) {
-			sql =  "delete from exam where examid = " + examids[i];
+		for (int i = 0; i < examids.length; i++) {
+			sql = "delete from exam where examid = " + examids[i];
 			DB.executeUpdate(conn, sql);
 		}
 		DB.close(stmt);
 		DB.close(conn);
 	}
 }
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

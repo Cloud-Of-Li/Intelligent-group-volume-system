@@ -1102,7 +1102,7 @@
 									<select name="add_kecheng" id="shiti4kecheng" class="add_shiti_list">
 										<option value="#">--请选择--</option>
 										<c:forEach items="${sessionScope.courseList }" var="course">
-											<option value="${course.courseName}">&nbsp;&nbsp;${course.courseName}&nbsp;&nbsp;</option>
+											<option value="${course.getCourseId()}">&nbsp;&nbsp;${course.courseName}&nbsp;&nbsp;</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -1288,32 +1288,18 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;
 									</td>
 									<td style="text-align:left">
-										${entry.key.getExamContent() }
+										<span>${entry.key.getExamContent() }</span>
+										<span style="display:none">${entry.key.getExamDegree() }</span>
+										<span style="display:none">${entry.key.getExamAnwser() }</span>	
+										<span style="display:none">${entry.key.getExamChapter() }</span>	
+										<span style="display:none">${entry.key.getExamKind() }</span>	
+										<span style="display:none">${entry.key.getExamScore() }</span>	
+										<span style="display:none">${entry.key.getExamDegree() }</span>	
+										<span style="display:none">${entry.key.getCourseId() }</span>	
 									</td>								
 									<td>
-										${entry.value.getCourseName() }	
+										<pre style="font-size: 18px">${entry.value.getCourseName() }</pre>	
 									</td>
-											
-									<td style="display:none">
-										${entry.key.getExamAnwser() }	
-									</td>
-											
-									<td style="display:none">
-										${entry.key.getExamChapter() }	
-									</td>
-											
-									<td style="display:none">
-										${entry.key.getExamKind() }	
-									</td>
-											
-									<td style="display:none">
-										${entry.key.getExamScore() }	
-									</td>
-									
-									<td style="display:none">
-										${entry.key.getExamDegree() }	
-									</td>
-															
 							</tr>
 						</c:forEach>
 						
@@ -1336,7 +1322,7 @@
 				</div>
 				
 				<div class="content_main_content">
-					<form id="form_add_shiti" method="post" action="javascript:void(0)">
+					<form id="form_update_shiti" method="post" action="javascript:void(0)">
 						<table class="table_infomations">
 							<tr>
 								<th>试题编号：</th>
@@ -1350,7 +1336,7 @@
 								<td>
 									<select name="update_kecheng" id="up_shiti4kecheng" class="update_shiti_list">
 										<c:forEach items="${sessionScope.courseList }" var="course">
-											<option value="${course.getCourseName()}">&nbsp;&nbsp;${course.courseName}&nbsp;&nbsp;</option>
+											<option value="${course.getCourseId()}">&nbsp;&nbsp;${course.courseName}&nbsp;&nbsp;</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -1400,7 +1386,7 @@
 								</td>
 							</tr>
 							
-							<tr><td style="display:none"></td></tr>
+							<tr><td style="display:none">*请输入试题难度系数</td></tr>
 							
 							<tr>
 								<th>试题分值：</th>
@@ -1409,7 +1395,7 @@
 								</td>
 							</tr>
 							
-							<tr><td style="display:none"></td></tr>
+							<tr><td style="display:none">*请输入试题分值</td></tr>
 							
 							<tr>
 								<th class="th4neirong">试题内容：</th>
@@ -1428,7 +1414,7 @@
 							<tr><td style="display:none"></td></tr>
 							<tr>
 								<td align="center" colspan="2">
-									<button class="tianjaishiti">确认更改</button>&nbsp;&nbsp;
+									<button class="up_confirm">确认更改</button>&nbsp;&nbsp;
 									<button class="returnbacktoupexam">返回上一层</button>
 								</td>
 							</tr>

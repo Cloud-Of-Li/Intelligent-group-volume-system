@@ -36,4 +36,6 @@ public interface ExamDao extends BaseDao<Exam>{
 
 	public Exam getExamByid(int examid);
 
+	public void updateExam(Exam e);
+
 }
