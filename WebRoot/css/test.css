@@ -318,10 +318,6 @@ th, td{
 	height: 15px;
 }
 
-.单选题,.多选题,.填空题,.判断题,.简答题 {
-	display: none;
-}
-
 .last_table_list{
 	width:100%;
 }

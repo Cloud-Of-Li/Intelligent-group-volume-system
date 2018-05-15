@@ -197,16 +197,8 @@ $(function() {
 		$(".content_right_1_update").css("display", "none");
 		if ($(this).children("span").text() == "搜索试题") {
 			$("#search_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "单选题列表") {
-			$("#list_danxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "多选题列表") {
-			$("#list_duoxuan").css("display", "block");
-		} else if ($(this).children("span").text() == "填空题列表") {
-			$("#list_tiankong").css("display", "block");
-		} else if ($(this).children("span").text() == "判断题列表") {
-			$("#list_panduan").css("display", "block");
-		} else if ($(this).children("span").text() == "简答题列表") {
-			$("#list_jianda").css("display", "block");
+		} else if ($(this).children("span").text() == "题型添加") {
+			$("#add_parten").css("display", "block");
 		} else if ($(this).children("span").text() == "试卷列表") {
 			$("#list_shijuan").css("display", "block");
 		} else if ($(this).children("span").text() == "智能组卷") {
@@ -228,21 +220,6 @@ $(function() {
 
 	})
 
-
-	$(".input_check").click(function() {
-		if ($(this).is(":checked")) {
-			var abc = $(this).next().text();
-			$("." + abc).css("display", "table-row");
-
-		} else {
-			var abc = $(this).next().text();
-			$("." + abc).find("input").each(function() {
-				$(this).val(0);
-			})
-			$("." + abc).css("display", "none");
-		}
-
-	})
 
 	$('input[name="auto_nandu"]').click(function() {
 		$(".tishi4nanduxishu").css("display", "none");
@@ -590,6 +567,53 @@ $(function() {
 		 	$("#jiaohsixingbiequeren").prev().css("display","none");
 			$("#jiaohsixingbiequeren").css("display","none");
 	 })
+	
+	 /*添加题型*/
+	 $("#queren_addparten").click(function(){
+		 var partenName = $('input[name="add_parten"]').val();
+		 if(partenName.replace(/(^\s*)|(\s*$)/g, "")=="") {
+				alert("题型名称不能为空");
+				return;
+			}
+		 var a = $.ajax({
+				
+				url : 'examServlet?op=addParten?partenName=' + partenName,
+				type : 'post',
+				contentType : 'application/text;charset=utf-8',
+				success : function(data) {
+					if(data != "ok") {
+						alert("添加失败，题型已存在");
+					} else{
+						alert("题型添加成功");
+						location.href = "http://localhost:8080/zujuanxitong/examServlet";
+					}
+				}
+			});
+		 
+		 
+		 
+		 
+	 })
+	 
+	 
+	
+	//智能组卷中组卷要求的显示（单选题，多选题。。。）
+	$(".input_check").click(function() {
+		if ($(this).is(":checked")) {
+			var abc = $(this).next().text();
+			$("." + abc).css("display", "table-row");
+
+		} else {
+			var abc = $(this).next().text();
+			$("." + abc).find("input").each(function() {
+				$(this).val(0);
+			})
+			$("." + abc).css("display", "none");
+		}
+
+	})
+	
+	
 	
 	
 	

@@ -14,6 +14,7 @@ import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.db.DB;
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.entity.Parten;
 import com.cloud.zj.generation.Paper;
 
 public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
@@ -441,4 +442,74 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 		DB.close(stmt);
 		DB.close(conn);
 	}
+
+	@Override
+	public List<Parten> findAllParten() {
+		// TODO Auto-generated method stub
+		String sql = "select * from parten";
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		ResultSet rs = DB.executeQuery(stmt, sql);
+		List<Parten> partenList = new ArrayList<>();
+		Set<Parten> partenSet = new HashSet<>();
+		try {
+			while (rs.next()) {
+				Parten p = new Parten();
+				p.setPartenid(rs.getInt("partenid"));
+				p.setPartenName(rs.getString("partenname"));
+				if (partenSet.add(p))
+					partenList.add(p);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DB.close(rs);
+		DB.close(stmt);
+		DB.close(conn);
+		return partenList;
+	}
+
+	@Override
+	public String insertParten(String partenName) {
+		// TODO Auto-generated method stub
+		Connection conn = DB.getConn();
+		Statement stmt = DB.createStatement(conn);
+		String sqlPre = "Select * from parten where partenName = '"+partenName +"'";
+		ResultSet rs = DB.executeQuery(stmt, sqlPre);
+		try {
+			while(rs.next()) {
+				DB.close(rs);
+				DB.close(stmt);
+				DB.close(conn);
+				return "error";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String sql = "insert into parten(partenname) values('" + partenName +"')";
+		DB.executeUpdate(stmt, sql);
+		DB.close(stmt);
+		DB.close(conn);
+		
+		
+		return "ok";
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

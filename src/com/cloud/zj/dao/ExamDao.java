@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.entity.Parten;
 import com.cloud.zj.generation.Paper;
 
 public interface ExamDao extends BaseDao<Exam>{
@@ -37,5 +38,9 @@ public interface ExamDao extends BaseDao<Exam>{
 	public Exam getExamByid(int examid);
 
 	public void updateExam(Exam e);
+
+	public List<Parten> findAllParten();
+
+	public String insertParten(String partenName);
 
 }

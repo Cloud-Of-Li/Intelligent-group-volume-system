@@ -7,6 +7,7 @@ import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.dao.imp.ExamDaoImp;
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.entity.Parten;
 import com.cloud.zj.generation.Paper;
 
 public class ExamService {
@@ -96,6 +97,16 @@ public class ExamService {
 	public void updateExam(Exam e) {
 		// TODO Auto-generated method stub
 		this.examDao.updateExam(e);
+	}
+
+	public List<Parten> getAllParten() {
+		// TODO Auto-generated method stub
+		return this.examDao.findAllParten();
+	}
+
+	public String addParten(String partenName) {
+		// TODO Auto-generated method stub
+		return this.examDao.insertParten(partenName);
 	}
 
 	

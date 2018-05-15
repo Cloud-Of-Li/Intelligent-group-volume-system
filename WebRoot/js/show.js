@@ -42,47 +42,6 @@ $(function() {
 		}
 
 	})
-
-
-
-	$(".houtai_approve_prj").click(function() {
-		$(".content_right_0").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-	
-	$(".houtai_add_prj").click(function() {
-		$(".content_right_2").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-	
-	$(".houtai_end_prj").click(function() {
-		$(".content_right_3").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_4").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
-	$(".houtai_achieve_prj").click(function() {
-		$(".content_right_4").css("display", "block");
-		$(".content_right_1").css("display", "none");
-		$(".content_right_0").css("display", "none");
-		$(".content_right_2").css("display", "none");
-		$(".content_right_3").css("display", "none");
-		$(".content_right_5").css("display", "none");
-
-	})
 	
 });
 

@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
+import com.cloud.zj.entity.Parten;
 import com.cloud.zj.entity.Teacher;
 import com.cloud.zj.generation.Paper;
 import com.cloud.zj.service.CourseService;
@@ -65,11 +66,10 @@ public class ExamServlet extends HttpServlet {
 			response.sendRedirect("/zujuanxitong/login.html");
 			return;
 		}
-		List<Exam> danxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "单选题");
-		List<Exam> duoxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "多选题");
-		List<Exam> panduan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "判断题");
-		List<Exam> tiankong_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "填空题");
-		List<Exam> jianda_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "简答题");
+		
+		List<Parten> partenList = this.examService.getAllParten();
+		
+		
 		List<Paper> paperList = this.examService.findPaperByCourserList(courseList);
 		List<Exam> teacher4examList = this.examService.findteacher4examList(teacher.getTeacherId());
 		List<Course> course4examList = this.examService.findCourse4examList(teacher4examList);
@@ -77,11 +77,7 @@ public class ExamServlet extends HttpServlet {
 		for(int i = 0; i < teacher4examList.size(); i++) {
 			ECMap.put(teacher4examList.get(i), course4examList.get(i));
 		}
-		request.setAttribute("danxuan_exam", danxuan_exam);
-		request.setAttribute("duoxuan_exam", duoxuan_exam);
-		request.setAttribute("panduan_exam", panduan_exam);
-		request.setAttribute("tiankong_exam", tiankong_exam);
-		request.setAttribute("jianda_exam", jianda_exam);
+		request.setAttribute("partenList", partenList);
 		request.setAttribute("paperList", paperList);
 		request.setAttribute("courseList", courseList);
 		request.setAttribute("teacher4examList", teacher4examList);
@@ -139,16 +135,6 @@ public class ExamServlet extends HttpServlet {
 			if(course == null){
 				course = this.courseService.getCourseByName("离散数学");
 			}
-			danxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "单选题");
-			duoxuan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "多选题");
-			panduan_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "判断题");
-			tiankong_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "填空题");
-			jianda_exam = this.examService.findExamByCourseIdAndExamKind(course.getCourseId(), "简答题");
-			request.setAttribute("danxuan_exam", danxuan_exam);
-			request.setAttribute("duoxuan_exam", duoxuan_exam);
-			request.setAttribute("panduan_exam", panduan_exam);
-			request.setAttribute("tiankong_exam", tiankong_exam);
-			request.setAttribute("jianda_exam", jianda_exam);
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		}   else if("deleteExam".equals(op)) {
 			//删除试题
@@ -177,27 +163,35 @@ public class ExamServlet extends HttpServlet {
 			}
 		} else if("updateExamforDB".equals(op)) {
 			/*修改试题信息*/
-				int examid = Integer.parseInt(request.getParameter("examid"));
-				int courseid = Integer.parseInt(request.getParameter("update_kecheng"));
-				String chapter = request.getParameter("update_zhangjie");
-				String content = request.getParameter("update_shitineirong_name");
-				float degree = Float.parseFloat(request.getParameter("update_nandu"));
-				String kind = request.getParameter("update_leixing");
-				double score = Double.parseDouble(request.getParameter("update_fenzhi"));
-				String anwser = request.getParameter("update_shiti_daan");
-				
-				Exam e = new Exam();
-				e.setExamId(examid);
-				e.setCourseId(courseid);
-				e.setExamAnwser(anwser);
-				e.setExamChapter(chapter);
-				e.setExamContent(content);
-				e.setExamDegree(degree);
-				e.setExamKind(kind);
-				e.setExamScore(score);
-				this.examService.updateExam(e);
-				response.sendRedirect("examServlet");
-		}	else {
+			int examid = Integer.parseInt(request.getParameter("examid"));
+			int courseid = Integer.parseInt(request.getParameter("update_kecheng"));
+			String chapter = request.getParameter("update_zhangjie");
+			String content = request.getParameter("update_shitineirong_name");
+			float degree = Float.parseFloat(request.getParameter("update_nandu"));
+			String kind = request.getParameter("update_leixing");
+			double score = Double.parseDouble(request.getParameter("update_fenzhi"));
+			String anwser = request.getParameter("update_shiti_daan");
+			
+			Exam e = new Exam();
+			e.setExamId(examid);
+			e.setCourseId(courseid);
+			e.setExamAnwser(anwser);
+			e.setExamChapter(chapter);
+			e.setExamContent(content);
+			e.setExamDegree(degree);
+			e.setExamKind(kind);
+			e.setExamScore(score);
+			this.examService.updateExam(e);
+			response.sendRedirect("examServlet");
+		} else if("addParten".equals(op)){
+				String partenName = request.getParameter("partenName");
+				String ok = this.examService.addParten(partenName);
+				if("ok".equals(ok)) {
+					response.getWriter().print("ok");
+				} else {
+					response.getWriter().print("error");
+				}
+		} else {
 			getServletContext().getRequestDispatcher("/test.jsp").forward(request, response);
 		}
 	}

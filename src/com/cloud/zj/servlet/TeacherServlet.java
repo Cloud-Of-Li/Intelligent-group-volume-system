@@ -92,6 +92,7 @@ public class TeacherServlet extends HttpServlet{
 				if(teacher != null) {
 					HttpSession session = request.getSession();
 					List<Course> courseList = this.courseService.getCourseByTid(teacher.getTeacherId());
+					
 					session.setAttribute("teacher", teacher);
 					session.setAttribute("courseList", courseList);
 					Course course = courseList.get(0);
