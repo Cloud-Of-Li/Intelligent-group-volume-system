@@ -99,7 +99,7 @@ public class PaperServlet extends HttpServlet {
 
 		if("paper4manager".equals(op)) {
 			request.getRequestDispatcher("/mexamServlet").forward(request, response);
-		} else if("paper".equals(op)) {
+		} else if("paper".equals(op) || "paperlist".equals(op) ) {
 			request.getRequestDispatcher("/examServlet").forward(request, response);
 		}
 	}

@@ -5,8 +5,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -507,7 +507,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 		// TODO Auto-generated method stub
 		String[] partens = paper.getPartens().split("_");
 		List<Exam> examList = paper.getQuestionList();
-		Map<String, List<Exam>> map = new HashMap<>();
+		Map<String, List<Exam>> map = new LinkedHashMap<>();
 		String sql = "";
 		for(int j = 0; j< partens.length; j++) {
 			List<Exam> outputExamList = new ArrayList<>();
@@ -554,7 +554,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 		String[] partens = paper.getPartens().split("_");
 		String[] scores = paper.getPartensScoures().split("_");
 		int[] partenScore = new int[scores.length];
-		Map<String, Integer> map = new HashMap<>();
+		Map<String, Integer> map = new LinkedHashMap<>();
 		for(int i= 0; i< scores.length; i++) {
 			partenScore[i] = Integer.parseInt(scores[i]);
 			map.put(partens[i], partenScore[i]);

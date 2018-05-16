@@ -41,7 +41,7 @@ $(function() {
 	/*修改试题*/
 	$(".a_update_exam").click(function() {
 		var examid = $(this).parents("tr").children("td").eq(0).children("span").text();
-		var examContent = $(this).parents("tr").children("td").eq(1).children("span").text();
+		var examContent = $(this).parents("tr").children("td").eq(1).children("span").eq(0).text();
 		
 		var examdegree = $(this).parents("tr").children("td").eq(1).children("span").eq(1).text();
 		var examAnwser = $(this).parents("tr").children("td").eq(1).children("span").eq(2).text();
@@ -64,7 +64,6 @@ $(function() {
 		$("input[name='update_nandu'").val(examdegree);
 		$("input[name='update_fenzhi'").val(examscore);
 		$("input[name='update_shiti_daan'").val(examAnwser);
-		$("input[name='update_shiti_daan'").val(courseid);
 		$("textarea[name='update_shitineirong_name'").text(examContent);
 	})
 	

@@ -9,7 +9,7 @@ a {
     color: pink;
 }
 
-#tishi4nanduxishu3 {
+#tishi4nanduxishu3,#tishi4nanduxishu3_daan {
 	color: red;
 	text-align:center;
 }
@@ -344,7 +344,7 @@ th, td{
 	color: red;
 }
 
-#tishi4nanduxishu2, .sousuokuang {
+#tishi4nanduxishu2,#tishi4nanduxishu2_daan, .sousuokuang {
 	text-align:center;
 	display:none;
 	color: red;

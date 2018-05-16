@@ -88,7 +88,7 @@
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-plus"></span> &nbsp;<span>题型添加</span>
 						</div>
 						<div class="houtai_all_neirong" >
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-plus"></span> &nbsp;<span>题型列表</span>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-paragraph-justify"></span> &nbsp;<span>题型列表</span>
 						</div>
 					</div>
 				</div>
@@ -106,6 +106,10 @@
 
 						<div class="houtai_all_neirong" >
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-list-numbered"></span> &nbsp;<span>试卷列表</span>
+						</div>
+						
+						<div class="houtai_all_neirong" >
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-map2"></span> &nbsp;<span>试卷答案</span>
 						</div>
 					</div>
 				</div>
@@ -1093,6 +1097,91 @@
 			</div>
 	
 		</div>
+
+
+<!-- 试题答案 -->		
+		<div class="content_right" id="list_shijuan_daan">
+			<div class="content4houtai">
+				&nbsp;&nbsp;&nbsp;&nbsp;<span>试卷答案列表</span>
+				<hr>
+			</div>	
+			
+			<div class="content_main">
+				<div class="content_main_title">
+					&nbsp;&nbsp;&nbsp;&nbsp;内容列表
+				</div>
+				
+				<div class="content_main_content">
+				<c:set var="index" value="0" />
+				<c:set var="bigIndex" value="-1" />
+					<table class="table_infomations_list">
+						<tr>
+							<th>试 卷 列 表:</th>
+							<td>
+								<select id="list_shijuan_list2_daan" class="list_shijuan_class" >
+									<option value="#">--请选择--</option>
+									<c:forEach items="${paperList }" var="p">
+											<option value="one">${p.getPaperName() }</option>
+									</c:forEach>
+								</select>
+								<button class="querenchazhao_daan">确认查找</button>
+							</td>
+							<td>试卷总分：<span id="onePaper_totalScore_daan">${paper.getTotalScore()}</span></td>
+						</tr>
+						
+						<tr>
+							<td colspan="2" align="right" id="tishi4nanduxishu2_daan"><span>*请选择正确的试卷信息</span></td>
+						</tr>
+						
+						<tr>
+							<td colspan="3" style="height:30px; padding:0 100px;"><hr></td>
+						</tr>
+						
+						<c:if test="${paper!=null }" >
+							<tr>
+								<td colspan="3" id="tishi4nanduxishu3_daan" ><span>试卷名称：${paper.getPaperName()}</span></td>
+							</tr>
+							<c:forEach items="${paper_examMap }" var="entry">
+								<tr>
+									<th></th>
+									<c:set var="bigIndex" value="${bigIndex+1}" />
+									<th colspan="2" style="vertical-align: top; text-align:left">${xuliehao.get(bigIndex) }、${entry.key }<c:forEach  items="${p_scMap }" var="p_s"><c:if test="${p_s.key == entry.key }">（每小题${p_s.value }分，共${entry.value.size()*p_s.value }分 )</c:if>
+									</c:forEach>
+									
+								</tr>
+								<tr>
+									<td></td>
+									<td>
+										<table class="last_table_list">
+											
+											<c:forEach items="${entry.value }" var="exam">
+												<c:set var="index" value="${index+1}" />  
+													<tr>
+														<td style="padding-left: 5px;">
+															<pre style="font-size: 18px">${index }. ${exam.getExamAnwser() }</pre>
+														</td>
+													</tr>
+												</c:forEach>
+										</table>												
+									</td>
+								</tr>
+								<tr><td style="height:30px;"></td></tr>
+							</c:forEach>
+						</c:if>
+						
+					</table>
+				</div>
+	
+			</div>
+	
+		</div>
+		
+		
+		
+		
+		
+		
+		
 	</div>
 </body>
 </html>

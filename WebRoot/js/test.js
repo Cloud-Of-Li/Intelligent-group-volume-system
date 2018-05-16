@@ -67,6 +67,12 @@ $(function() {
 		$(".content_right_1").css("display", "none");
 		$(".content_right_2").css("display", "none");
 		$("#list_shijuan").css("display", "block");
+	}  else if(op == "paperlist") {
+		$("#shijuanlistId").css("display" ,"block");
+		$(".content_right").css("display", "none");
+		$(".content_right_1").css("display", "none");
+		$(".content_right_2").css("display", "none");
+		$("#list_shijuan_daan").css("display", "block");
 	} else if(op == "list") {
 		 if(leixing == "单选题") {
 			$("#shitilistId").css("display", "block");
@@ -203,6 +209,8 @@ $(function() {
 			$("#list_parten").css("display", "block");
 		} else if ($(this).children("span").text() == "试卷列表") {
 			$("#list_shijuan").css("display", "block");
+		}  else if ($(this).children("span").text() == "试卷答案") {
+			$("#list_shijuan_daan").css("display", "block");
 		} else if ($(this).children("span").text() == "智能组卷") {
 			$("#add_zhineng_shijuan").css("display", "block");
 		} else if ($(this).children("span").text() == "添加试题") {
@@ -340,9 +348,6 @@ $(function() {
 					return ; 
 				} else {
 					alert("组卷成功!!!");
-					alert("题型：" + partenstr + "  ");
-					alert("数量：" + pratenCount + "  ");
-					alert("分值：" + pratenScore + "  ");
 					var b = $.ajax({
 						url : 'createPaperServlet',
 						type : 'post',
@@ -392,7 +397,9 @@ $(function() {
 		$("#tishi4nanduxishu2").css("display", "none");
 	})
 	
-	
+	$("#list_shijuan_list2_daan").click(function() {
+		$("#tishi4nanduxishu2_daan").css("display", "none");
+	})
 	
 	
 	
@@ -425,7 +432,16 @@ $(function() {
 		
 		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paper&paperName=" + paperName;
 	})
-	
+	/*查找试卷答案信息*/
+	$(".querenchazhao_daan").click(function() {
+		var paperName = $("#list_shijuan_list2_daan option:checked").text();
+		if (paperName == "--请选择--") {
+			$("#tishi4nanduxishu2").css("display", "table-cell");
+			return;
+		}
+		
+		location.href = "http://localhost:8080/zujuanxitong/paperServlet?op=paperlist&paperName=" + paperName;
+	})
 	
 	
 	/*添加试题*/
