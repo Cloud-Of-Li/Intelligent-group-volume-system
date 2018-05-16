@@ -2,6 +2,7 @@ package com.cloud.zj.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.cloud.zj.dao.ExamDao;
 import com.cloud.zj.dao.imp.ExamDaoImp;
@@ -109,5 +110,14 @@ public class ExamService {
 		return this.examDao.insertParten(partenName);
 	}
 
-	
+	public Map<String, List<Exam>> makeAMap(Paper paper) {
+		// TODO Auto-generated method stub
+		return this.examDao.getPaperMap(paper);
+	}
+
+	public Map<String, Integer> scMap(Paper paper) {
+		// TODO Auto-generated method stub
+		return this.examDao.getpcMap(paper);	
+	}
+
 }

@@ -109,17 +109,6 @@ public class CreatePaperServlet extends HttpServlet {
 			String pratenCountstr ="";
 			String pratenScorestr ="";
 			
-			try {
-				courseName = jsonObject.getString("courseName");
-				course = this.courseService.getCourseByName(courseName);
-				partenstr = jsonObject.getString("partenstr");
-				pratenCountstr = jsonObject.getString("pratenCount");
-				/*pratenScorestr = jsonObject.getString("pratenScore");*/
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
 			double totalMark =100.0;
 			double difficulty = 0.5;
 			try {

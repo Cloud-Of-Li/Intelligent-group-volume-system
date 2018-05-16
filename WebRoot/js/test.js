@@ -340,6 +340,9 @@ $(function() {
 					return ; 
 				} else {
 					alert("组卷成功!!!");
+					alert("题型：" + partenstr + "  ");
+					alert("数量：" + pratenCount + "  ");
+					alert("分值：" + pratenScore + "  ");
 					var b = $.ajax({
 						url : 'createPaperServlet',
 						type : 'post',

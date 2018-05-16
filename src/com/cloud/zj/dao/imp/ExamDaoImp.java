@@ -5,8 +5,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.cloud.zj.dao.CourseDao;
@@ -107,7 +109,7 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 	@Override
 	public List<Exam> getExamByCourseIdAndExamKind(Integer courseId, String examKind) {
 		// TODO Auto-generated method stub
-		String sql = "select * from exam where examkind = '" + examKind + " ' and courseid = " + courseId;
+		String sql = "select * from exam where examkind = '" + examKind + "' and courseid = " + courseId;
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		ResultSet rs = DB.executeQuery(stmt, sql);
@@ -226,42 +228,6 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 		DB.close(conn);
 	}
 
-	@Override
-	public List<Exam> findExamListByExamKindAndPaper(Paper paper, String string) {
-		// TODO Auto-generated method stub
-		List<Exam> examList = paper.getQuestionList();
-		List<Exam> list = new ArrayList<Exam>();
-		String sql = "";
-		for (int i = 0; i < examList.size(); i++) {
-			sql = "select * from exam where examid = " + examList.get(i).getExamId();
-			Connection conn = DB.getConn();
-			Statement stmt = DB.createStatement(conn);
-			ResultSet rs = DB.executeQuery(stmt, sql);
-			Exam e = new Exam();
-			try {
-				while (rs.next()) {
-					e.setCourseId(rs.getInt("courseid"));
-					e.setExamAnwser(rs.getString("examanwser"));
-					e.setExamChapter(rs.getString("examchapter"));
-					e.setExamContent(rs.getString("examcontent"));
-					e.setExamDegree(rs.getFloat("examdegree"));
-					e.setExamId(examList.get(i).getExamId());
-					e.setExamKind(rs.getString("ExamKind"));
-					e.setExamScore(rs.getInt("examscore"));
-				}
-			} catch (SQLException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			}
-			if (string.equals(e.getExamKind())) {
-				list.add(e);
-			}
-			DB.close(rs);
-			DB.close(stmt);
-			DB.close(conn);
-		}
-		return list;
-	}
 
 	@Override
 	public void insertExam(Exam e) {
@@ -498,6 +464,103 @@ public class ExamDaoImp extends BaseDaoImp<Exam> implements ExamDao {
 		return "ok";
 	}
 	
+
+	@Override
+	public List<Exam> findExamListByExamKindAndPaper(Paper paper, String string) {
+		// TODO Auto-generated method stub
+		List<Exam> examList = paper.getQuestionList();
+		List<Exam> list = new ArrayList<Exam>();
+		String sql = "";
+		for (int i = 0; i < examList.size(); i++) {
+			sql = "select * from exam where examid = " + examList.get(i).getExamId();
+			Connection conn = DB.getConn();
+			Statement stmt = DB.createStatement(conn);
+			ResultSet rs = DB.executeQuery(stmt, sql);
+			Exam e = new Exam();
+			try {
+				while (rs.next()) {
+					e.setCourseId(rs.getInt("courseid"));
+					e.setExamAnwser(rs.getString("examanwser"));
+					e.setExamChapter(rs.getString("examchapter"));
+					e.setExamContent(rs.getString("examcontent"));
+					e.setExamDegree(rs.getFloat("examdegree"));
+					e.setExamId(examList.get(i).getExamId());
+					e.setExamKind(rs.getString("ExamKind"));
+					e.setExamScore(rs.getInt("examscore"));
+				}
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+			if (string.equals(e.getExamKind())) {
+				list.add(e);
+			}
+			DB.close(rs);
+			DB.close(stmt);
+			DB.close(conn);
+		}
+		return list;
+	}
+	
+	@Override
+	public Map<String, List<Exam>> getPaperMap(Paper paper) {
+		// TODO Auto-generated method stub
+		String[] partens = paper.getPartens().split("_");
+		List<Exam> examList = paper.getQuestionList();
+		Map<String, List<Exam>> map = new HashMap<>();
+		String sql = "";
+		for(int j = 0; j< partens.length; j++) {
+			List<Exam> outputExamList = new ArrayList<>();
+			String conet = "";
+			for (int i = 0; i < examList.size() - 1; i++) {
+				conet +=  examList.get(i).getExamId() + ",";
+			}
+			conet += examList.get(examList.size()-1).getExamId();
+			sql = "select * from exam where examid in (" + conet  +") and examkind = '" + partens[j]+ "'";
+			Connection conn = DB.getConn();
+			Statement stmt = DB.createStatement(conn);
+			ResultSet rs = DB.executeQuery(stmt, sql);
+			Exam e = null;
+			try {
+				while (rs.next()) {
+					e = new Exam();
+					e.setCourseId(rs.getInt("courseid"));
+					e.setExamAnwser(rs.getString("examanwser"));
+					e.setExamChapter(rs.getString("examchapter"));
+					e.setExamContent(rs.getString("examcontent"));
+					e.setExamDegree(rs.getFloat("examdegree"));
+					e.setExamId(rs.getInt("examid"));
+					e.setExamKind(rs.getString("ExamKind"));
+					e.setExamScore(rs.getInt("examscore"));
+					outputExamList.add(e);
+				}
+			} catch (SQLException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			}
+			DB.close(rs);
+			DB.close(stmt);
+			DB.close(conn);
+			
+			map.put(partens[j], outputExamList);
+			System.out.println();
+		}
+		return map;
+	}
+
+	@Override
+	public Map<String, Integer> getpcMap(Paper paper) {
+		// TODO Auto-generated method stub
+		String[] partens = paper.getPartens().split("_");
+		String[] scores = paper.getPartensScoures().split("_");
+		int[] partenScore = new int[scores.length];
+		Map<String, Integer> map = new HashMap<>();
+		for(int i= 0; i< scores.length; i++) {
+			partenScore[i] = Integer.parseInt(scores[i]);
+			map.put(partens[i], partenScore[i]);
+		}
+		return map;
+	}
 }
 
 

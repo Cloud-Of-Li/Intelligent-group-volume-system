@@ -15,52 +15,34 @@ import com.cloud.zj.entity.Exam;
  */
 public class Paper {
 	
-	private double singleScore;
-	private double multiScore;
-	private double compeleteScore;
-	private double tfScore;
-	private double subjectScore;
+	private String partens;
+	private String partensCounts;
+	private String partensScoures;
 	
 	
-	
-    public double getSingleScore() {
-		return singleScore;
+
+	public String getPartens() {
+		return partens;
 	}
 
-	public void setSingleScore(double singleScore) {
-		this.singleScore = singleScore;
+	public void setPartens(String partens) {
+		this.partens = partens;
 	}
 
-	public double getMultiScore() {
-		return multiScore;
+	public String getPartensCounts() {
+		return partensCounts;
 	}
 
-	public void setMultiScore(double multiScore) {
-		this.multiScore = multiScore;
+	public void setPartensCounts(String partensCounts) {
+		this.partensCounts = partensCounts;
 	}
 
-	public double getCompeleteScore() {
-		return compeleteScore;
+	public String getPartensScoures() {
+		return partensScoures;
 	}
 
-	public void setCompeleteScore(double compeleteScore) {
-		this.compeleteScore = compeleteScore;
-	}
-
-	public double getTfScore() {
-		return tfScore;
-	}
-
-	public void setTfScore(double tfScore) {
-		this.tfScore = tfScore;
-	}
-
-	public double getSubjectScore() {
-		return subjectScore;
-	}
-
-	public void setSubjectScore(double subjectScore) {
-		this.subjectScore = subjectScore;
+	public void setPartensScoures(String partensScoures) {
+		this.partensScoures = partensScoures;
 	}
 
 	/**

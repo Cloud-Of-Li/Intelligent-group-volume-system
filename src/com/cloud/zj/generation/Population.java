@@ -30,6 +30,33 @@ public class Population {
         if (initFlag) {
             Paper paper;
             Random random = new Random();
+            
+            String[] partenstr = rule.getPartens().split("_");
+            String[] partenScorestr = rule.getPartenScores().split("_");
+            String[] partenCountstr = rule.getPartenCounts().split("_");
+            
+            for(int i = 0; i < partenstr.length; i++ ) {
+            	System.out.print("题型：" + partenstr[i] +" ");
+            }
+            System.out.println();
+            
+            int[] numbers = new int[partenCountstr.length];
+            for(int i = 0; i < numbers.length; i++ ) {
+            	numbers[i] = Integer.parseInt(partenCountstr[i]);
+            	System.out.print("试题数量" + numbers[i] +" ");
+            	
+            }
+            System.out.print("总数量" + numbers.length +" ");
+            System.out.println();
+            
+            int[] scores = new int[partenScorestr.length];
+            for(int i = 0; i < scores.length; i++ ) {
+            	scores[i] = Integer.parseInt(partenScorestr[i]);
+            	System.out.print("试题分值" + scores[i] +" ");
+            }
+            
+            System.out.println();
+            
             for (int i = 0; i < populationSize; i++) {
                 paper = new Paper();
                 paper.setId(i + 1);
@@ -40,29 +67,11 @@ public class Population {
                 while (paper.getTotalScore() != rule.getTotalMark()) {
                     paper.getQuestionList().clear();
                     // 单选题
-                    if (rule.getSingleNum() > 0) {
-                        generateQuestion(courseId, "单选题", random, rule.getSingleNum(), rule.getSingleScore(),
-                                "单选题数量不够，组卷失败", paper);
-                    }
-                    // 多选题
-                    if (rule.getMultiNum() > 0) {
-                        generateQuestion(courseId, "多选题", random, rule.getMultiNum(), rule.getMultiScore(),
-                                "多选题数量不够，组卷失败", paper);
-                    }
-                    // 填空题
-                    if (rule.getCompleteNum() > 0) {
-                        generateQuestion(courseId, "填空题", random, rule.getCompleteNum(), rule.getCompleteScore(),
-                                "填空题数量不够，组卷失败", paper);
-                    }
-                    // 判断题
-                    if (rule.getTfNum() > 0) {
-                        generateQuestion(courseId, "判断题", random, rule.getTfNum(), rule.getTfScore(),
-                                "判断题数量不够，组卷失败", paper);
-                    }
-                    // 简答题
-                    if (rule.getSubjectiveNum() > 0) {
-                        generateQuestion(courseId, "简答题", random, rule.getSubjectiveNum(), rule.getSubjectiveScore(),
-                                "简答题数量不够，组卷失败", paper);
+                    for(int k = 0; k < numbers.length; k++) {
+                    	 if (numbers[k] > 0) {
+                             generateQuestion(courseId, partenstr[k], random, numbers[k], scores[k],
+                                     "" + partenstr[k] + "数量不够，组卷失败", paper);
+                         }
                     }
                 }
                 // 计算试卷适应度

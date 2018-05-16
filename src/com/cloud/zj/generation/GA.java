@@ -94,6 +94,8 @@ public class GA {
 				String type = getTypeByIndex(i, rule);
 				// getQuestionArray()用来选择指定类型的试题数组
 				Exam[] singleArray = QuestionService.getQuestionArray(courseId, type);
+				System.out.print("试题所在位置：" + i + "类型：" + type + " 数量：" + singleArray.length);
+				
 				child.saveQuestion(i, singleArray[(int) (Math.random() * singleArray.length)]);
 			}
 		}
@@ -117,20 +119,18 @@ public class GA {
 		int countOfType = partens.split("_").length;
 		String[] partentCountstr = partenCounts.split("_");
 		String[] partenstr = partens.split("_");
-		
 		String type = "";
-		
-		int temp = 0;
-		for(int i= 0; i < countOfType; i++) {
-			if(index < Integer.parseInt(partentCountstr[0])) {
-				return partenstr[0];
-			}
-			temp += Integer.parseInt(partentCountstr[i]);
-			if(temp < index && index < (temp + Integer.parseInt(partentCountstr[i+1]))) {
-				return partenstr[i];
+		int temp = Integer.parseInt(partentCountstr[0]);
+		if(index < temp) {
+			type = partenstr[0];
+		} else {
+			for(int i= 1; i < countOfType; i++) {
+				if(temp <= index && index < (temp + Integer.parseInt(partentCountstr[i]))) {
+					type = partenstr[i];
+				}
+				temp += Integer.parseInt(partentCountstr[i]);
 			}
 		}
-		
 		return type;
 	}
 

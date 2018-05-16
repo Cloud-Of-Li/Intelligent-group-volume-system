@@ -37,12 +37,11 @@ public class PaperDaoImp implements PaperDao {
 		Course course = courseDao.getCourseById(resultPaper.getCourseId());
 		
 		String sql = "insert into paper(paperName, courseid, adaptationDegree, examList, totalScore, diffculty, createTime, kpcoverage, "
-				+ "singlescore, multiscore, completeScore, tfscore, subjectscore) "
+				+ "partens, partenconuts, partenscores) "
 				+ "values('" + course.getCourseName() + "-" + time.toString().substring(0, 19) + "', " + resultPaper.getCourseId()
 				+ ", " + resultPaper.getAdaptationDegree() + ", '" + examList + "'," + resultPaper.getTotalScore() 
 				+ " ," + resultPaper.getDifficulty() + " ,'" + time.toString().substring(0, 18) + "'," + resultPaper.getkPCoverage() 
-				+ "," + rule.getSingleScore() + "," + rule.getMultiScore() + "," + rule.getCompleteScore() + "," + rule.getTfScore()
-				+ "," + rule.getSubjectiveScore() + ")";
+				+ ",'" + rule.getPartens() + "','" + rule.getPartenCounts() + "','" + rule.getPartenScores() +  "')";
 		Connection conn = DB.getConn();
 		Statement stmt = DB.createStatement(conn);
 		DB.executeUpdate(conn, sql);
@@ -52,34 +51,24 @@ public class PaperDaoImp implements PaperDao {
 	
 	public String getExamListToString(List<Exam> questionList, RuleBean rule) {
 		String examList = "#";
-		int k = rule.getSingleNum();
-		for(int i = 0; i < k; i++) {
-			examList += "-" + questionList.get(i).getExamId();
-		}
-		examList += "#";
 		
-		for(int i = k; i < k + rule.getMultiNum(); i++) {
-			examList += "-" + questionList.get(i).getExamId();
-		}
-		examList += "#";
-		
-		k += rule.getMultiNum();
-		for(int i = k; i < k + rule.getCompleteNum(); i++) {
-			examList += "-" + questionList.get(i).getExamId();
-		}
-		examList += "#";
-		
-		k += rule.getCompleteNum();
-		for(int i = k; i < k + rule.getTfNum(); i++) {
-			examList += "-" + questionList.get(i).getExamId();
-		}
-		examList += "#";
-		
-		k += rule.getTfNum();
-		for(int i = k; i < k + rule.getSubjectiveNum(); i++) {
-			examList += "-" + questionList.get(i).getExamId();
-		}
-		examList += "#";
+         String[] partenCountstr = rule.getPartenCounts().split("_");
+         
+         int[] numbers = new int[partenCountstr.length];
+         for(int i = 0; i < numbers.length; i++ ) {
+         	numbers[i] = Integer.parseInt(partenCountstr[i]);
+         }
+         
+         int k = 0;
+         int p = 0;
+         for(int j = 0; j < numbers.length; j++) {
+        	 for(;p < k + numbers[j] ; p++) {
+        		 examList += "-" + questionList.get(p).getExamId();
+        	 }
+        	 examList += "#";
+        	 k = k +numbers[j];
+        	 p = k;
+         }
 		return examList;
 	}
 
@@ -103,11 +92,9 @@ public class PaperDaoImp implements PaperDao {
 				paper.setPaperName(rs.getString("papername"));
 				String questionStr = rs.getString("examlist");
 				paper.setQuestionList(changeStrtoList(questionStr));
-				paper.setSingleScore(rs.getDouble("singlescore"));
-				paper.setMultiScore(rs.getDouble("multiscore"));
-				paper.setCompeleteScore(rs.getDouble("completescore"));
-				paper.setTfScore(rs.getDouble("tfscore"));
-				paper.setSubjectScore(rs.getDouble("subjectscore"));
+				paper.setPartens(rs.getString("partens"));
+				paper.setPartensCounts(rs.getString("partenconuts"));
+				paper.setPartensScoures(rs.getString("partenscores"));
 			}
 		} catch (SQLException ex) {
 			// TODO Auto-generated catch block
@@ -201,11 +188,9 @@ public class PaperDaoImp implements PaperDao {
 				paper.setDifficulty(rs.getDouble("diffculty"));
 				paper.setCreateTime(rs.getTimestamp("createtime"));
 				paper.setkPCoverage(rs.getDouble("kpcoverage"));
-				paper.setSingleScore(rs.getDouble("singlescore"));
-				paper.setMultiScore(rs.getDouble("multiscore"));
-				paper.setCompeleteScore(rs.getDouble("completescore"));
-				paper.setTfScore(rs.getDouble("tfscore"));
-				paper.setSubjectScore(rs.getDouble("subjectscore"));
+				paper.setPartens(rs.getString("partens"));
+				paper.setPartensCounts(rs.getString("partenconuts"));
+				paper.setPartensScoures(rs.getString("partenscores"));
 				paperlist.add(paper);
 				
 			}

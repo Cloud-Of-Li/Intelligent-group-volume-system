@@ -1,6 +1,7 @@
 package com.cloud.zj.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.cloud.zj.entity.Course;
 import com.cloud.zj.entity.Exam;
@@ -42,5 +43,9 @@ public interface ExamDao extends BaseDao<Exam>{
 	public List<Parten> findAllParten();
 
 	public String insertParten(String partenName);
+
+	public Map<String, List<Exam>> getPaperMap(Paper paper);
+
+	public Map<String, Integer> getpcMap(Paper paper);
 
 }

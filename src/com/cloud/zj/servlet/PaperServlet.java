@@ -2,6 +2,7 @@ package com.cloud.zj.servlet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,27 +74,26 @@ public class PaperServlet extends HttpServlet {
 		System.out.println("paperName:" +paperName);
 		Paper paper = this.paperService.getPaperByPaperName(paperName);
 		System.out.println(paper.getId());
-		List<Exam> paper_danxuan_exam = this.examService.getExamListByExamKindAndPaper(paper, "单选题");
-		List<Exam> paper_duoxuan_exam = this.examService.getExamListByExamKindAndPaper(paper, "多选题");
-		List<Exam> paper_pandaunxuan_exam = this.examService.getExamListByExamKindAndPaper(paper, "判断题");
-		List<Exam> paper_tiankong_exam = this.examService.getExamListByExamKindAndPaper(paper, "填空题");
-		List<Exam> paper_jianda_exam = this.examService.getExamListByExamKindAndPaper(paper, "简答题");
 		
-		request.setAttribute("singleScore", paper.getSingleScore());
-		System.out.println("单选题分数：" + paper.getSingleScore());
-		request.setAttribute("multiScore", paper.getMultiScore());
-		request.setAttribute("completeScore", paper.getCompeleteScore());
-		request.setAttribute("tfScore", paper.getTfScore());
-		request.setAttribute("subjectScore", paper.getSubjectScore());
+		Map<String, List<Exam>> paper_examMap = this.examService.makeAMap(paper);
+		Map<String, Integer> p_scMap = this.examService.scMap(paper); 
+		
+		/*for (Entry<String, List<Exam>> entry : paper_examMap.entrySet()) {  
+			   String key = entry.getKey().toString();  
+			   List<Exam> value = entry.getValue();
+			   for(Exam e : value) {
+				   System.out.println("key=" + key + " value=" + e.getExamId());  
+			   }
+		}  */
+		
+		
+		
 		request.setAttribute("xuliehao", xuliehao);
 		
-		request.setAttribute("paper_danxuan_exam", paper_danxuan_exam);
-		request.setAttribute("paper_duoxuan_exam", paper_duoxuan_exam);
-		request.setAttribute("paper_pandaunxuan_exam", paper_pandaunxuan_exam);
-		request.setAttribute("paper_tiankong_exam", paper_tiankong_exam);
-		request.setAttribute("paper_jianda_exam", paper_jianda_exam);
 		
 		request.setAttribute("paper", paper);
+		request.setAttribute("paper_examMap", paper_examMap);
+		request.setAttribute("p_scMap", p_scMap);
 		
 		String op = request.getParameter("op");
 
